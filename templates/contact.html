@@ -1,0 +1,127 @@
+{% extends 'base.html' %}
+{% block title %}Contact Me{% endblock %}
+
+{% block content %}
+<!-- Animated Ring and Header -->
+<div class="container text-center mt-5" data-aos="fade-down" data-aos-delay="100">
+  <div class="pulse-ring"></div>
+  <h2 class="fw-bold neon-text">Contact Me</h2>
+  <p class="lead">Let’s connect! Feel free to reach out for collaboration, internships, or IEEE projects.</p>
+</div>
+
+<!-- Contact Form -->
+<div class="container my-5" id="contactSection">
+  <div class="row justify-content-center">
+    <div class="col-md-8 glow-box" data-aos="fade-up" data-aos-delay="200">
+      <form id="contactForm">
+        <div class="mb-3 text-start">
+          <label class="form-label neon-text" for="name">Your Name</label>
+          <input type="text" id="name" class="form-control form-field" required placeholder="Enter your name" />
+        </div>
+        <div class="mb-3 text-start">
+          <label class="form-label neon-text" for="email">Email Address</label>
+          <input type="email" id="email" class="form-control form-field" required placeholder="name@example.com" />
+        </div>
+        <div class="mb-3 text-start">
+          <label class="form-label neon-text" for="subject">Subject</label>
+          <input type="text" id="subject" class="form-control form-field" required placeholder="Subject" />
+        </div>
+        <div class="mb-3 text-start">
+          <label class="form-label neon-text" for="message">Message</label>
+          <textarea id="message" class="form-control form-field" rows="5" required placeholder="Write your message here..."></textarea>
+        </div>
+        <div class="text-center">
+          <button class="btn neon-btn px-4 py-2" type="submit">Send Message</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Thank You -->
+<div class="text-center my-5" id="thankYouMessage" style="display:none;" data-aos="zoom-in">
+  <h4 class="text-success fw-bold">Thank you for reaching out!</h4>
+  <p>I’ll respond as soon as possible.</p>
+</div>
+
+<!-- Social Links -->
+<div class="container text-center my-5" data-aos="fade-up" data-aos-delay="300">
+  <h5 class="neon-text mb-3">You can also reach me on:</h5>
+  <div class="dropdown d-inline-block">
+    <button class="btn neon-btn dropdown-toggle" data-bs-toggle="dropdown">Choose Platform</button>
+    <ul class="dropdown-menu dropdown-menu-dark animate__animated animate__fadeIn">
+      <li><a class="dropdown-item" href="mailto:youremail@example.com">Email</a></li>
+      <li><a class="dropdown-item" href="https://linkedin.com/in/your-profile" target="_blank">LinkedIn</a></li>
+      <li><a class="dropdown-item" href="https://github.com/DEBABRATA1331" target="_blank">GitHub</a></li>
+    </ul>
+  </div>
+</div>
+
+<!-- Rating -->
+<div class="container my-5" data-aos="zoom-in" data-aos-delay="500">
+  <h4 class="neon-text text-center mb-3">⭐ Rate My Portfolio</h4>
+  <div class="row justify-content-center">
+    <div class="col-md-6 text-center glow-box">
+      <label for="ratingRange" class="form-label">How would you rate this site?</label>
+      <input type="range" id="ratingRange" class="form-range" min="1" max="10" step="1" oninput="updateRating(this.value)">
+      <p class="mt-2">Selected Level: <span id="ratingValue" class="fw-bold">5</span>/10</p>
+      <button class="btn btn-outline-success" onclick="submitRating()">Submit Rating</button>
+    </div>
+  </div>
+</div>
+
+<!-- ChatBot -->
+<div class="container mt-5 glow-box" data-aos="fade-up" data-aos-delay="600">
+  <h5 class="fw-bold neon-text">💬 Chat With My Portfolio</h5>
+  <div class="mb-2">
+    <input type="text" id="chatInput" class="form-control form-field" placeholder="Type a question..." />
+  </div>
+  <button class="btn neon-btn" onclick="sendMessage()">Ask</button>
+  <div id="chatResponse" class="mt-3 text-primary fw-semibold"></div>
+</div>
+
+<!-- JS Scripts -->
+<script>
+  document.getElementById('contactForm').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById('name').value,
+      email: document.getElementById('email').value,
+      subject: document.getElementById('subject').value,
+      message: document.getElementById('message').value
+    };
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data)
+    });
+    if (res.ok) {
+      document.getElementById('contactSection').style.display = 'none';
+      document.getElementById('thankYouMessage').style.display = 'block';
+    } else {
+      alert("Something went wrong.");
+    }
+  });
+
+  function updateRating(value) {
+    document.getElementById('ratingValue').innerText = value;
+  }
+
+  function submitRating() {
+    const rating = document.getElementById('ratingRange').value;
+    alert("Thank you! You rated this portfolio: " + rating + "/10");
+  }
+
+  async function sendMessage() {
+    const input = document.getElementById('chatInput').value;
+    if (!input.trim()) return;
+    const res = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: input })
+    });
+    const result = await res.json();
+    document.getElementById('chatResponse').innerText = "🤖: " + result.reply;
+  }
+</script>
+{% endblock %}

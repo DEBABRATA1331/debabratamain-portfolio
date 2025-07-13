@@ -1,0 +1,59 @@
+# Python cache and compiled files
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+venv/
+env/
+ENV/
+.venv/
+
+# VS Code / IDE folders
+.vscode/
+.idea/
+
+# MacOS system files
+.DS_Store
+
+# Byte-compiled and log files
+*.log
+
+# Flask instance folder (if used)
+instance/
+*.db
+
+# Environment config
+.env
+.env.*
+
+# Node-related (if you use npm for frontend)
+node_modules/
+*.tsbuildinfo
+
+# Static asset build outputs (optional)
+static/css/*.map
+static/js/*.map
+
+# Compiled frontend assets (optional)
+dist/
+build/
+
+# pyenv + pipenv
+.python-version
+Pipfile.lock
+
+# Temporary or backup files
+*.bak
+*.swp
+*.tmp
+
+# Ignore OS-level thumbs.db
+Thumbs.db
+
+# Ignore test reports or coverage
+.coverage
+htmlcov/
+coverage.xml
+pytest_cache/

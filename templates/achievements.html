@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Achievements{% endblock %}
+
+{% block content %}
+<!-- Animated Trophy Icon -->
+<div class="text-center mt-5" data-aos="fade-down" data-aos-delay="100">
+  <i class="fas fa-trophy trophy-icon"></i>
+</div>
+
+<!-- Section Header -->
+<div class="container my-4 text-center" data-aos="fade-down" data-aos-duration="1200">
+  <h2 class="fw-bold glow-title">Achievements</h2>
+  <p class="lead mt-2">Recognitions for innovation, leadership, and technical excellence</p>
+</div>
+
+<!-- Achievements Grid -->
+<div class="container my-4">
+  <div class="row g-4 justify-content-center">
+
+    {% set achievements = [
+      ("IEEE Best Student Award – 2024", "Recognized by IEEE Bhubaneswar Subsection for exceptional student leadership and project innovation."),
+      ("Smart India Hackathon Finalist – 2023", "Selected nationally for the final round of India's largest government-organized hackathon."),
+      ("IEEE YESIST 12 – Winner (Prelims, 2025)", "Won the preliminary round for YESIST 12 Innovation Challenge 2025 with a smart social impact project."),
+      ("IEEE YESIST 12 – 2nd Runners-Up (2023)", "Secured 2nd Runners-Up in the 2023 YESIST 12 prelims for impactful project development."),
+      ("Top 100 – IEEE Connecting the Unconnected (2024)", "Global Top 100 finalist in IEEE's Connecting the Unconnected Challenge for solar-powered LiFi innovation."),
+      ("Winner – IEEE Sparkathon 2023", "Won the VSSUT intra-college IEEE hardware hackathon for a real-time communication prototype."),
+      ("Finalist – NSSC 2024 (IIT Kharagpur)", "Reached the finals of NSSC 2024 hosted by IIT Kharagpur for an innovative space-tech solution."),
+      ("Smart India Hackathon – 1st Runners-Up (Prelims, 2024)", "Awarded 1st Runners-Up in the preliminary round of SIH 2024 for innovative problem-solving."),
+      ("Finalist – IEEE YESIST 12 (2025), UKM Malaysia", "Represented India as a finalist at the YESIST 12 2025 global finals hosted by UKM Student Branch, Malaysia.")
+    ] %}
+
+    {% for title, desc in achievements %}
+    <div class="col-md-6" data-aos="zoom-in-up" data-aos-delay="{{ loop.index * 100 }}">
+      <div class="achievement-card p-4 rounded shadow-sm h-100">
+        <h5 class="fw-bold">{{ title }}</h5>
+        <p>{{ desc }}</p>
+      </div>
+    </div>
+    {% endfor %}
+
+  </div>
+</div>
+
+<!-- Master Certificate Button -->
+<div class="text-center my-5" data-aos="fade-up" data-aos-delay="1000">
+  <a href="https://drive.google.com/file/d/1gXO1jOQ0NkYaetT-h9vW73EsNgoGDBtU/view?usp=sharing"
+     target="_blank"
+     class="btn btn-lg btn-outline-success">
+    View All Achievement Certificates
+  </a>
+</div>
+{% endblock %}

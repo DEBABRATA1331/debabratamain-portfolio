@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Thank You{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5" data-aos="zoom-in">
+    <h2 class="neon-text fw-bold">Thank You for Reaching Out!</h2>
+    <p class="lead">I'll get back to you as soon as possible. You may explore more below:</p>
+
+    <!-- Flash message display -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <div class="alert alert-success mt-3">
+          {{ messages[0] }}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    <div class="mt-4">
+        <a href="{{ url_for('home') }}" class="btn neon-btn m-2">🏠 Back to Home</a>
+        <a href="{{ url_for('projects') }}" class="btn neon-btn m-2">💡 View Projects</a>
+    </div>
+</div>
+{% endblock %}

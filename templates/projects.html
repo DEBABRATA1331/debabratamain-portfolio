@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Projects{% endblock %}
+{% block content %}
+
+<!-- Section Header -->
+<div class="container my-5 text-center" data-aos="fade-down" data-aos-duration="1000">
+  <h2 class="fw-bold neon-text">My Key Projects</h2>
+  <p class="lead text-muted">From real-time IoT systems to smart healthcare tools and VLSI designs.</p>
+  <div class="mt-2">
+    <i class="bi bi-cpu animated-icon mx-2"></i>
+    <i class="bi bi-diagram-3 animated-icon mx-2"></i>
+    <i class="bi bi-broadcast animated-icon mx-2"></i>
+  </div>
+</div>
+
+<!-- Project Grid -->
+<div class="container my-5">
+  <div class="row g-4">
+
+    {% set projects = [
+      {
+        'title': "Solar-Link (IEEE Global Top 100)",
+        'desc': "Solar-powered LiFi-based communication system for high-speed wireless access in remote zones.",
+        'link': "https://drive.google.com/file/d/1PEcIQ5ip4b_PSilPbxmSS2xfiC8yfiNZ/view?usp=sharing"
+      },
+      {
+        'title': "Glaucoma Detection (SIH 2024)",
+        'desc': "Ultrasound-based IOP measurement system for early-stage glaucoma diagnosis.",
+        'link': "https://drive.google.com/file/d/1PEcIQ5ip4b_PSilPbxmSS2xfiC8yfiNZ/view?usp=drive_link"
+      },
+      {
+        'title': "SBOM Comparison & Email Automation",
+        'desc': "Auto-tracks software changes & sends dynamic email summaries using PowerShell + Power Automate."
+      },
+      {
+        'title': "IEEE ExCom Automation Tool",
+        'desc': "Generates MoM, feedback reports & mass emails for IEEE chapters. Built with HTML + Python."
+      },
+      {
+        'title': "Smart IoT Irrigation",
+        'desc': "ESP8266/ESP32 cloud irrigation for optimized water management & energy efficiency.",
+        'link': "https://drive.google.com/file/d/1u4FWkWaHBhu5U4VqkenKtS4-mHWraDJQ/view?usp=drive_link"
+      },
+      {
+        'title': "4-bit Microprocessor (Verilog)",
+        'desc': "Designed ALU + custom ISA with 95% simulation accuracy using DSCH2 & Xilinx tools.",
+        'link': "https://drive.google.com/drive/folders/1ppcjm5CyIs5rKFOlxobJZACVWhXffDXG?usp=drive_link"
+      },
+      {
+        'title': "My Personal Portfolio Website",
+        'desc': "Interactive .NET website with resume, projects, contact form, and chat integration.",
+        'link': "https://debabrata-portfolio-2.onrender.com/"
+      }
+    ] %}
+
+    {% for project in projects %}
+    <div class="col-md-6" data-aos="zoom-in" data-aos-delay="{{ loop.index * 100 }}">
+      <div class="project-card">
+        <h5 class="fw-bold">{{ project.title }}</h5>
+        <p>{{ project.desc }}</p>
+        {% if project.link %}
+        <a href="{{ project.link }}" target="_blank" class="btn neon-btn btn-sm">View</a>
+        {% endif %}
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+
+<!-- Project Category Links -->
+<div class="container my-5 text-center" data-aos="fade-up" data-aos-delay="800">
+  <h4 class="neon-text">Explore Project Categories</h4>
+  <div class="category-links">
+    <a href="https://drive.google.com/drive/folders/1_rUWlcyZKedZIsY3UJWOWaE9VGGnTglh?usp=drive_link" target="_blank" class="btn neon-btn">IoT Projects</a>
+    <a href="https://drive.google.com/drive/folders/1OGBVZXEuD9VAuFX9-1gDph3IFkVgFBNi?usp=sharing" target="_blank" class="btn neon-btn">VLSI Projects</a>
+  </div>
+</div>
+
+{% endblock %}

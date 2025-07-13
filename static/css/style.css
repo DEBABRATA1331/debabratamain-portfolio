@@ -1,0 +1,158 @@
+/* General Layout */
+body {
+    background-color: #0e0e0e;
+    color: #e0f7fa;
+    font-family: 'Segoe UI', sans-serif;
+    overflow-x: hidden;
+    transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* Neon Text */
+.neon-text {
+    color: #00f7ff;
+    text-shadow: 0 0 5px #00f7ff, 0 0 15px #00f7ff, 0 0 30px #00f7ff;
+}
+.neon-subtext {
+    color: #8efcff;
+}
+
+/* Typewriter Effect */
+.typewriter {
+    overflow: hidden;
+    white-space: nowrap;
+    border-right: 2px solid #00f7ff;
+    width: 0;
+    animation: typing 4s steps(40, end) forwards, blink 0.75s step-end infinite;
+}
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+@keyframes blink {
+    0%, 100% { border-color: transparent; }
+    50% { border-color: #00f7ff; }
+}
+
+/* Neon Buttons */
+.neon-btn {
+    background: transparent;
+    border: 2px solid #00f7ff;
+    color: #00f7ff;
+    font-weight: 600;
+    box-shadow: 0 0 10px #00f7ff;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+.neon-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, transparent, rgba(0, 247, 255, 0.5), transparent);
+    transition: all 0.6s ease-in-out;
+}
+.neon-btn:hover::before {
+    left: 100%;
+}
+.neon-btn:hover {
+    background-color: #00f7ff;
+    color: #000;
+    box-shadow: 0 0 25px #00f7ff;
+    transform: scale(1.05);
+}
+
+/* Cards (Project, Achievement, Generic) */
+.card-neon, .project-card, .achievement-card {
+    background: #111b2e;
+    border-left: 5px solid #00f7ff;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 247, 255, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-neon:hover, .project-card:hover, .achievement-card:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 35px rgba(0, 247, 255, 0.4);
+}
+
+/* Floating Tech Icons */
+.floating-icon {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    opacity: 0.08;
+    animation: float 6s infinite ease-in-out;
+}
+@keyframes float {
+    0% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0); }
+}
+
+/* Scroll to Top Button */
+#scrollTopBtn {
+    display: none;
+    position: fixed;
+    bottom: 40px;
+    right: 30px;
+    z-index: 999;
+    border: none;
+    outline: none;
+    background-color: #00f7ff;
+    color: black;
+    cursor: pointer;
+    padding: 12px 16px;
+    border-radius: 50%;
+    font-size: 20px;
+    box-shadow: 0 0 10px #00f7ff;
+    transition: 0.3s ease;
+}
+#scrollTopBtn:hover {
+    background-color: #00d4e3;
+    box-shadow: 0 0 20px #00f7ff;
+}
+
+/* Responsive Profile Image */
+.profile-pic {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border: 3px solid #00f7ff;
+    box-shadow: 0 0 20px #00f7ff88;
+    transition: transform 0.3s ease;
+}
+.profile-pic:hover {
+    transform: scale(1.05);
+}
+
+/* Dark Mode */
+.dark-mode {
+    background-color: #121212 !important;
+    color: #d0f0f9 !important;
+}
+.dark-mode .neon-text {
+    color: #00e5ff;
+    text-shadow: 0 0 10px #00e5ff;
+}
+.dark-mode .neon-btn {
+    border-color: #00e5ff;
+    color: #00e5ff;
+}
+.dark-mode .neon-btn:hover {
+    background-color: #00e5ff;
+    color: #000;
+}
+.dark-mode .card-neon,
+.dark-mode .project-card,
+.dark-mode .achievement-card {
+    background: #1a1a1a;
+    border-left-color: #00e5ff;
+}
+
+/* Smooth Scrolling */
+html {
+    scroll-behavior: smooth;
+}
