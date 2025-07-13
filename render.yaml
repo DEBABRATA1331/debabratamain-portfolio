@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: debabrata-portfolio
+    env: python
+    buildCommand: ""
+    startCommand: "gunicorn app:app"
+    plan: free
+    region: oregon
+    envVars:
+      - key: FLASK_ENV
+        value: production
