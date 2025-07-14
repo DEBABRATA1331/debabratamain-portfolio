@@ -22,6 +22,12 @@
       text-shadow: 0 0 8px #00f7ff, 0 0 20px #00f7ff;
     }
 
+    .glow-yellow {
+      color: #ffeb3b;
+      text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b, 0 0 30px #ffeb3b;
+      font-weight: 600;
+    }
+
     .skill-section {
       text-align: center;
       margin: 4rem 0;
@@ -44,11 +50,12 @@
     .circle-skill::after {
       content: attr(data-skill);
       position: absolute;
-      font-size: 1rem;
-      color: #00f7ff;
-      font-weight: 600;
+      font-size: 1.05rem;
+      color: #ffeb3b;
+      text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b;
       text-align: center;
-      width: 80%;
+      width: 90%;
+      font-weight: 600;
     }
 
     @keyframes pulseGlow {
@@ -75,8 +82,17 @@
     }
 
     .soft-skills li {
-      margin-bottom: 12px;
-      font-size: 1.1rem;
+      margin-bottom: 14px;
+      font-size: 1.15rem;
+      color: #ffeb3b;
+      text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b;
+      animation: glowPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes glowPulse {
+      0% { text-shadow: 0 0 5px #ffeb3b; }
+      50% { text-shadow: 0 0 15px #ffeb3b, 0 0 25px #ffeb3b; }
+      100% { text-shadow: 0 0 5px #ffeb3b; }
     }
   </style>
 </head>
@@ -134,18 +150,15 @@
     <h2 class="neon-text"><i class="bi bi-people-fill"></i> Soft Skills</h2>
   </div>
   <div class="container my-5" data-aos="fade-up">
-  <div class="skill-card">
-    <h4 class="fw-bold neon-text mb-4">Soft & Creative Skills</h4>
-    <ul class="list-unstyled">
-      <li class="neon-text" data-aos="fade-up" data-aos-delay="0">• Leadership & IEEE Team Management</li>
-      <li class="neon-text" data-aos="fade-up" data-aos-delay="100">• Public Speaking & Communication</li>
-      <li class="neon-text" data-aos="fade-up" data-aos-delay="200">• Report Writing & Documentation</li>
-      <li class="neon-text" data-aos="fade-up" data-aos-delay="300">• Creative Design & Event Execution</li>
-    </ul>
+    <div class="soft-skills">
+      <ul>
+        <li data-aos="fade-up" data-aos-delay="0">• Leadership & IEEE Team Management</li>
+        <li data-aos="fade-up" data-aos-delay="100">• Public Speaking & Communication</li>
+        <li data-aos="fade-up" data-aos-delay="200">• Report Writing & Documentation</li>
+        <li data-aos="fade-up" data-aos-delay="300">• Creative Design & Event Execution</li>
+      </ul>
+    </div>
   </div>
-</div>
-
-
 
   <!-- AOS Animation -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
