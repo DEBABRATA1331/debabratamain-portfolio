@@ -1,52 +1,20 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
-from flask import Flask, render_template, request, redirect, flash
-from flask_mail import Mail, Message
+from sendgrid import SendGridAPIClient
+from sendgrid.helpers.mail import Mail as SendGridMail
+import os
 
+# Initialize Flask app
 app = Flask(__name__)
-app.secret_key = 'your_secret_key'
+app.secret_key = 'your-secret-key'  # for flash messages
 
-# Mail config
-app.config['MAIL_SERVER'] = 'smtp.gmail.com'
-app.config['MAIL_PORT'] = 587
-app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_USERNAME'] = 'your.email@gmail.com'   # sender email
-app.config['MAIL_PASSWORD'] = 'your_app_password'
+# Get SendGrid API key from environment
+SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
+if not SENDGRID_API_KEY:
+    raise ValueError("SENDGRID_API_KEY environment variable not set.")
 
-mail = Mail(app)
+sg = SendGridAPIClient(SENDGRID_API_KEY)
 
-@app.route('/contact', methods=['GET', 'POST'])
-def contact():
-    if request.method == 'POST':
-        user_email = request.form['email']
-        user_message = request.form['message']
-
-        # Message to you
-        msg_to_owner = Message(
-            subject="New Contact Form Message",
-            sender=app.config['MAIL_USERNAME'],
-            recipients=['debabrata.1331.ind@ieee.org'],
-            body=f"From: {user_email}\n\nMessage:\n{user_message}"
-        )
-        mail.send(msg_to_owner)
-
-        # Auto reply to visitor
-        auto_reply = Message(
-            subject="Thank you for contacting Debabrata Sahoo!",
-            sender=app.config['MAIL_USERNAME'],
-            recipients=[user_email],
-            body="Thank you for contacting me. I have received your message and will look into the matter soon."
-        )
-        mail.send(auto_reply)
-
-        flash("Message sent successfully! ✅", "success")
-        return redirect('/contact')
-
-    return render_template('contact.html')
-
-
-app = Flask(__name__)
-app.secret_key = 'your-secret-key'  # Needed for flashing messages
-
+# Route Definitions
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -62,28 +30,47 @@ def projects():
 @app.route('/achievements')
 def achievements():
     return render_template('achievements.html')
-  
+
 @app.route('/skills')
 def skills():
-    return render_template('skills.html')  
+    return render_template('skills.html')
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
-        name = request.form.get('name')
-        email = request.form.get('email')
-        subject = request.form.get('subject')
-        message = request.form.get('message')
+        user_email = request.form.get('email')
+        user_message = request.form.get('message')
+        rating = request.form.get('rating')
 
-        # Basic form validation
-        if not all([name, email, subject, message]):
+        if not all([user_email, user_message, rating]):
             flash("All fields are required.")
             return redirect(url_for('contact'))
 
-        # Handle submission logic (save to DB, send email, etc.)
-        print(f"Contact Form Submitted:\nName: {name}\nEmail: {email}\nSubject: {subject}\nMessage: {message}")
+        try:
+            # Send message to portfolio owner
+            message_to_owner = SendGridMail(
+                from_email='crackerdeba@gmail.com',  # must be a verified sender in SendGrid
+                to_emails='debabrata.1331.ind@ieee.org',
+                subject='📬 New Contact Form Message via Portfolio',
+                plain_text_content=f"From: {user_email}\nRating: {rating}/10\n\nMessage:\n{user_message}"
+            )
+            sg.send(message_to_owner)
 
-        flash("Message sent successfully!")
+            # Auto reply to visitor
+            reply_message = SendGridMail(
+                from_email='crackerdeba@gmail.com',  # same verified sender
+                to_emails=user_email,
+                subject='🤝 Thank you for contacting Debabrata Sahoo!',
+                plain_text_content="Thanks for reaching out. I’ve received your message and will respond soon!"
+            )
+            sg.send(reply_message)
+
+            flash("Message sent successfully!")
+
+        except Exception as e:
+            print(f"SendGrid Error: {e}")
+            flash("Sorry, something went wrong while sending your message.")
+
         return redirect(url_for('thank_you'))
 
     return render_template('contact.html')
@@ -92,9 +79,7 @@ def contact():
 def thank_you():
     return render_template('thank_you.html')
 
-import os
-
+# Run the app
 if __name__ == '__main__':
     port = int(os.environ.get("PORT", 5000))
     app.run(debug=True, host='0.0.0.0', port=port)
-
