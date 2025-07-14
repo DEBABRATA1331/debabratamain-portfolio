@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>Debabrata Sahoo | Portfolio</title>
@@ -37,9 +38,17 @@
     }
 
     @keyframes floaty {
-      0% { transform: translateY(0); }
-      50% { transform: translateY(-10px); }
-      100% { transform: translateY(0); }
+      0% {
+        transform: translateY(0);
+      }
+
+      50% {
+        transform: translateY(-10px);
+      }
+
+      100% {
+        transform: translateY(0);
+      }
     }
 
     .neon-btn {
@@ -92,14 +101,17 @@
       text-decoration: none;
     }
 
-    a:hover {
-      text-decoration: none;
+    .animate-delay-1s {
+      animation-delay: 1s;
     }
 
-    .animate-delay-1s { animation-delay: 1s; }
-    .animate-delay-2s { animation-delay: 2s; }
-    .animate-delay-3s { animation-delay: 3s; }
-    .animate-delay-4s { animation-delay: 4s; }
+    .animate-delay-2s {
+      animation-delay: 2s;
+    }
+
+    .animate-delay-3s {
+      animation-delay: 3s;
+    }
 
     .title-glow {
       font-size: 2.5rem;
@@ -107,80 +119,121 @@
       color: #00f7ff;
       text-shadow: 0 0 15px #00f7ff, 0 0 35px #00f7ff66;
     }
+
+    /* Floating Quick Nav */
+    #quick-nav {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      background: rgba(15, 15, 15, 0.95);
+      padding: 10px;
+      border-radius: 12px;
+      border: 2px solid #00f7ff;
+      box-shadow: 0 0 20px #00f7ff66;
+    }
+
+    #quick-nav a {
+      color: #00f7ff;
+      font-size: 1.5rem;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    #quick-nav a:hover {
+      color: #8efcff;
+      text-shadow: 0 0 10px #00f7ff, 0 0 20px #00f7ff;
+      transform: scale(1.15);
+    }
   </style>
 </head>
+
 <body>
 
-<div class="container text-center my-5" data-aos="fade-down">
-  <h1 class="title-glow animate__animated animate__fadeInDown">Welcome to My Portfolio</h1>
-  <p class="lead neon-subtext animate__animated animate__fadeIn animate-delay-1s">
-    Dual-degree student at <strong>VSSUT</strong> & <strong>IIT Madras</strong><br />
-    Passionate about Health Care, LiFi, EVs, VLSI, and impactful innovation.
-  </p>
+  <!-- Floating Top-Right Quick Nav -->
+  <div id="quick-nav">
+    <!-- Social -->
+    <a href="https://github.com/DEBABRATA1331" target="_blank" title="GitHub"><i class="bi bi-github"></i></a>
+    <a href="https://www.linkedin.com/in/debabrata-sahoo-ieee1331/" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+    <a href="https://drive.google.com/file/d/1KLeJrgbpvwbYsrcUyyKPCAK_7ZlPfsoP/view?usp=drive_link" target="_blank"
+      title="Resume"><i class="bi bi-file-earmark-person"></i></a>
 
-  <div class="my-4 animate__animated animate__zoomIn animate-delay-2s">
-    <img src="{{ url_for('static', filename='images/Picsart_25-06-12_16-45-39-836.png') }}"
-         class="profile-pic"
-         alt="Debabrata Sahoo" />
+    <hr style="border: 0.5px solid #00f7ff44; margin: 6px 0;">
+
+    <!-- Internal Links -->
+    <a href="{{ url_for('achievements') }}" title="Achievements">🏆</a>
+    <a href="{{ url_for('skills') }}" title="Skills">⚙️</a>
+    <a href="{{ url_for('projects') }}" title="Projects">💡</a>
+    <a href="{{ url_for('about') }}" title="About Me">👨‍💻</a>
+    <a href="{{ url_for('contact') }}" title="Contact">📞</a>
   </div>
 
-  <h2 class="mt-4 neon-text animate__animated animate__fadeInUp animate-delay-1s">Hi, I'm Debabrata Sahoo </h2>
-  <p class="lead text-light animate__animated animate__fadeInUp animate-delay-2s">
-    Innovator | IEEE Leader | Tech Enthusiast
-  </p>
-</div>
+  <div class="container text-center my-5" data-aos="fade-down">
+    <h1 class="title-glow animate__animated animate__fadeInDown">Welcome to My Portfolio</h1>
+    <p class="lead neon-subtext animate__animated animate__fadeIn animate-delay-1s">
+      Dual-degree student at <strong>VSSUT</strong> & <strong>IIT Madras</strong><br />
+      Passionate about Health Care, LiFi, EVs, VLSI, and impactful innovation.
+    </p>
 
-<!-- Feature Grid -->
-<div class="container my-5">
-  <div class="row g-4 text-center">
-    <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-      <div class="card-neon">
-        <h4>🎓 Academics</h4>
-        <p>VSSUT + IIT Madras</p>
-      </div>
+    <div class="my-4 animate__animated animate__zoomIn animate-delay-2s">
+      <img src="{{ url_for('static', filename='images/Picsart_25-06-12_16-45-39-836.png') }}" class="profile-pic"
+        alt="Debabrata Sahoo" />
     </div>
-    <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
-      <div class="card-neon">
-        <h4>🏆 Achievements</h4>
-        <p><a href="{{ url_for('achievements') }}" class="neon-text">IEEE Best Student 2024</a></p>
+
+    <h2 class="mt-4 neon-text animate__animated animate__fadeInUp animate-delay-1s">Hi, I'm Debabrata Sahoo </h2>
+    <p class="lead text-light animate__animated animate__fadeInUp animate-delay-2s">
+      Innovator | IEEE Leader | Tech Enthusiast
+    </p>
+  </div>
+
+  <!-- Feature Grid -->
+  <div class="container my-5">
+    <div class="row g-4 text-center">
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+        <div class="card-neon">
+          <h4>🎓 Academics</h4>
+          <p>VSSUT + IIT Madras</p>
+        </div>
       </div>
-    </div>
-    <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
-      <div class="card-neon">
-        <h4>💡 Projects</h4>
-        <p><a href="{{ url_for('projects') }}" class="neon-text">LiFi | EV Charging | IoT</a></p>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+        <div class="card-neon">
+          <h4>🏆 Achievements</h4>
+          <p><a href="{{ url_for('achievements') }}" class="neon-text">IEEE Best Student 2024</a></p>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
+        <div class="card-neon">
+          <h4>💡 Projects</h4>
+          <p><a href="{{ url_for('projects') }}" class="neon-text">LiFi | EV Charging | IoT</a></p>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="800">
+        <div class="card-neon">
+          <h4>⚙️ Skills</h4>
+          <p><a href="{{ url_for('skills') }}" class="neon-text">Software & Hardware Stack</a></p>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="1000">
+        <div class="card-neon">
+          <h4>👨‍💻 About Me</h4>
+          <p><a href="{{ url_for('about') }}" class="neon-text">Who is Debabrata?</a></p>
+        </div>
+      </div>
+      <div class="col-md-4" data-aos="fade-up" data-aos-delay="1200">
+        <div class="card-neon">
+          <h4>📞 Contact</h4>
+          <p><a href="{{ url_for('contact') }}" class="neon-text">Let's Connect!</a></p>
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Resume & Social -->
-<div class="text-center my-5" data-aos="zoom-in" data-aos-delay="700">
-  <h2 class="neon-text mb-4">📂 Resume & Links</h2>
-  <a href="https://drive.google.com/file/d/1KLeJrgbpvwbYsrcUyyKPCAK_7ZlPfsoP/view?usp=drive_link"
-     class="btn neon-btn m-2" target="_blank">📄 View Resume (PDF)</a>
+  <!-- AOS Script -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init();</script>
 
-  <a href="https://github.com/DEBABRATA1331" class="btn neon-btn m-2" target="_blank">
-    <i class="bi bi-github"></i> GitHub
-  </a>
-
-  <a href="https://www.linkedin.com/in/debabrata-sahoo-ieee1331/"
-     class="btn neon-btn m-2" target="_blank">
-    <i class="bi bi-linkedin"></i> LinkedIn
-  </a>
-</div>
-
-<!-- Section Links -->
-<div class="text-center my-4" data-aos="fade-up" data-aos-delay="900">
-  <a href="{{ url_for('about') }}" class="btn neon-btn m-1">About Me</a>
-  <a href="{{ url_for('projects') }}" class="btn neon-btn m-1">Projects</a>
-  <a href="{{ url_for('achievements') }}" class="btn neon-btn m-1">Achievements</a>
-  <a href="{{ url_for('skills') }}" class="btn neon-btn m-1">Skills</a>
-  <a href="{{ url_for('contact') }}" class="btn neon-btn m-1">Contact</a>
-</div>
-
-<!-- JS Scripts -->
-<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-<script>AOS.init();</script>
 </body>
 </html>
