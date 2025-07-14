@@ -1,4 +1,48 @@
 from flask import Flask, render_template, request, redirect, url_for, flash
+from flask import Flask, render_template, request, redirect, flash
+from flask_mail import Mail, Message
+
+app = Flask(__name__)
+app.secret_key = 'your_secret_key'
+
+# Mail config
+app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+app.config['MAIL_PORT'] = 587
+app.config['MAIL_USE_TLS'] = True
+app.config['MAIL_USERNAME'] = 'your.email@gmail.com'   # sender email
+app.config['MAIL_PASSWORD'] = 'your_app_password'
+
+mail = Mail(app)
+
+@app.route('/contact', methods=['GET', 'POST'])
+def contact():
+    if request.method == 'POST':
+        user_email = request.form['email']
+        user_message = request.form['message']
+
+        # Message to you
+        msg_to_owner = Message(
+            subject="New Contact Form Message",
+            sender=app.config['MAIL_USERNAME'],
+            recipients=['debabrata.1331.ind@ieee.org'],
+            body=f"From: {user_email}\n\nMessage:\n{user_message}"
+        )
+        mail.send(msg_to_owner)
+
+        # Auto reply to visitor
+        auto_reply = Message(
+            subject="Thank you for contacting Debabrata Sahoo!",
+            sender=app.config['MAIL_USERNAME'],
+            recipients=[user_email],
+            body="Thank you for contacting me. I have received your message and will look into the matter soon."
+        )
+        mail.send(auto_reply)
+
+        flash("Message sent successfully! ✅", "success")
+        return redirect('/contact')
+
+    return render_template('contact.html')
+
 
 app = Flask(__name__)
 app.secret_key = 'your-secret-key'  # Needed for flashing messages

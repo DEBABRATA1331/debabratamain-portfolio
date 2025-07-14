@@ -5,7 +5,7 @@
 {% block content %}
 <div class="container text-center mt-5" data-aos="zoom-in">
     <h2 class="neon-text fw-bold">Thank You for Reaching Out!</h2>
-    <p class="lead">I'll get back to you as soon as possible. You may explore more below:</p>
+    <p class="lead">I'll get back to you as soon as possible. Meanwhile — try this out:</p>
 
     <!-- Flash message display -->
     {% with messages = get_flashed_messages() %}
@@ -16,9 +16,64 @@
       {% endif %}
     {% endwith %}
 
+    <!-- Motivating Quote -->
+    <p class="glow-yellow mt-4 fst-italic">“Innovation distinguishes between a leader and a follower.” — Steve Jobs</p>
+
+    <!-- Reaction Time Game -->
+    <div class="my-5 text-center">
+      <h4 class="neon-text">Test your Reaction Time ⚡</h4>
+      <p class="glow-yellow">Click the button as soon as it turns blue!</p>
+
+      <button id="reactionButton" class="btn neon-btn mt-3">Wait for it...</button>
+      <p class="mt-3" id="reactionResult"></p>
+    </div>
+
     <div class="mt-4">
         <a href="{{ url_for('home') }}" class="btn neon-btn m-2">🏠 Back to Home</a>
-        <a href="{{ url_for('projects') }}" class="btn neon-btn m-2">💡 View Projects</a>
     </div>
 </div>
+
+<!-- Confetti Burst -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<script>
+  confetti({
+    particleCount: 120,
+    spread: 70,
+    origin: { y: 0.6 }
+  });
+</script>
+
+<!-- Reaction Time Game Script -->
+<script>
+  let startTime;
+  let button = document.getElementById("reactionButton");
+  let result = document.getElementById("reactionResult");
+
+  function startGame() {
+    button.textContent = "Wait for it...";
+    button.disabled = true;
+    button.style.background = "transparent";
+    result.textContent = "";
+
+    let randomDelay = Math.floor(Math.random() * 3000) + 2000;
+    setTimeout(() => {
+      button.textContent = "Click!";
+      button.style.background = "#00f7ff";
+      button.disabled = false;
+      startTime = new Date().getTime();
+    }, randomDelay);
+  }
+
+  button.addEventListener("click", () => {
+    if (startTime) {
+      let reactionTime = new Date().getTime() - startTime;
+      result.innerHTML = `⚡ Your Reaction Time: <strong>${reactionTime} ms</strong>`;
+      button.style.background = "transparent";
+      button.disabled = true;
+    }
+  });
+
+  startGame();
+</script>
+
 {% endblock %}
