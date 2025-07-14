@@ -18,6 +18,10 @@ def projects():
 @app.route('/achievements')
 def achievements():
     return render_template('achievements.html')
+  
+@app.route('/skills')
+def achievements():
+    return render_template('skills.html')  
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
