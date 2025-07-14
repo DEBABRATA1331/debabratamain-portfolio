@@ -20,7 +20,7 @@ def achievements():
     return render_template('achievements.html')
   
 @app.route('/skills')
-def achievements():
+def skills():
     return render_template('skills.html')  
 
 @app.route('/contact', methods=['GET', 'POST'])
