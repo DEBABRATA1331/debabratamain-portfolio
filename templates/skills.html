@@ -1,154 +1,155 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Skills</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8">
+  <title>Skills</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- External Libraries -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+  <!-- Animate.css + Bootstrap Icons + AOS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
 
-    <!-- Style -->
-    <style>
-        body {
-            background: #0c0c0c;
-            color: #dffcff;
-        }
+  <style>
+    body {
+      background: #0b0b0b;
+      color: #e0f7fa;
+      font-family: 'Segoe UI', sans-serif;
+    }
 
-        .neon-text {
-            color: #00f7ff;
-            text-shadow: 0 0 5px #00f7ff, 0 0 15px #00f7ff;
-        }
+    .neon-text {
+      color: #00f7ff;
+      text-shadow: 0 0 8px #00f7ff, 0 0 20px #00f7ff;
+    }
 
-        .skill-card {
-            background: #121212;
-            border-left: 4px solid #00f7ff;
-            padding: 2rem;
-            border-radius: 12px;
-            box-shadow: 0 0 20px rgba(0, 247, 255, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
+    .skill-section {
+      text-align: center;
+      margin: 4rem 0;
+    }
 
-        .skill-card:hover {
-            transform: scale(1.03);
-            box-shadow: 0 0 25px rgba(0, 247, 255, 0.3);
-        }
+    .circle-skill {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: conic-gradient(#00f7ff var(--percent), #1a1a1a var(--percent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 20px auto;
+      position: relative;
+      box-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
+      animation: pulseGlow 2s infinite ease-in-out;
+    }
 
-        .progress-bar-container {
-            background-color: #1c1c1c;
-            border-radius: 8px;
-            overflow: hidden;
-            height: 14px;
-            margin-top: 4px;
-        }
+    .circle-skill::after {
+      content: attr(data-skill);
+      position: absolute;
+      font-size: 1rem;
+      color: #00f7ff;
+      font-weight: 600;
+      text-align: center;
+      width: 80%;
+    }
 
-        .progress-fill {
-            background: linear-gradient(90deg, #00f7ff, #00b8ff);
-            height: 100%;
-            transition: width 1s ease-in-out;
-            border-radius: 8px;
-        }
+    @keyframes pulseGlow {
+      0% { box-shadow: 0 0 15px #00f7ff44; }
+      50% { box-shadow: 0 0 30px #00f7ff; }
+      100% { box-shadow: 0 0 15px #00f7ff44; }
+    }
 
-        .form-label {
-            font-weight: 500;
-            color: #aefeff;
-        }
+    .soft-skills {
+      background: #121212;
+      padding: 2rem;
+      border-radius: 12px;
+      border-left: 4px solid #00f7ff;
+      margin: 2rem auto;
+      box-shadow: 0 0 20px rgba(0, 247, 255, 0.15);
+      max-width: 800px;
+    }
 
-        .bi {
-            font-size: 1.6rem;
-            color: #00f7ff;
-        }
-    </style>
+    .soft-skills ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      text-align: left;
+    }
+
+    .soft-skills li {
+      margin-bottom: 12px;
+      font-size: 1.1rem;
+    }
+  </style>
 </head>
+
 <body>
 
-    <!-- Section Header -->
-    <div class="container my-5 text-center" data-aos="fade-down">
-        <div class="display-4 fw-bold neon-text">
-            <i class="bi bi-terminal-fill animate__animated animate__pulse animate__infinite"></i>
-            My Skill Arsenal
-            <i class="bi bi-cpu-fill animate__animated animate__pulse animate__infinite"></i>
-        </div>
-        <p class="lead text-light">From embedded hardware to software automation — here's what I bring to the table.</p>
+  <div class="skill-section" data-aos="fade-down">
+    <h1 class="neon-text animate__animated animate__fadeInDown">
+      <i class="bi bi-cpu-fill"></i> Tech Stack & Skills
+    </h1>
+    <p class="lead text-light">My expertise spans both software and embedded systems.</p>
+  </div>
+
+  <!-- Software Skills -->
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-3" data-aos="fade-up">
+        <div class="circle-skill" style="--percent: 90%;" data-skill="Python"></div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+        <div class="circle-skill" style="--percent: 85%;" data-skill="MATLAB"></div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="circle-skill" style="--percent: 82%;" data-skill=".NET Core"></div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="circle-skill" style="--percent: 80%;" data-skill="HTML/CSS/JS"></div>
+      </div>
     </div>
+  </div>
 
-    <!-- Skill Columns -->
-    <div class="container my-5">
-        <div class="row g-5">
-
-            <!-- SOFTWARE STACK -->
-            <div class="col-md-6" data-aos="fade-right">
-                <div class="skill-card">
-                    <h4 class="neon-text fw-bold mb-4">Software Stack</h4>
-
-                    <div class="mb-3">
-                        <label class="form-label">Python & MATLAB</label>
-                        <div class="progress-bar-container"><div class="progress-fill" style="width: 90%"></div></div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">.NET Core (C#), HTML/CSS/JS</label>
-                        <div class="progress-bar-container"><div class="progress-fill" style="width: 85%"></div></div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Power BI & Excel Automation</label>
-                        <div class="progress-bar-container"><div class="progress-fill" style="width: 80%"></div></div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Git, Bash, PowerShell</label>
-                        <div class="progress-bar-container"><div class="progress-fill" style="width: 75%"></div></div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">UI/UX (Photoshop, Canva)</label>
-                        <div class="progress-bar-container"><div class="progress-fill" style="width: 80%"></div></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- HARDWARE STACK -->
-            <div class="col-md-6" data-aos="fade-left">
-                <div class="skill-card">
-                    <h4 class="neon-text fw-bold mb-4">🔧 Hardware Stack</h4>
-
-                    <div class="mb-3">
-                        <label class="form-label">Verilog & VLSI (Xilinx, DSCH2)</label>
-                        <div class="progress-bar-container"><div class="progress-fill" style="width: 92%"></div></div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">ESP32, Arduino Programming</label>
-                        <div class="progress-bar-container"><div class="progress-fill" style="width: 88%"></div></div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">IoT Cloud Integration</label>
-                        <div class="progress-bar-container"><div class="progress-fill" style="width: 80%"></div></div>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Embedded Systems & Logic Design</label>
-                        <div class="progress-bar-container"><div class="progress-fill" style="width: 85%"></div></div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+  <!-- Hardware Skills -->
+  <div class="skill-section" data-aos="fade-down">
+    <h2 class="neon-text"><i class="bi bi-hdd-network"></i> Hardware & IoT</h2>
+  </div>
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-3" data-aos="fade-up">
+        <div class="circle-skill" style="--percent: 90%;" data-skill="Verilog & VLSI"></div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="100">
+        <div class="circle-skill" style="--percent: 88%;" data-skill="ESP32, Arduino"></div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="200">
+        <div class="circle-skill" style="--percent: 85%;" data-skill="IoT & Cloud"></div>
+      </div>
+      <div class="col-md-3" data-aos="fade-up" data-aos-delay="300">
+        <div class="circle-skill" style="--percent: 83%;" data-skill="Embedded Logic"></div>
+      </div>
     </div>
+  </div>
 
-    <!-- Soft Skills -->
-    <div class="container my-5" data-aos="fade-up">
-        <div class="skill-card">
-            <h4 class="fw-bold neon-text mb-4">Soft & Creative Skills</h4>
-            <ul class="list-unstyled">
-                <li>• Leadership & IEEE Team Management</li>
-                <li>• Communication & Public Speaking</li>
-                <li>• Report Writing & Documentation</li>
-                <li>• Creative Design & Event Execution</li>
-            </ul>
-        </div>
-    </div>
+  <!-- Soft Skills -->
+  <div class="skill-section" data-aos="fade-down">
+    <h2 class="neon-text"><i class="bi bi-people-fill"></i> Soft Skills</h2>
+  </div>
+  <div class="container my-5" data-aos="fade-up">
+  <div class="skill-card">
+    <h4 class="fw-bold neon-text mb-4">Soft & Creative Skills</h4>
+    <ul class="list-unstyled">
+      <li class="neon-text" data-aos="fade-up" data-aos-delay="0">• Leadership & IEEE Team Management</li>
+      <li class="neon-text" data-aos="fade-up" data-aos-delay="100">• Public Speaking & Communication</li>
+      <li class="neon-text" data-aos="fade-up" data-aos-delay="200">• Report Writing & Documentation</li>
+      <li class="neon-text" data-aos="fade-up" data-aos-delay="300">• Creative Design & Event Execution</li>
+    </ul>
+  </div>
+</div>
 
-    <!-- AOS Animation Init -->
-    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-    <script>AOS.init();</script>
+
+
+  <!-- AOS Animation -->
+  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+  <script>AOS.init();</script>
 
 </body>
 </html>
