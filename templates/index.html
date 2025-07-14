@@ -124,7 +124,7 @@
          alt="Debabrata Sahoo" />
   </div>
 
-  <h2 class="mt-4 neon-text animate__animated animate__fadeInUp animate-delay-1s">Hi, I'm Debabrata Sahoo 👋</h2>
+  <h2 class="mt-4 neon-text animate__animated animate__fadeInUp animate-delay-1s">Hi, I'm Debabrata Sahoo </h2>
   <p class="lead text-light animate__animated animate__fadeInUp animate-delay-2s">
     Innovator | IEEE Leader | Tech Enthusiast
   </p>
@@ -142,13 +142,13 @@
     <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
       <div class="card-neon">
         <h4>🏆 Achievements</h4>
-        <p>IEEE Best Student 2024</p>
+        <p><a href="{{ url_for('achievements') }}" class="neon-text">IEEE Best Student 2024</a></p>
       </div>
     </div>
     <div class="col-md-4" data-aos="fade-up" data-aos-delay="600">
       <div class="card-neon">
         <h4>💡 Projects</h4>
-        <p>LiFi | EV Charging | IoT</p>
+        <p><a href="{{ url_for('projects') }}" class="neon-text">LiFi | EV Charging | IoT</a></p>
       </div>
     </div>
   </div>
@@ -170,9 +170,13 @@
   </a>
 </div>
 
-<!-- About -->
+<!-- Section Links -->
 <div class="text-center my-4" data-aos="fade-up" data-aos-delay="900">
-  <a href="/about" class="btn neon-btn">Learn more about me →</a>
+  <a href="{{ url_for('about') }}" class="btn neon-btn m-1">About Me</a>
+  <a href="{{ url_for('projects') }}" class="btn neon-btn m-1">Projects</a>
+  <a href="{{ url_for('achievements') }}" class="btn neon-btn m-1">Achievements</a>
+  <a href="{{ url_for('Skill') }}" class="btn neon-btn m-1">Skills</a>
+  <a href="{{ url_for('contact') }}" class="btn neon-btn m-1">Contact</a>
 </div>
 
 <!-- JS Scripts -->
