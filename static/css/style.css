@@ -120,12 +120,29 @@ body {
     width: 180px;
     height: 180px;
     object-fit: cover;
-    border: 3px solid #00f7ff;
-    box-shadow: 0 0 20px #00f7ff88;
-    transition: transform 0.3s ease;
+    border: 4px solid #00f7ff;
+    border-radius: 50%;
+    box-shadow: 0 0 25px #00f7ff66;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    margin: 0 auto;
+    display: block;
 }
-.profile-pic:hover {
-    transform: scale(1.05);
+
+/* Hover zoom effect only on devices that support hover */
+@media (hover: hover) and (pointer: fine) {
+    .profile-pic:hover {
+        transform: scale(1.06);
+        box-shadow: 0 0 40px #00f7ff;
+    }
+}
+
+/* Reduce size and glow on mobile screens */
+@media screen and (max-width: 576px) {
+    .profile-pic {
+        width: 140px;
+        height: 140px;
+        box-shadow: 0 0 18px #00f7ff44;
+    }
 }
 
 /* Dark Mode */
