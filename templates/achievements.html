@@ -14,6 +14,22 @@
   <h2 id="typed-achievements" class="neon-text mb-3"></h2>
 </div>
 
+<!-- 3D Portfolio Sphere -->
+<div class="container text-center my-4">
+  <canvas width="400" height="400" id="tag-canvas">
+    Your browser does not support the canvas tag.
+  </canvas>
+  <div id="tag-list" style="display: none">
+    <ul>
+      <li><a href="{{ url_for('about') }}">About</a></li>
+      <li><a href="{{ url_for('projects') }}">Projects</a></li>
+      <li><a href="{{ url_for('skills') }}">Skills</a></li>
+      <li><a href="{{ url_for('achievements') }}">Achievements</a></li>
+      <li><a href="{{ url_for('contact') }}">Contact</a></li>
+    </ul>
+  </div>
+</div>
+
 <!-- Section Header -->
 <div class="container my-4 text-center" data-aos="fade-down" data-aos-duration="1200">
   <h2 class="fw-bold glow-title">Achievements</h2>
@@ -23,7 +39,6 @@
 <!-- Achievements Grid -->
 <div class="container my-4">
   <div class="row g-4 justify-content-center">
-
     {% set achievements = [
       ("IEEE Best Student Award – 2024", "Recognized by IEEE Bhubaneswar Subsection for exceptional student leadership and project innovation."),
       ("Smart India Hackathon Finalist – 2023", "Selected nationally for the final round of India's largest government-organized hackathon."),
@@ -44,7 +59,6 @@
       </div>
     </div>
     {% endfor %}
-
   </div>
 </div>
 
@@ -59,6 +73,7 @@
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/typeit.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tagcanvas/2.9/tagcanvas.min.js"></script>
 <script>
   new TypeIt("#typed-achievements", {
     strings: [
@@ -71,6 +86,21 @@
     deleteSpeed: 30,
     nextStringDelay: 2000
   }).go();
+
+  window.onload = function () {
+    try {
+      TagCanvas.Start('tag-canvas', 'tag-list', {
+        textColour: '#00f7ff',
+        outlineColour: '#00f7ff',
+        reverse: true,
+        depth: 0.8,
+        maxSpeed: 0.05,
+        weight: true
+      });
+    } catch (e) {
+      document.getElementById('tag-canvas').style.display = 'none';
+    }
+  };
 </script>
 <script>
   import('https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.13/lottie.min.js').then(lottie => {
@@ -79,7 +109,7 @@
       renderer: 'svg',
       loop: true,
       autoplay: true,
-      path: 'https://assets10.lottiefiles.com/packages/lf20_49rdyysj.json' // Confetti celebration
+      path: 'https://assets10.lottiefiles.com/packages/lf20_iwmd6pyr.json' // HUD scanner or tech background
     });
   });
 </script>
@@ -87,7 +117,7 @@
   #lottie-background {
     position: fixed;
     width: 100%; height: 100%; top: 0; left: 0;
-    z-index: -1; opacity: 0.1;
+    z-index: -1; opacity: 0.07;
   }
   .floating-badge {
     position: absolute;

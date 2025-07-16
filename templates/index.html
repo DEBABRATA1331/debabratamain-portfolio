@@ -1,3 +1,6 @@
+{% extends 'base.html' %}
+{% block title %}Projects{% endblock %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -132,22 +135,7 @@
   </style>
 </head>
 
-<body>
-
-  <!-- Top Navigation Icons -->
-  <div class="top-nav">
-    <a href="{{ url_for('about') }}" title="About"><i class="bi bi-person-circle"></i></a>
-    <a href="{{ url_for('projects') }}" title="Projects"><i class="bi bi-lightbulb"></i></a>
-    <a href="{{ url_for('achievements') }}" title="Achievements"><i class="bi bi-award"></i></a>
-    <a href="{{ url_for('skills') }}" title="Skills"><i class="bi bi-cpu"></i></a>
-    <a href="{{ url_for('contact') }}" title="Contact"><i class="bi bi-envelope"></i></a>
-    <a href="https://github.com/DEBABRATA1331" target="_blank"><i class="bi bi-github"></i></a>
-    <a href="https://www.linkedin.com/in/debabrata-sahoo-ieee1331/" target="_blank"><i class="bi bi-linkedin"></i></a>
-	<a href="javascript:void(0)" onclick="openChat()" class="btn neon-btn m-1">
-  <i class="bi bi-chat-dots"></i> Chat
-</a>
-  </div>
-  
+<body>  
   <div class="col-md-4" data-aos="fade-up">
   <div class="card-neon">
     <h4>📞 Contact</h4>
@@ -246,3 +234,4 @@
 </body>
 
 </html>
+{% endblock %}
