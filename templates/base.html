@@ -23,15 +23,17 @@
   </div>
 
   <!-- 🚀 Navigation Icons -->
-  <div class="top-nav text-end px-4 pb-2">
-    <a href="{{ url_for('about') }}" title="About"><i class="bi bi-person-circle neon-text mx-2"></i></a>
-    <a href="{{ url_for('projects') }}" title="Projects"><i class="bi bi-lightbulb neon-text mx-2"></i></a>
-    <a href="{{ url_for('achievements') }}" title="Achievements"><i class="bi bi-award neon-text mx-2"></i></a>
-    <a href="{{ url_for('skills') }}" title="Skills"><i class="bi bi-cpu neon-text mx-2"></i></a>
-    <a href="{{ url_for('contact') }}" title="Contact"><i class="bi bi-envelope neon-text mx-2"></i></a>
-    <a href="https://github.com/DEBABRATA1331" target="_blank"><i class="bi bi-github neon-text mx-2"></i></a>
-    <a href="https://www.linkedin.com/in/debabrata-sahoo-ieee1331/" target="_blank"><i class="bi bi-linkedin neon-text mx-2"></i></a>
-  </div>
+<div class="top-nav text-end px-4 pb-2">
+  <a href="{{ url_for('index') }}" title="Home"><i class="bi bi-house-door-fill neon-text mx-2"></i></a>
+  <a href="{{ url_for('about') }}" title="About"><i class="bi bi-person-circle neon-text mx-2"></i></a>
+  <a href="{{ url_for('projects') }}" title="Projects"><i class="bi bi-lightbulb neon-text mx-2"></i></a>
+  <a href="{{ url_for('achievements') }}" title="Achievements"><i class="bi bi-award neon-text mx-2"></i></a>
+  <a href="{{ url_for('skills') }}" title="Skills"><i class="bi bi-cpu neon-text mx-2"></i></a>
+  <a href="{{ url_for('contact') }}" title="Contact"><i class="bi bi-envelope neon-text mx-2"></i></a>
+  <a href="https://github.com/DEBABRATA1331" target="_blank"><i class="bi bi-github neon-text mx-2"></i></a>
+  <a href="https://www.linkedin.com/in/debabrata-sahoo-ieee1331/" target="_blank"><i class="bi bi-linkedin neon-text mx-2"></i></a>
+</div>
+
 
   <!-- ✨ Optional Floating Icons -->
   <img src="{{ url_for('static', filename='images/html.png') }}" class="floating-icon" style="top: 10%; left: 5%;" />
