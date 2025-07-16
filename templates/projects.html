@@ -2,6 +2,14 @@
 {% block title %}Projects{% endblock %}
 {% block content %}
 
+<!-- Code Typing Simulation Background -->
+<div id="code-type-stream" class="background-task"></div>
+
+<!-- SVG Circuit Wave Background -->
+<svg class="background-waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+  <path fill="#00f7ff" fill-opacity="0.015" d="M0,128L60,138.7C120,149,240,171,360,160C480,149,600,107,720,96C840,85,960,107,1080,112C1200,117,1320,107,1380,101.3L1440,96L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+</svg>
+
 <!-- Section Header -->
 <div class="container my-5 text-center" data-aos="fade-down" data-aos-duration="1000">
   <h2 class="fw-bold neon-text">My Key Projects</h2>
@@ -16,7 +24,6 @@
 <!-- Project Grid -->
 <div class="container my-5">
   <div class="row g-4">
-
     {% set projects = [
       {
         'title': "Solar-Link (IEEE Global Top 100)",
@@ -55,7 +62,7 @@
 
     {% for project in projects %}
     <div class="col-md-6" data-aos="zoom-in" data-aos-delay="{{ loop.index * 100 }}">
-      <div class="project-card">
+      <div class="project-card project-3d">
         <h5 class="fw-bold">{{ project.title }}</h5>
         <p>{{ project.desc }}</p>
         {% if project.link %}
@@ -75,5 +82,65 @@
     <a href="https://drive.google.com/drive/folders/1OGBVZXEuD9VAuFX9-1gDph3IFkVgFBNi?usp=sharing" target="_blank" class="btn neon-btn">VLSI Projects</a>
   </div>
 </div>
+
+<style>
+  .background-task {
+    position: fixed;
+    top: 0;
+    left: 0;
+    color: #00ff88;
+    font-family: monospace;
+    font-size: 12px;
+    opacity: 0.03;
+    padding: 20px;
+    white-space: pre;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  .background-waves {
+    position: fixed;
+    bottom: 0;
+    z-index: -1;
+    width: 100%;
+    animation: waveFloat 20s infinite linear alternate;
+  }
+
+  @keyframes waveFloat {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+  }
+
+  .project-3d {
+    perspective: 1000px;
+    transition: transform 0.2s ease-in-out;
+  }
+
+  .project-3d:hover {
+    transform: rotateY(5deg) rotateX(5deg);
+  }
+</style>
+
+<script>
+  // Code Typing Simulation
+  const lines = [
+    "[2025-07-16 20:10] 🚀 Building SmartHealthMonitor_v4.2...",
+    "[2025-07-16 20:11] ✅ Compilation success...",
+    "[2025-07-16 20:12] 📦 Deploying to Render...",
+    "[2025-07-16 20:13] 🔁 Checking I2C registers...",
+    "[2025-07-16 20:14] 📡 Connected to MQTT broker...",
+    "[2025-07-16 20:15] ⏳ Monitoring patient vitals..."
+  ];
+
+  let i = 0;
+  const stream = document.getElementById("code-type-stream");
+  function loop() {
+    if (i >= lines.length) i = 0;
+    stream.innerText = lines.slice(0, i + 1).join("\n");
+    i++;
+    setTimeout(loop, 2500);
+  }
+  loop();
+</script>
 
 {% endblock %}
