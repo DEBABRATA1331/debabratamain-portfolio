@@ -37,21 +37,23 @@
       border: 4px solid #00f7ff;
       border-radius: 50%;
       box-shadow: 0 0 25px #00f7ff66, 0 0 35px #00f7ff33 inset;
-      animation: floaty 3s ease-in-out infinite;
+      animation: floaty 3s ease-in-out infinite, glowPulse 3s ease-in-out infinite;
+      transition: transform 0.5s ease;
+    }
+
+    .profile-pic:hover {
+      transform: rotate(3deg) scale(1.05);
     }
 
     @keyframes floaty {
-      0% {
-        transform: translateY(0);
-      }
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
 
-      50% {
-        transform: translateY(-10px);
-      }
-
-      100% {
-        transform: translateY(0);
-      }
+    @keyframes glowPulse {
+      0%, 100% { box-shadow: 0 0 20px #00f7ff88, 0 0 35px #00f7ff33 inset; }
+      50% { box-shadow: 0 0 35px #00f7ffcc, 0 0 45px #00f7ff55 inset; }
     }
 
     .neon-btn {
@@ -135,20 +137,23 @@
   </style>
 </head>
 
-<body>  
-  <div class="col-md-4" data-aos="fade-up">
-  <div class="card-neon">
-    <h4>📞 Contact</h4>
-    <p><a href="{{ url_for('contact') }}" class="neon-text">Let's Connect!</a></p>
-  </div>
-</div>
+<body>
 
+  <!-- Contact Shortcut -->
+  <div class="col-md-4" data-aos="fade-up">
+    <div class="card-neon">
+      <h4>📞 Contact</h4>
+      <p><a href="{{ url_for('contact') }}" class="neon-text">Let's Connect!</a></p>
+    </div>
+  </div>
 
   <!-- Hero Section -->
   <div class="container text-center my-5" data-aos="fade-down">
     <div class="row align-items-center">
       <div class="col-lg-6 mb-4 mb-lg-0">
-        <img src="{{ url_for('static', filename='images/debabrata_profile.jpg.jpg') }}" class="profile-pic" alt="Debabrata Sahoo" />
+        <img src="{{ url_for('static', filename='images/debabrata_profile.jpg.jpg') }}"
+             class="profile-pic animate__animated animate__zoomIn"
+             alt="Debabrata Sahoo" />
       </div>
 
       <div class="col-lg-6">
@@ -232,6 +237,5 @@
   <script>AOS.init();</script>
 
 </body>
-
 </html>
 {% endblock %}

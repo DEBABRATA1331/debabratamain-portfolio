@@ -4,46 +4,94 @@
 
 {% block content %}
 <div class="container text-center mt-5" data-aos="zoom-in">
-    <h2 class="neon-text fw-bold">Thank You for Reaching Out!</h2>
-    <p class="lead">I'll get back to you as soon as possible. Meanwhile — try this out:</p>
+  <h2 class="fw-bold neon-glow" id="glowTitle">🎉 Thank You for Reaching Out!</h2>
+  <p class="lead">I'll get back to you soon. Meanwhile — test your skills and have fun! 🎮</p>
 
-    <!-- Flash message display -->
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <div class="alert alert-success mt-3">
-          {{ messages[0] }}
-        </div>
-      {% endif %}
-    {% endwith %}
+  <!-- Flash message display -->
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="alert alert-success mt-3">
+        {{ messages[0] }}
+      </div>
+    {% endif %}
+  {% endwith %}
 
-    <!-- Motivating Quote -->
-    <p class="glow-yellow mt-4 fst-italic">“Innovation distinguishes between a leader and a follower.” — Steve Jobs</p>
+  <!-- Motivating Quote -->
+  <p class="glow-yellow mt-4 fst-italic">
+    “Innovation distinguishes between a leader and a follower.” — Steve Jobs
+  </p>
 
-    <!-- Reaction Time Game -->
-    <div class="my-5 text-center">
-      <h4 class="neon-text">Test your Reaction Time ⚡</h4>
-      <p class="glow-yellow">Click the button as soon as it turns blue!</p>
+  <!-- Reaction Time Game -->
+  <div class="my-5 text-center">
+    <h4 class="neon-text">Test Your Reaction Time ⚡</h4>
+    <p class="glow-yellow">Click the button as soon as it turns blue!</p>
+    <button id="reactionButton" class="btn neon-btn mt-3">Wait for it...</button>
+    <p class="mt-3" id="reactionResult"></p>
+  </div>
 
-      <button id="reactionButton" class="btn neon-btn mt-3">Wait for it...</button>
-      <p class="mt-3" id="reactionResult"></p>
+  <!-- Score Tracker -->
+  <div class="my-5">
+    <h4 class="neon-text">Fake Score Tracker 🎯</h4>
+    <div class="scoreboard">
+      <span class="glow-score">Score: <span id="score">0</span></span>
     </div>
+    <button class="btn neon-btn m-1" onclick="startScoring()">Start</button>
+    <button class="btn neon-btn m-1" onclick="resetScore()">Reset</button>
+  </div>
 
-    <div class="mt-4">
-        <a href="{{ url_for('home') }}" class="btn neon-btn m-2">🏠 Back to Home</a>
-    </div>
+  <!-- Pong Game -->
+  <div class="my-4">
+    <h4 class="neon-text">Pong Challenge 🏓</h4>
+    <iframe 
+      src="https://playpong.io/" 
+      width="640" 
+      height="480" 
+      style="border: none; border-radius: 10px; box-shadow: 0 0 15px #00f7ff;">
+    </iframe>
+  </div>
+
+  <!-- Back Button -->
+  <div class="mt-5">
+    <a href="{{ url_for('home') }}" class="btn neon-btn m-2">🏠 Back to Home</a>
+  </div>
 </div>
 
-<!-- Confetti Burst -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<!-- 💫 Style -->
+<style>
+  .neon-glow {
+    color: #ffeb3b;
+    text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b, 0 0 30px #ffeb3b;
+    animation: pulse 2s infinite ease-in-out;
+  }
+
+  @keyframes pulse {
+    0% { text-shadow: 0 0 5px #ffeb3b; }
+    50% { text-shadow: 0 0 15px #ffeb3b, 0 0 25px #ffeb3b; }
+    100% { text-shadow: 0 0 5px #ffeb3b; }
+  }
+
+  .glow-yellow {
+    color: #ffeb3b;
+    text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b;
+  }
+
+  .glow-score {
+    color: #00f7ff;
+    text-shadow: 0 0 5px #00f7ff, 0 0 15px #00f7ff;
+    font-weight: bold;
+  }
+</style>
+
+<!-- 🎉 Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 <script>
-  confetti({
-    particleCount: 120,
-    spread: 70,
-    origin: { y: 0.6 }
-  });
+  window.onload = () => {
+    confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+    startGame();
+  };
 </script>
 
-<!-- Reaction Time Game Script -->
+<!-- ⚡ Reaction Time Game -->
 <script>
   let startTime;
   let button = document.getElementById("reactionButton");
@@ -72,8 +120,27 @@
       button.disabled = true;
     }
   });
-
-  startGame();
 </script>
 
+<!-- 🎯 Score Tracker -->
+<script>
+  let score = 0;
+  let intervalId = null;
+
+  function startScoring() {
+    if (!intervalId) {
+      intervalId = setInterval(() => {
+        score += Math.floor(Math.random() * 4 + 1);
+        document.getElementById('score').textContent = score;
+      }, 1000);
+    }
+  }
+
+  function resetScore() {
+    clearInterval(intervalId);
+    intervalId = null;
+    score = 0;
+    document.getElementById('score').textContent = score;
+  }
+</script>
 {% endblock %}

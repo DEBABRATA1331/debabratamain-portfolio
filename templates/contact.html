@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
-{% block title %}Projects{% endblock %}
+
+{% block title %}Contact{% endblock %}
+
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
@@ -12,6 +14,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
   <style>
     body {
@@ -31,13 +34,14 @@
     }
 
     .contact-section {
-      max-width: 700px;
+      max-width: 750px;
       margin: 4rem auto;
       padding: 2rem;
       background: #121212;
       border-left: 4px solid #00f7ff;
       border-radius: 12px;
       box-shadow: 0 0 20px rgba(0, 247, 255, 0.15);
+      position: relative;
     }
 
     input, textarea, select {
@@ -77,9 +81,31 @@
       color: #000;
       box-shadow: 0 0 20px #00f7ff;
     }
+
+    .typing-indicator {
+      font-style: italic;
+      color: #8efcff;
+      margin-top: 0.5rem;
+      animation: blink 1.2s infinite;
+    }
+
+    @keyframes blink {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 1; }
+    }
+
+    .icon-links a {
+      color: #00f7ff;
+      font-size: 1.6rem;
+      margin-right: 15px;
+      transition: color 0.3s ease;
+    }
+
+    .icon-links a:hover {
+      color: #ffeb3b;
+    }
   </style>
 </head>
-
 <body>
 
   <section class="contact-section" data-aos="fade-up">
@@ -87,9 +113,10 @@
       <i class="bi bi-chat-left-text-fill"></i> Contact Me
     </h2>
 
-    <form method="POST" class="mt-4">
-      <input type="email" name="email" placeholder="Your Email" required>
+    <p class="typing-indicator">Debabrata is waiting to hear from you...</p>
 
+    <form method="POST" class="mt-4" onsubmit="showSendingAnimation(event)">
+      <input type="email" name="email" placeholder="Your Email" required>
       <textarea name="message" rows="5" placeholder="Your Message..." required></textarea>
 
       <label class="neon-text">Rate my CV (1-10):</label>
@@ -100,7 +127,12 @@
         {% endfor %}
       </select>
 
-      <button type="submit" class="btn">Send Message</button>
+      <button type="submit" class="btn" id="sendBtn">Send Message</button>
+
+      <div id="sendingStatus" style="display:none; margin-top: 10px;">
+        <lottie-player src="https://lottie.host/3c8bb38d-5ad4-4292-9b25-d1cbbe6e2d4d/xGAcZDLxUl.json" background="transparent" speed="1" style="width: 80px; height: 80px; margin: auto;" loop autoplay></lottie-player>
+        <p class="glow-yellow mt-2">Sending your message...</p>
+      </div>
     </form>
 
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -111,14 +143,31 @@
       {% endif %}
     {% endwith %}
 
+    <!-- Optional Contact Icons -->
+    <div class="icon-links mt-4 text-center">
+      <a href="mailto:debabrata.1331.ind@ieee.org" title="Email"><i class="bi bi-envelope"></i></a>
+      <a href="https://wa.me/919999999999" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+      <a href="https://www.linkedin.com/in/debabrata-sahoo-ieee1331/" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+    </div>
   </section>
-<p class="mt-4">
-  Curious? <a href="{{ url_for('thank_you') }}" class="neon-text">See you here</a>
-</p>
+
+  <p class="mt-4 text-center">
+    Curious? <a href="{{ url_for('thank_you') }}" class="neon-text">See you here</a>
+  </p>
 
   <!-- AOS Animation -->
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>AOS.init();</script>
+
+  <!-- Submit Animation Script -->
+  <script>
+    function showSendingAnimation(event) {
+      event.preventDefault(); // stop form submit to show animation
+      document.getElementById('sendBtn').style.display = 'none';
+      document.getElementById('sendingStatus').style.display = 'block';
+      setTimeout(() => event.target.submit(), 2000); // then submit after delay
+    }
+  </script>
 
 </body>
 </html>
