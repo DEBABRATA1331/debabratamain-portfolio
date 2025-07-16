@@ -2,22 +2,23 @@
 {% block title %}Achievements{% endblock %}
 
 {% block content %}
-<!-- Lottie Animation Background -->
-<div id="lottie-background" style="position: fixed; z-index: -1; width: 100%; height: 100%; top: 0; left: 0;"></div>
 
-<!-- Floating Icons/Badges -->
+<!-- 🎞️ Lottie Animation Background -->
+<div id="lottie-background"></div>
+
+<!-- 🏆 Floating Icons -->
 <i class="bi bi-trophy-fill floating-icon" style="top: 12%; left: 4%; font-size: 2rem; color: gold;"></i>
 <i class="bi bi-award-fill floating-icon" style="bottom: 10%; right: 5%; font-size: 2rem; color: #ffeb3b;"></i>
 
-<!-- Typing Header -->
+<!-- 💫 Typing Header -->
 <div class="text-center mt-5" data-aos="fade-down" data-aos-delay="100">
   <h2 id="typed-achievements" class="neon-text mb-3"></h2>
 </div>
 
-<!-- 3D Portfolio Sphere -->
+<!-- 🌐 3D Portfolio Sphere -->
 <div class="container text-center my-4">
-  <canvas width="400" height="400" id="tag-canvas"></canvas>
-  <div id="tag-list" style="display: none">
+  <canvas id="tag-canvas" width="400" height="400" style="max-width: 100%;"></canvas>
+  <div id="tag-list" style="display: none;">
     <ul>
       <li><a href="{{ url_for('about') }}">About</a></li>
       <li><a href="{{ url_for('projects') }}">Projects</a></li>
@@ -28,13 +29,13 @@
   </div>
 </div>
 
-<!-- Section Header -->
+<!-- 🏅 Section Header -->
 <div class="container my-4 text-center" data-aos="fade-down" data-aos-duration="1200">
   <h2 class="fw-bold glow-title">Achievements</h2>
   <p class="lead mt-2">Recognitions for innovation, leadership, and technical excellence</p>
 </div>
 
-<!-- Achievements Grid -->
+<!-- 🧩 Achievements Grid -->
 <div class="container my-4">
   <div class="row g-4 justify-content-center">
     {% set achievements = [
@@ -60,21 +61,23 @@
   </div>
 </div>
 
-<!-- Master Certificate Button -->
+<!-- 📜 Certificates Link -->
 <div class="text-center my-5" data-aos="fade-up" data-aos-delay="1000">
   <a href="https://drive.google.com/file/d/1gXO1jOQ0NkYaetT-h9vW73EsNgoGDBtU/view?usp=sharing" target="_blank" class="btn btn-lg btn-outline-success">
     View All Achievement Certificates
   </a>
 </div>
 
-<!-- Cursor Comet & Effects -->
+<!-- 🔮 Cursor FX -->
 <div class="cursor-dot"></div>
 <div class="cursor-trail"></div>
 
-<!-- Scripts -->
+<!-- JS Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/typeit.umd.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/tagcanvas/2.9/tagcanvas.min.js"></script>
+
 <script>
+  // Typing header
   new TypeIt("#typed-achievements", {
     strings: [
       "🏆 Highlighting Excellence",
@@ -87,7 +90,8 @@
     nextStringDelay: 2000
   }).go();
 
-  window.onload = function () {
+  // TagCanvas sphere
+  document.addEventListener("DOMContentLoaded", () => {
     try {
       TagCanvas.Start('tag-canvas', 'tag-list', {
         textColour: '#00f7ff',
@@ -95,13 +99,17 @@
         reverse: true,
         depth: 0.8,
         maxSpeed: 0.05,
-        weight: true
+        weight: true,
+        initial: [0.2, -0.1],
+        pinchZoom: true
       });
     } catch (e) {
+      console.error("TagCanvas Error:", e);
       document.getElementById('tag-canvas').style.display = 'none';
     }
-  };
+  });
 
+  // Lottie background
   import('https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.13/lottie.min.js').then(lottie => {
     lottie.loadAnimation({
       container: document.getElementById('lottie-background'),
@@ -112,7 +120,7 @@
     });
   });
 
-  // Neon comet cursor + sparkles + click burst
+  // Cursor comet + sparkle + click burst
   const cursorDot = document.querySelector(".cursor-dot");
   const cursorTrail = document.querySelector(".cursor-trail");
 
@@ -145,21 +153,28 @@
   }
 </script>
 
+<!-- CSS Styles -->
 <style>
   #lottie-background {
     position: fixed;
-    width: 100%; height: 100%; top: 0; left: 0;
-    z-index: -1; opacity: 0.07;
+    width: 100%;
+    height: 100%;
+    top: 0; left: 0;
+    z-index: -1;
+    opacity: 0.08;
   }
+
   .floating-icon {
     position: absolute;
     z-index: 2;
     animation: float 6s ease-in-out infinite;
   }
+
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-20px); }
   }
+
   .cursor-dot, .cursor-trail, .sparkle {
     position: fixed;
     pointer-events: none;
@@ -167,12 +182,14 @@
     border-radius: 50%;
     transform: translate(-50%, -50%);
   }
+
   .cursor-dot {
     width: 8px;
     height: 8px;
     background-color: #00f7ff;
     box-shadow: 0 0 8px #00f7ff;
   }
+
   .cursor-trail {
     width: 20px;
     height: 20px;
@@ -180,16 +197,19 @@
     box-shadow: 0 0 12px rgba(0, 247, 255, 0.3);
     transition: transform 0.1s ease-out;
   }
+
   .sparkle {
     width: 4px;
     height: 4px;
     background: #00f7ff;
     animation: sparkleFade 0.5s linear forwards;
   }
+
   @keyframes sparkleFade {
     0% { opacity: 1; transform: scale(1) translate(0, 0); }
     100% { opacity: 0; transform: scale(0.5) translate(10px, 10px); }
   }
+
   .starburst {
     position: fixed;
     width: 20px;
@@ -200,9 +220,28 @@
     animation: burst 0.4s ease-out forwards;
     z-index: 9999;
   }
+
   @keyframes burst {
     0% { transform: scale(0); opacity: 1; }
     100% { transform: scale(2.5); opacity: 0; }
   }
+
+  .achievement-card {
+    background: #121212;
+    color: #e0f7fa;
+    border-left: 4px solid #00f7ff;
+    transition: transform 0.3s ease;
+  }
+
+  .achievement-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 10px rgba(0, 247, 255, 0.3);
+  }
+
+  .glow-title {
+    color: #ffeb3b;
+    text-shadow: 0 0 8px #ffeb3b;
+  }
 </style>
+
 {% endblock %}
