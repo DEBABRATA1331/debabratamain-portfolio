@@ -16,8 +16,7 @@
 
 <!-- 3D Portfolio Sphere -->
 <div class="container text-center my-4">
-  <canvas width="400" height="400" id="tag-canvas">
-  </canvas>
+  <canvas width="400" height="400" id="tag-canvas"></canvas>
   <div id="tag-list" style="display: none">
     <ul>
       <li><a href="{{ url_for('about') }}">About</a></li>
@@ -63,12 +62,14 @@
 
 <!-- Master Certificate Button -->
 <div class="text-center my-5" data-aos="fade-up" data-aos-delay="1000">
-  <a href="https://drive.google.com/file/d/1gXO1jOQ0NkYaetT-h9vW73EsNgoGDBtU/view?usp=sharing"
-     target="_blank"
-     class="btn btn-lg btn-outline-success">
+  <a href="https://drive.google.com/file/d/1gXO1jOQ0NkYaetT-h9vW73EsNgoGDBtU/view?usp=sharing" target="_blank" class="btn btn-lg btn-outline-success">
     View All Achievement Certificates
   </a>
 </div>
+
+<!-- Cursor Comet & Effects -->
+<div class="cursor-dot"></div>
+<div class="cursor-trail"></div>
 
 <!-- Scripts -->
 <script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/typeit.umd.js"></script>
@@ -100,33 +101,108 @@
       document.getElementById('tag-canvas').style.display = 'none';
     }
   };
-</script>
-<script>
+
   import('https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.7.13/lottie.min.js').then(lottie => {
     lottie.loadAnimation({
       container: document.getElementById('lottie-background'),
       renderer: 'svg',
       loop: true,
       autoplay: true,
-      path: 'https://assets10.lottiefiles.com/packages/lf20_iwmd6pyr.json' // HUD scanner or tech background
+      path: 'https://assets10.lottiefiles.com/packages/lf20_iwmd6pyr.json'
     });
   });
+
+  // Neon comet cursor + sparkles + click burst
+  const cursorDot = document.querySelector(".cursor-dot");
+  const cursorTrail = document.querySelector(".cursor-trail");
+
+  document.addEventListener("mousemove", (e) => {
+    const { clientX: x, clientY: y } = e;
+    cursorDot.style.left = x + "px";
+    cursorDot.style.top = y + "px";
+    cursorTrail.style.transform = `translate(${x}px, ${y}px)`;
+
+    const spark = document.createElement("div");
+    spark.className = "sparkle";
+    spark.style.left = x + "px";
+    spark.style.top = y + "px";
+    document.body.appendChild(spark);
+    setTimeout(() => spark.remove(), 500);
+  });
+
+  document.addEventListener("click", (e) => {
+    const burst = document.createElement("div");
+    burst.className = "starburst";
+    burst.style.left = e.clientX + "px";
+    burst.style.top = e.clientY + "px";
+    document.body.appendChild(burst);
+    setTimeout(() => burst.remove(), 400);
+  });
+
+  if (window.innerWidth < 768) {
+    cursorDot.style.display = "none";
+    cursorTrail.style.display = "none";
+  }
 </script>
+
 <style>
   #lottie-background {
     position: fixed;
     width: 100%; height: 100%; top: 0; left: 0;
     z-index: -1; opacity: 0.07;
   }
-  .floating-badge {
+  .floating-icon {
     position: absolute;
-    width: 60px;
+    z-index: 2;
     animation: float 6s ease-in-out infinite;
-    z-index: 0;
   }
   @keyframes float {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-20px); }
+  }
+  .cursor-dot, .cursor-trail, .sparkle {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-dot {
+    width: 8px;
+    height: 8px;
+    background-color: #00f7ff;
+    box-shadow: 0 0 8px #00f7ff;
+  }
+  .cursor-trail {
+    width: 20px;
+    height: 20px;
+    background-color: rgba(0, 247, 255, 0.2);
+    box-shadow: 0 0 12px rgba(0, 247, 255, 0.3);
+    transition: transform 0.1s ease-out;
+  }
+  .sparkle {
+    width: 4px;
+    height: 4px;
+    background: #00f7ff;
+    animation: sparkleFade 0.5s linear forwards;
+  }
+  @keyframes sparkleFade {
+    0% { opacity: 1; transform: scale(1) translate(0, 0); }
+    100% { opacity: 0; transform: scale(0.5) translate(10px, 10px); }
+  }
+  .starburst {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid #00f7ff;
+    pointer-events: none;
+    animation: burst 0.4s ease-out forwards;
+    z-index: 9999;
+  }
+  @keyframes burst {
+    0% { transform: scale(0); opacity: 1; }
+    100% { transform: scale(2.5); opacity: 0; }
   }
 </style>
 {% endblock %}

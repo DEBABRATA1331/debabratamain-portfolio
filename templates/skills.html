@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
-{% block title %}Projects{% endblock %}
+{% block title %}Skills{% endblock %}
+
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +9,7 @@
   <title>Debabrata's Skill Matrix</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Animate.css + Bootstrap Icons + AOS -->
+  <!-- External Libraries -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css">
@@ -21,7 +22,6 @@
       color: #e0f7fa;
       font-family: 'Segoe UI', sans-serif;
       overflow-x: hidden;
-      -webkit-tap-highlight-color: transparent;
     }
 
     header {
@@ -46,7 +46,6 @@
       position: relative;
       box-shadow: 0 0 20px rgba(0, 247, 255, 0.3);
       transition: transform 0.3s;
-      touch-action: manipulation;
     }
 
     .circle-skill:hover {
@@ -96,8 +95,7 @@
 
     .background-task {
       position: fixed;
-      top: 0;
-      left: 0;
+      top: 0; left: 0;
       width: 100%;
       height: 100%;
       background-image: url('https://www.transparenttextures.com/patterns/cubes.png');
@@ -110,6 +108,18 @@
     @keyframes animateBg {
       0% { background-position: 0 0; }
       100% { background-position: 1000px 1000px; }
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .col {
+      flex: 1 0 200px;
+      max-width: 240px;
+      padding: 1rem;
     }
 
     footer {
@@ -126,16 +136,53 @@
       100% { transform: translateX(-100%); }
     }
 
-    .row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
+    /* Game Section */
+    .skill-quiz {
+      background: #121212;
+      margin: 2rem auto;
+      padding: 2rem;
+      border-left: 4px solid #00f7ff;
+      max-width: 800px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,247,255,0.1);
     }
 
-    .col {
-      flex: 1 0 200px;
-      max-width: 240px;
+    .skill-quiz h3 {
+      text-align: center;
+      color: #ffeb3b;
+      text-shadow: 0 0 10px #ffeb3b;
+      margin-bottom: 1rem;
+    }
+
+    .quiz-card {
+      background: #1a1a1a;
+      border: 1px solid #00f7ff;
       padding: 1rem;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+    }
+
+    .quiz-card label {
+      display: block;
+      margin: 5px 0;
+    }
+
+    .quiz-card input[type="radio"] {
+      margin-right: 8px;
+    }
+
+    .quiz-score {
+      text-align: center;
+      font-weight: bold;
+      color: #00f7ff;
+      margin-top: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      .circle-skill {
+        width: 120px;
+        height: 120px;
+      }
     }
   </style>
 </head>
@@ -160,7 +207,7 @@
     </div>
   </section>
 
-  <!-- Hardware & IoT -->
+  <!-- Hardware Skills -->
   <section>
     <h2 class="neon-text" data-aos="fade-down"><i class="bi bi-hdd-network"></i> Hardware & IoT</h2>
     <div class="row">
@@ -171,7 +218,7 @@
     </div>
   </section>
 
-  <!-- Tools & Platforms -->
+  <!-- Tools -->
   <section>
     <h2 class="neon-text" data-aos="fade-down"><i class="bi bi-tools"></i> Tools & Platforms</h2>
     <div class="row">
@@ -197,14 +244,45 @@
     </div>
   </section>
 
+  <!-- Skill Match Game -->
+  <section class="skill-quiz" data-aos="fade-up">
+    <h3>🎮 Skill Match Challenge</h3>
+    <div class="quiz-card">
+      <p><strong>Which domain does Python best belong to?</strong></p>
+      <label><input type="radio" name="q1" value="ai"> AI/ML</label>
+      <label><input type="radio" name="q1" value="hardware"> Hardware</label>
+    </div>
+    <div class="quiz-card">
+      <p><strong>Which domain uses Verilog?</strong></p>
+      <label><input type="radio" name="q2" value="design"> VLSI Design</label>
+      <label><input type="radio" name="q2" value="software"> Software Dev</label>
+    </div>
+    <div class="quiz-card">
+      <p><strong>Which platform suits data dashboards?</strong></p>
+      <label><input type="radio" name="q3" value="powerbi"> Power BI</label>
+      <label><input type="radio" name="q3" value="arduino"> Arduino</label>
+    </div>
+    <div class="text-center">
+      <button onclick="checkQuiz()" class="btn btn-outline-info mt-3">Check Score</button>
+      <p id="quizScore" class="quiz-score"></p>
+    </div>
+  </section>
+
   <footer>
-    "Innovation is seeing what everybody has seen and thinking what nobody has thought." &nbsp;|&nbsp;
-    Keep building. Keep evolving. &nbsp;|&nbsp;
-    Task: Continuously learning, innovating, improving...
+    "Innovation is seeing what everybody has seen and thinking what nobody has thought." | Keep building. Keep evolving.
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
   <script>AOS.init();</script>
+  <script>
+    function checkQuiz() {
+      let score = 0;
+      if (document.querySelector('input[name="q1"]:checked')?.value === 'ai') score++;
+      if (document.querySelector('input[name="q2"]:checked')?.value === 'design') score++;
+      if (document.querySelector('input[name="q3"]:checked')?.value === 'powerbi') score++;
+      document.getElementById("quizScore").innerText = `Your Score: ${score} / 3`;
+    }
+  </script>
 </body>
 </html>
 {% endblock %}

@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
 
   <style>
-    /* Modern Scroll-To-Top (Left Bottom) */
+    /* Scroll-To-Top Button - Bottom Left */
     #scrollTopBtn {
       position: fixed;
       bottom: 20px;
@@ -23,12 +23,12 @@
       display: none;
       z-index: 1000;
       border-radius: 50%;
-      width: 50px;
-      height: 50px;
+      width: 48px;
+      height: 48px;
       background-color: #121212;
       color: #00f7ff;
-      box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
       border: none;
+      box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
       transition: all 0.3s ease;
     }
 
@@ -37,33 +37,68 @@
       color: #121212;
       box-shadow: 0 0 15px #00f7ff;
     }
+
+    /* Mobile Glow Mode Toggle (Top Left) */
+    .glow-toggle {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1100;
+    }
+
+    /* Responsive Navigation */
+    .top-nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 0.5rem 1rem;
+    }
+
+    @media (max-width: 768px) {
+      .top-nav {
+        justify-content: center;
+        padding: 1rem 0.5rem;
+        font-size: 1.3rem;
+      }
+
+      #scrollTopBtn {
+        width: 42px;
+        height: 42px;
+        font-size: 1.2rem;
+      }
+
+      .glow-toggle {
+        top: 12px;
+        left: 12px;
+      }
+    }
   </style>
 </head>
 
 <body>
 
   <!-- 🌟 Glow Mode Toggle (Top Left) -->
-<div class="position-absolute top-0 start-0 p-3">
-  <button class="btn neon-btn" onclick="toggleDarkMode()">🌟 Glow Mode</button>
-</div>
-
+  <div class="glow-toggle">
+    <button class="btn neon-btn btn-sm" onclick="toggleDarkMode()">🌟 Glow Mode</button>
+  </div>
 
   <!-- 🚀 Navigation Icons -->
-  <div class="top-nav text-end px-4 pb-2">
-    <a href="{{ url_for('home') }}" title="Home"><i class="bi bi-house-door-fill neon-text mx-2"></i></a>
-    <a href="{{ url_for('about') }}" title="About"><i class="bi bi-person-circle neon-text mx-2"></i></a>
-    <a href="{{ url_for('projects') }}" title="Projects"><i class="bi bi-lightbulb neon-text mx-2"></i></a>
-    <a href="{{ url_for('achievements') }}" title="Achievements"><i class="bi bi-award neon-text mx-2"></i></a>
-    <a href="{{ url_for('skills') }}" title="Skills"><i class="bi bi-cpu neon-text mx-2"></i></a>
-    <a href="{{ url_for('contact') }}" title="Contact"><i class="bi bi-envelope neon-text mx-2"></i></a>
-    <a href="https://github.com/DEBABRATA1331" target="_blank"><i class="bi bi-github neon-text mx-2"></i></a>
-    <a href="https://www.linkedin.com/in/debabrata-sahoo-ieee1331/" target="_blank"><i class="bi bi-linkedin neon-text mx-2"></i></a>
+  <div class="top-nav text-end">
+    <a href="{{ url_for('home') }}" title="Home"><i class="bi bi-house-door-fill neon-text"></i></a>
+    <a href="{{ url_for('about') }}" title="About"><i class="bi bi-person-circle neon-text"></i></a>
+    <a href="{{ url_for('projects') }}" title="Projects"><i class="bi bi-lightbulb neon-text"></i></a>
+    <a href="{{ url_for('achievements') }}" title="Achievements"><i class="bi bi-award neon-text"></i></a>
+    <a href="{{ url_for('skills') }}" title="Skills"><i class="bi bi-cpu neon-text"></i></a>
+    <a href="{{ url_for('contact') }}" title="Contact"><i class="bi bi-envelope neon-text"></i></a>
+    <a href="https://github.com/DEBABRATA1331" target="_blank"><i class="bi bi-github neon-text"></i></a>
+    <a href="https://www.linkedin.com/in/debabrata-sahoo-ieee1331/" target="_blank"><i class="bi bi-linkedin neon-text"></i></a>
   </div>
 
   <!-- 📦 Page Content -->
   {% block content %}{% endblock %}
 
-  <!-- 🔝 Scroll to Top Button (Bottom Left) -->
+  <!-- 🔝 Scroll to Top Button -->
   <button onclick="scrollToTop()" id="scrollTopBtn" title="Go to top">
     <i class="bi bi-arrow-up-short fs-3"></i>
   </button>
@@ -75,11 +110,9 @@
   <script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@master/lib/turn.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/typeit.umd.js"></script>
 
-  <!-- Core Scripts -->
   <script>
     AOS.init();
 
-    // Show scroll button only after scrolling down
     window.onscroll = function () {
       const btn = document.getElementById("scrollTopBtn");
       btn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";

@@ -6,43 +6,33 @@
   <h2 class="fw-bold neon-glow" id="glowTitle">🎉 Thank You for Reaching Out!</h2>
   <p class="lead">I'll get back to you soon. Meanwhile — test your skills and have fun! 🎮</p>
 
-  <!-- Flash message display -->
   {% with messages = get_flashed_messages() %}
     {% if messages %}
       <div class="alert alert-success mt-3">{{ messages[0] }}</div>
     {% endif %}
   {% endwith %}
 
-  <!-- Motivating Quote -->
   <p class="glow-yellow mt-4 fst-italic">“Innovation distinguishes between a leader and a follower.” — Steve Jobs</p>
 
-  <!-- Reaction Time Game -->
+  <!-- ⚡ Reaction Time Game -->
   <div class="my-5 text-center">
     <h4 class="neon-text">Test Your Reaction Time ⚡</h4>
     <p class="glow-yellow">Click the button as soon as it turns blue!</p>
-    <button id="reactionButton" class="btn neon-btn mt-3">Wait for it...</button>
+    <button id="reactionButton" class="btn neon-btn mt-3 w-100 w-md-auto">Wait for it...</button>
     <p class="mt-3" id="reactionResult"></p>
   </div>
-
-  <!-- Score Tracker -->
-  <div class="my-5">
-    <h4 class="neon-text">Score 🎯</h4>
-    <div class="scoreboard">
-      <span class="glow-score">Score: <span id="score">0</span></span>
-    </div>
-    <button class="btn neon-btn m-1" onclick="startScoring()">Start</button>
-    <button class="btn neon-btn m-1" onclick="resetScore()">Reset</button>
-  </div>
-
-  <!-- Embedded Pong Game -->
+  
+  <!-- 🏓 Pong Game Responsive -->
   <div class="my-5">
     <h4 class="neon-text">Pong Challenge 🏓</h4>
-    <canvas id="pong" width="500" height="300" style="border: 2px solid #00f7ff; border-radius: 10px;"></canvas>
+    <div class="ratio ratio-16x9">
+      <canvas id="pong" style="border: 2px solid #00f7ff; border-radius: 10px; width: 100%; height: 100%;"></canvas>
+    </div>
   </div>
 
-  <!-- Back Button -->
+  <!-- 🔙 Back to Home -->
   <div class="mt-5">
-    <a href="{{ url_for('home') }}" class="btn neon-btn m-2">🏠 Back to Home</a>
+    <a href="{{ url_for('home') }}" class="btn neon-btn w-100 w-md-auto m-2">🏠 Back to Home</a>
   </div>
 </div>
 
@@ -56,7 +46,7 @@
   };
 </script>
 
-<!-- ⚡ Reaction Time Game -->
+<!-- ⚡ Reaction Game -->
 <script>
   let startTime;
   const button = document.getElementById("reactionButton");
@@ -86,33 +76,27 @@
   });
 </script>
 
-<!-- 🎯 Score Tracker -->
-<script>
-  let score = 0, intervalId = null;
-  function startScoring() {
-    if (!intervalId) {
-      intervalId = setInterval(() => {
-        score += Math.floor(Math.random() * 5 + 1);
-        document.getElementById('score').textContent = score;
-      }, 1000);
-    }
-  }
-  function resetScore() {
-    clearInterval(intervalId);
-    intervalId = null;
-    score = 0;
-    document.getElementById('score').textContent = score;
-  }
-</script>
+<!-- 🎮 Pong Game Section -->
+<div class="my-5">
+  <h4 class="neon-text">Pong Challenge 🏓</h4>
+  <canvas id="pong" width="500" height="300" style="border: 2px solid #00f7ff; border-radius: 10px;"></canvas>
+</div>
 
-<!-- 🕹️ Pong Game Script -->
+<!-- 🕹️ Pong Game Script with Scoring -->
 <script>
   const canvas = document.getElementById("pong");
   const ctx = canvas.getContext("2d");
-  let paddleHeight = 60, paddleWidth = 10, ballRadius = 8;
+
+  const paddleWidth = 10, paddleHeight = 60, ballRadius = 8;
   let playerY = canvas.height / 2 - paddleHeight / 2;
-  let aiY = playerY, ballX = canvas.width / 2, ballY = canvas.height / 2;
-  let ballSpeedX = 4, ballSpeedY = 3;
+  let aiY = playerY;
+  let ballX = canvas.width / 2;
+  let ballY = canvas.height / 2;
+  let ballSpeedX = 4;
+  let ballSpeedY = 3;
+
+  let playerScore = 0;
+  let aiScore = 0;
 
   function drawRect(x, y, w, h, color) {
     ctx.fillStyle = color;
@@ -133,40 +117,63 @@
   }
 
   function renderPong() {
-    drawRect(0, 0, canvas.width, canvas.height, "#111");
-    drawRect(0, playerY, paddleWidth, paddleHeight, "#00f7ff");
-    drawRect(canvas.width - paddleWidth, aiY, paddleWidth, paddleHeight, "#00f7ff");
-    drawCircle(ballX, ballY, ballRadius, "#ffffff");
+    drawRect(0, 0, canvas.width, canvas.height, "#111"); // background
+    drawRect(0, playerY, paddleWidth, paddleHeight, "#00f7ff"); // player
+    drawRect(canvas.width - paddleWidth, aiY, paddleWidth, paddleHeight, "#00f7ff"); // AI
+    drawCircle(ballX, ballY, ballRadius, "#ffffff"); // ball
+    drawText(`Player: ${playerScore}`, 20, 25, "#00f7ff");
+    drawText(`AI: ${aiScore}`, canvas.width - 100, 25, "#00f7ff");
+  }
+
+  function resetBall() {
+    ballX = canvas.width / 2;
+    ballY = canvas.height / 2;
+    ballSpeedX *= -1;
+    ballSpeedY = 3;
   }
 
   function moveBall() {
     ballX += ballSpeedX;
     ballY += ballSpeedY;
 
-    // Bounce
-    if (ballY + ballRadius > canvas.height || ballY - ballRadius < 0) ballSpeedY *= -1;
+    // Wall bounce
+    if (ballY + ballRadius > canvas.height || ballY - ballRadius < 0)
+      ballSpeedY *= -1;
 
-    // Left paddle
-    if (ballX - ballRadius < paddleWidth &&
-        ballY > playerY && ballY < playerY + paddleHeight) ballSpeedX *= -1;
-
-    // Right paddle (AI)
-    if (ballX + ballRadius > canvas.width - paddleWidth &&
-        ballY > aiY && ballY < aiY + paddleHeight) ballSpeedX *= -1;
-
-    // Score reset
-    if (ballX < 0 || ballX > canvas.width) {
-      ballX = canvas.width / 2;
-      ballY = canvas.height / 2;
+    // Left paddle (player)
+    if (
+      ballX - ballRadius < paddleWidth &&
+      ballY > playerY &&
+      ballY < playerY + paddleHeight
+    ) {
       ballSpeedX *= -1;
     }
 
-    // AI follow
+    // Right paddle (AI)
+    if (
+      ballX + ballRadius > canvas.width - paddleWidth &&
+      ballY > aiY &&
+      ballY < aiY + paddleHeight
+    ) {
+      ballSpeedX *= -1;
+    }
+
+    // Scoring
+    if (ballX < 0) {
+      aiScore++;
+      resetBall();
+    } else if (ballX > canvas.width) {
+      playerScore++;
+      resetBall();
+    }
+
+    // AI movement
     aiY += (ballY - (aiY + paddleHeight / 2)) * 0.1;
   }
 
   canvas.addEventListener("mousemove", (e) => {
-    playerY = e.offsetY - paddleHeight / 2;
+    const rect = canvas.getBoundingClientRect();
+    playerY = e.clientY - rect.top - paddleHeight / 2;
   });
 
   function pongLoop() {
@@ -174,9 +181,17 @@
     renderPong();
     requestAnimationFrame(pongLoop);
   }
+
+  // Start the game after confetti
+  window.onload = () => {
+    confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+    startGame();
+    pongLoop();
+  };
 </script>
 
-<!-- 💫 Glow Styles -->
+
+<!-- 💫 Neon + Mobile Styles -->
 <style>
   .neon-glow {
     color: #ffeb3b;
@@ -199,6 +214,18 @@
     color: #00f7ff;
     text-shadow: 0 0 5px #00f7ff, 0 0 15px #00f7ff;
     font-weight: bold;
+  }
+
+  @media (max-width: 576px) {
+    .neon-glow {
+      font-size: 1.4rem;
+    }
+    #pong {
+      height: 200px !important;
+    }
+    .btn {
+      font-size: 1rem;
+    }
   }
 </style>
 {% endblock %}

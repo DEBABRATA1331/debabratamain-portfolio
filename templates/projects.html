@@ -2,16 +2,14 @@
 {% block title %}Projects{% endblock %}
 {% block content %}
 
-<!-- Code Typing Simulation Background -->
+<!-- Background Effects -->
 <div id="code-type-stream" class="background-task"></div>
-
-<!-- SVG Circuit Wave Background -->
 <svg class="background-waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
   <path fill="#00f7ff" fill-opacity="0.015" d="M0,128L60,138.7C120,149,240,171,360,160C480,149,600,107,720,96C840,85,960,107,1080,112C1200,117,1320,107,1380,101.3L1440,96L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
 </svg>
 
-<!-- Section Header -->
-<div class="container my-5 text-center" data-aos="fade-down" data-aos-duration="1000">
+<!-- Header -->
+<div class="container my-5 text-center" data-aos="fade-down">
   <h2 class="fw-bold neon-text">My Key Projects</h2>
   <p class="lead text-muted">From real-time IoT systems to smart healthcare tools and VLSI designs.</p>
   <div class="mt-2">
@@ -21,101 +19,73 @@
   </div>
 </div>
 
-<!-- Project Grid -->
-<div class="container my-5">
-  <div class="row g-4">
-    {% set projects = [
-      {
-        'title': "Solar-Link (IEEE Global Top 100)",
-        'desc': "Solar-powered LiFi-based communication system for high-speed wireless access in remote zones.",
-        'link': "https://drive.google.com/file/d/1PEcIQ5ip4b_PSilPbxmSS2xfiC8yfiNZ/view?usp=sharing"
-      },
-      {
-        'title': "Glaucoma Detection (SIH 2024)",
-        'desc': "Ultrasound-based IOP measurement system for early-stage glaucoma diagnosis.",
-        'link': "https://drive.google.com/file/d/1PEcIQ5ip4b_PSilPbxmSS2xfiC8yfiNZ/view?usp=drive_link"
-      },
-      {
-        'title': "SBOM Comparison & Email Automation",
-        'desc': "Auto-tracks software changes & sends dynamic email summaries using PowerShell + Power Automate."
-      },
-      {
-        'title': "IEEE ExCom Automation Tool",
-        'desc': "Generates MoM, feedback reports & mass emails for IEEE chapters. Built with HTML + Python."
-      },
-      {
-        'title': "Smart IoT Irrigation",
-        'desc': "ESP8266/ESP32 cloud irrigation for optimized water management & energy efficiency.",
-        'link': "https://drive.google.com/file/d/1u4FWkWaHBhu5U4VqkenKtS4-mHWraDJQ/view?usp=drive_link"
-      },
-      {
-        'title': "4-bit Microprocessor (Verilog)",
-        'desc': "Designed ALU + custom ISA with 95% simulation accuracy using DSCH2 & Xilinx tools.",
-        'link': "https://drive.google.com/drive/folders/1ppcjm5CyIs5rKFOlxobJZACVWhXffDXG?usp=drive_link"
-      },
-      {
-        'title': "My Personal Portfolio Website",
-        'desc': "Interactive .NET website with resume, projects, contact form, and chat integration.",
-        'link': "https://debabrata-portfolio-2.onrender.com/"
-      }
-    ] %}
-
-    {% for project in projects %}
-    <div class="col-md-6" data-aos="zoom-in" data-aos-delay="{{ loop.index * 100 }}">
-      <div class="project-card project-3d">
-        <h5 class="fw-bold">{{ project.title }}</h5>
-        <p>{{ project.desc }}</p>
-        {% if project.link %}
-        <a href="{{ project.link }}" target="_blank" class="btn neon-btn btn-sm">View</a>
-        {% endif %}
-      </div>
+<!-- 🎮 Drag & Drop Mini Game -->
+<div class="container text-center my-5">
+  <h4 class="neon-text mb-4">🎮 Build the Project</h4>
+  <p class="glow-yellow mb-3">Drag the correct tech stack to build a project!</p>
+  <div class="d-flex justify-content-center flex-wrap gap-3">
+    <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)" data-tech="HTML">
+      <p>Drop HTML here</p>
     </div>
-    {% endfor %}
+    <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)" data-tech="Arduino">
+      <p>Drop Arduino here</p>
+    </div>
+  </div>
+  <div class="mt-4 d-flex justify-content-center flex-wrap gap-3">
+    <i class="bi bi-code-slash draggable-icon" draggable="true" ondragstart="drag(event)" id="HTML" title="HTML"></i>
+    <i class="bi bi-usb-symbol draggable-icon" draggable="true" ondragstart="drag(event)" id="Arduino" title="Arduino"></i>
+  </div>
+  <p id="build-result" class="mt-4 fw-bold"></p>
+</div>
+
+<!-- 🕹️ Joystick Project Navigator -->
+<div class="container text-center my-5">
+  <h4 class="neon-text mb-3">🕹️ Project Slider</h4>
+  <div class="d-flex justify-content-center align-items-center gap-4">
+    <button class="btn neon-btn" onclick="scrollProjects(-1)">◀</button>
+    <div id="project-carousel" class="carousel-wrapper">
+      {% for project in projects %}
+        <div class="carousel-item {% if loop.first %}active{% endif %}">
+          <h5 class="fw-bold">{{ project.title }}</h5>
+          <p>{{ project.desc }}</p>
+          {% if project.link %}
+            <a href="{{ project.link }}" class="btn neon-btn btn-sm" target="_blank">View</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+    <button class="btn neon-btn" onclick="scrollProjects(1)">▶</button>
   </div>
 </div>
 
-<!-- Project Category Links -->
-<div class="container my-5 text-center" data-aos="fade-up" data-aos-delay="800">
+<!-- Categories -->
+<div class="container text-center my-5">
   <h4 class="neon-text">Explore Project Categories</h4>
-  <div class="category-links">
+  <div class="category-links d-flex justify-content-center flex-wrap gap-3 mt-3">
     <a href="https://drive.google.com/drive/folders/1_rUWlcyZKedZIsY3UJWOWaE9VGGnTglh?usp=drive_link" target="_blank" class="btn neon-btn">IoT Projects</a>
     <a href="https://drive.google.com/drive/folders/1OGBVZXEuD9VAuFX9-1gDph3IFkVgFBNi?usp=sharing" target="_blank" class="btn neon-btn">VLSI Projects</a>
   </div>
 </div>
 
+<!-- CSS -->
 <style>
-{
-  position: fixed;
-  top: 0;
-  left: 0;
-  color: #00ff88;
-  font-family: monospace;
-  font-size: 12px;
-  opacity: 0.03;
-  padding: 20px;
-  white-space: pre;
-  z-index: -1;
-}
-
   .background-task {
-    position: fixed;
-    top: 0;
-    left: 0;
-    color: #00ff88;
+    position: fixed; top: 0; left: 0;
     font-family: monospace;
     font-size: 12px;
-    opacity: 0.53;
-    padding: 20px;
-    white-space: pre;
+    opacity: 0.05;
     z-index: -1;
     pointer-events: none;
+    white-space: pre;
+    padding: 20px;
+    color: #00ff88;
   }
 
   .background-waves {
     position: fixed;
     bottom: 0;
-    z-index: -1;
     width: 100%;
+    z-index: -1;
     animation: waveFloat 20s infinite linear alternate;
   }
 
@@ -124,18 +94,61 @@
     100% { transform: translateY(-20px); }
   }
 
-  .project-3d {
-    perspective: 1000px;
-    transition: transform 0.2s ease-in-out;
+  .draggable-icon {
+    font-size: 2rem;
+    color: #00f7ff;
+    cursor: grab;
+    transition: transform 0.3s;
   }
 
-  .project-3d:hover {
-    transform: rotateY(5deg) rotateX(5deg);
+  .draggable-icon:hover {
+    transform: scale(1.2);
+  }
+
+  .drop-zone {
+    border: 2px dashed #00f7ff;
+    border-radius: 10px;
+    width: 180px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #121212;
+    color: #00f7ff;
+    font-weight: 600;
+  }
+
+  .carousel-wrapper {
+    width: 260px;
+    height: 180px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .carousel-item {
+    display: none;
+    text-align: center;
+    padding: 1rem;
+    background: #121212;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #00f7ff;
+    color: white;
+  }
+
+  .carousel-item.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
   }
 </style>
 
+<!-- JS -->
 <script>
-  // Code Typing Simulation
+  // Typewriter Stream
   const lines = [
     "[2025-07-16 20:10] 🚀 Building SmartHealthMonitor_v4.2...",
     "[2025-07-16 20:11] ✅ Compilation success...",
@@ -144,16 +157,45 @@
     "[2025-07-16 20:14] 📡 Connected to MQTT broker...",
     "[2025-07-16 20:15] ⏳ Monitoring patient vitals..."
   ];
-
   let i = 0;
-  const stream = document.getElementById("code-type-stream");
   function loop() {
-    if (i >= lines.length) i = 0;
+    const stream = document.getElementById("code-type-stream");
     stream.innerText = lines.slice(0, i + 1).join("\n");
-    i++;
-    setTimeout(loop, 2500);
+    i = (i + 1) % lines.length;
+    setTimeout(loop, 2000);
   }
   loop();
+
+  // Drag & Drop Logic
+  function allowDrop(ev) {
+    ev.preventDefault();
+  }
+
+  function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+  }
+
+  function drop(ev) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData("text");
+    const zone = ev.target.closest(".drop-zone");
+    if (zone.dataset.tech === data) {
+      zone.innerHTML = `<span class="text-success">✅ ${data} added!</span>`;
+      document.getElementById("build-result").innerText = "🎉 Project Built Successfully!";
+    } else {
+      zone.innerHTML = `<span class="text-danger">❌ Wrong Tech!</span>`;
+      document.getElementById("build-result").innerText = "🚫 Mismatch! Try again.";
+    }
+  }
+
+  // Project Carousel
+  let currentIndex = 0;
+  function scrollProjects(step) {
+    const items = document.querySelectorAll('.carousel-item');
+    items[currentIndex].classList.remove("active");
+    currentIndex = (currentIndex + step + items.length) % items.length;
+    items[currentIndex].classList.add("active");
+  }
 </script>
 
 {% endblock %}
