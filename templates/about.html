@@ -18,105 +18,120 @@
 
 
   <style>
-    body {
-      background: #0b0b0b;
-      color: #e0f7fa;
-      font-family: 'Segoe UI', sans-serif;
-    }
+  body {
+    background: #0b0b0b;
+    color: #e0f7fa;
+    font-family: 'Segoe UI', sans-serif;
+  }
 
-    .neon-text {
-      color: #00f7ff;
-      text-shadow: 0 0 8px #00f7ff, 0 0 20px #00f7ff;
-    }
+  .neon-text {
+    color: #00f7ff;
+    text-shadow: 0 0 8px #00f7ff, 0 0 20px #00f7ff;
+  }
 
-    .glow-yellow {
-      color: #ffeb3b;
-      text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b, 0 0 30px #ffeb3b;
-      font-weight: 600;
-    }
+  .glow-yellow {
+    color: #ffeb3b;
+    text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b, 0 0 30px #ffeb3b;
+    font-weight: 600;
+  }
 
-    .about-section {
-      max-width: 900px;
-      margin: 4rem auto;
-      padding: 2rem;
-      background: #121212;
-      border-left: 4px solid #00f7ff;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0, 247, 255, 0.15);
-    }
+  .about-section {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: #121212;
+    border-left: 4px solid #00f7ff;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 247, 255, 0.15);
+  }
 
-    .about-title {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-    }
+  .about-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
 
-    .about-icon {
-      font-size: 2rem;
-      margin-right: 10px;
-      vertical-align: middle;
-    }
+  .about-icon {
+    font-size: 2rem;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
 
-    .about-description {
-      font-size: 1.2rem;
-      line-height: 1.7;
-      margin-bottom: 1rem;
-      color: #ffeb3b;
-      text-shadow: 0 0 5px #ffeb3b;
-      animation: glowPulse 3s ease-in-out infinite;
-    }
+  .about-description {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #ffeb3b;
+    text-shadow: 0 0 5px #ffeb3b;
+    animation: glowPulse 3s ease-in-out infinite;
+  }
 
-    .timeline {
-      margin-top: 3rem;
-      padding-left: 1rem;
-      border-left: 3px solid #00f7ff;
-    }
+  .timeline {
+    margin-top: 3rem;
+    padding-left: 1rem;
+    border-left: 3px solid #00f7ff;
+  }
 
-    .timeline-item {
-      margin-bottom: 2rem;
-    }
+  .timeline-item {
+    margin-bottom: 2rem;
+  }
 
-    .timeline-item h5 {
-      color: #00f7ff;
-      text-shadow: 0 0 10px #00f7ff;
-      margin-bottom: 0.5rem;
-    }
+  .timeline-item h5 {
+    color: #00f7ff;
+    text-shadow: 0 0 10px #00f7ff;
+    margin-bottom: 0.5rem;
+  }
 
-    .timeline-item p {
-      color: #e0f7fa;
-      margin-bottom: 0;
-    }
+  .timeline-item p {
+    color: #e0f7fa;
+    margin-bottom: 0;
+  }
 
-    @keyframes glowPulse {
-      0% { text-shadow: 0 0 5px #ffeb3b; }
-      50% { text-shadow: 0 0 15px #ffeb3b, 0 0 25px #ffeb3b; }
-      100% { text-shadow: 0 0 5px #ffeb3b; }
-    }
-{
-  background: #fff;
-  color: #111;
-  padding: 2rem;
-  border: 1px solid #ccc;
-  box-shadow: 0 0 4px rgba(0,0,0,0.2);
-  font-family: Georgia, serif;
-  font-size: 1rem;
-  text-align: left;
-  transition: transform 0.3s;
-}
-.newspaper-clip h3 {
-  font-size: 1.4rem;
-  color: #000;
-  margin-bottom: 0.5rem;
-}
-.clip-content {
-  font-style: italic;
-  opacity: 0;
-  transition: opacity 0.5s ease;
-}
-.newspaper-clip:hover .clip-content {
-  opacity: 1;
-}
+  @keyframes glowPulse {
+    0% { text-shadow: 0 0 5px #ffeb3b; }
+    50% { text-shadow: 0 0 15px #ffeb3b, 0 0 25px #ffeb3b; }
+    100% { text-shadow: 0 0 5px #ffeb3b; }
+  }
 
-  </style>
+  /* Flipbook + Newspaper Styling */
+  {
+    background: #fff;
+    color: #111;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    text-align: left;
+    transition: transform 0.3s;
+  }
+
+  .newspaper-clip h3 {
+    font-size: 1.4rem;
+    color: #000;
+    margin-bottom: 0.5rem;
+  }
+
+  .clip-content {
+    font-style: italic;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .newspaper-clip:hover .clip-content {
+    opacity: 1;
+    max-height: 200px;
+  }
+
+  {
+    font-size: 1.8rem;
+    color: #00f7ff;
+    text-shadow: 0 0 8px #00f7ff, 0 0 20px #00f7ff;
+    margin-bottom: 2rem;
+  }
+</style>
+
 </head>
 <body>
 
