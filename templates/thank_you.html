@@ -1,6 +1,9 @@
 {% extends 'base.html' %}
 {% block title %}Thank You{% endblock %}
 
+{% extends 'base.html' %}
+{% block title %}Thank You{% endblock %}
+
 {% block content %}
 <div class="container text-center mt-5" data-aos="zoom-in">
   <h2 class="fw-bold neon-glow" id="glowTitle">🎉 Thank You for Reaching Out!</h2>
@@ -22,7 +25,7 @@
     <p class="mt-3" id="reactionResult"></p>
   </div>
   
-  <!-- 🏓 Pong Game Responsive -->
+  <!-- 🏓 Pong Game (Mobile Friendly) -->
   <div class="my-5">
     <h4 class="neon-text">Pong Challenge 🏓</h4>
     <div class="ratio ratio-16x9">
@@ -46,7 +49,7 @@
   };
 </script>
 
-<!-- ⚡ Reaction Game -->
+<!-- ⚡ Reaction Time Game -->
 <script>
   let startTime;
   const button = document.getElementById("reactionButton");
@@ -57,7 +60,7 @@
     button.disabled = true;
     button.style.background = "transparent";
     result.textContent = "";
-    let delay = Math.floor(Math.random() * 3000) + 2000;
+    let delay = Math.floor(Math.random() * 3000) + 1500; // easy mode: faster start
     setTimeout(() => {
       button.textContent = "Click!";
       button.style.background = "#00f7ff";
@@ -76,13 +79,7 @@
   });
 </script>
 
-<!-- 🎮 Pong Game Section -->
-<div class="my-5">
-  <h4 class="neon-text">Pong Challenge 🏓</h4>
-  <canvas id="pong" width="500" height="300" style="border: 2px solid #00f7ff; border-radius: 10px;"></canvas>
-</div>
-
-<!-- 🕹️ Pong Game Script with Scoring -->
+<!-- 🎮 Pong Game Script (Mobile Tap + Easy Mode) -->
 <script>
   const canvas = document.getElementById("pong");
   const ctx = canvas.getContext("2d");
@@ -92,8 +89,8 @@
   let aiY = playerY;
   let ballX = canvas.width / 2;
   let ballY = canvas.height / 2;
-  let ballSpeedX = 4;
-  let ballSpeedY = 3;
+  let ballSpeedX = 3; // ✅ Easy mode: slower ball
+  let ballSpeedY = 2.5; // ✅ Easy mode: slower ball
 
   let playerScore = 0;
   let aiScore = 0;
@@ -117,10 +114,10 @@
   }
 
   function renderPong() {
-    drawRect(0, 0, canvas.width, canvas.height, "#111"); // background
-    drawRect(0, playerY, paddleWidth, paddleHeight, "#00f7ff"); // player
-    drawRect(canvas.width - paddleWidth, aiY, paddleWidth, paddleHeight, "#00f7ff"); // AI
-    drawCircle(ballX, ballY, ballRadius, "#ffffff"); // ball
+    drawRect(0, 0, canvas.width, canvas.height, "#111"); 
+    drawRect(0, playerY, paddleWidth, paddleHeight, "#00f7ff");
+    drawRect(canvas.width - paddleWidth, aiY, paddleWidth, paddleHeight, "#00f7ff");
+    drawCircle(ballX, ballY, ballRadius, "#ffffff");
     drawText(`Player: ${playerScore}`, 20, 25, "#00f7ff");
     drawText(`AI: ${aiScore}`, canvas.width - 100, 25, "#00f7ff");
   }
@@ -129,67 +126,46 @@
     ballX = canvas.width / 2;
     ballY = canvas.height / 2;
     ballSpeedX *= -1;
-    ballSpeedY = 3;
+    ballSpeedY = 2.5;
   }
 
   function moveBall() {
     ballX += ballSpeedX;
     ballY += ballSpeedY;
 
-    // Wall bounce
     if (ballY + ballRadius > canvas.height || ballY - ballRadius < 0)
       ballSpeedY *= -1;
 
-    // Left paddle (player)
-    if (
-      ballX - ballRadius < paddleWidth &&
-      ballY > playerY &&
-      ballY < playerY + paddleHeight
-    ) {
+    if (ballX - ballRadius < paddleWidth && ballY > playerY && ballY < playerY + paddleHeight)
       ballSpeedX *= -1;
-    }
 
-    // Right paddle (AI)
-    if (
-      ballX + ballRadius > canvas.width - paddleWidth &&
-      ballY > aiY &&
-      ballY < aiY + paddleHeight
-    ) {
+    if (ballX + ballRadius > canvas.width - paddleWidth && ballY > aiY && ballY < aiY + paddleHeight)
       ballSpeedX *= -1;
-    }
 
-    // Scoring
-    if (ballX < 0) {
-      aiScore++;
-      resetBall();
-    } else if (ballX > canvas.width) {
-      playerScore++;
-      resetBall();
-    }
+    if (ballX < 0) { aiScore++; resetBall(); }
+    else if (ballX > canvas.width) { playerScore++; resetBall(); }
 
-    // AI movement
-    aiY += (ballY - (aiY + paddleHeight / 2)) * 0.1;
+    aiY += (ballY - (aiY + paddleHeight / 2)) * 0.05; // ✅ Easier AI: slower follow
   }
 
-  canvas.addEventListener("mousemove", (e) => {
+  // ✅ Mouse + Mobile Tap Support
+  function updatePlayerPos(y) {
     const rect = canvas.getBoundingClientRect();
-    playerY = e.clientY - rect.top - paddleHeight / 2;
-  });
+    playerY = y - rect.top - paddleHeight / 2;
+  }
+
+  canvas.addEventListener("mousemove", e => updatePlayerPos(e.clientY));
+  canvas.addEventListener("touchmove", e => {
+    e.preventDefault();
+    updatePlayerPos(e.touches[0].clientY);
+  }, { passive: false });
 
   function pongLoop() {
     moveBall();
     renderPong();
     requestAnimationFrame(pongLoop);
   }
-
-  // Start the game after confetti
-  window.onload = () => {
-    confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
-    startGame();
-    pongLoop();
-  };
 </script>
-
 
 <!-- 💫 Neon + Mobile Styles -->
 <style>
@@ -198,34 +174,16 @@
     text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b, 0 0 30px #ffeb3b;
     animation: pulse 2s infinite ease-in-out;
   }
-
   @keyframes pulse {
     0% { text-shadow: 0 0 5px #ffeb3b; }
     50% { text-shadow: 0 0 15px #ffeb3b, 0 0 25px #ffeb3b; }
     100% { text-shadow: 0 0 5px #ffeb3b; }
   }
-
-  .glow-yellow {
-    color: #ffeb3b;
-    text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b;
-  }
-
-  .glow-score {
-    color: #00f7ff;
-    text-shadow: 0 0 5px #00f7ff, 0 0 15px #00f7ff;
-    font-weight: bold;
-  }
-
+  .glow-yellow { color: #ffeb3b; text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b; }
   @media (max-width: 576px) {
-    .neon-glow {
-      font-size: 1.4rem;
-    }
-    #pong {
-      height: 200px !important;
-    }
-    .btn {
-      font-size: 1rem;
-    }
+    .neon-glow { font-size: 1.4rem; }
+    #pong { height: 200px !important; }
+    .btn { font-size: 1rem; }
   }
 </style>
 {% endblock %}

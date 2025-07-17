@@ -1,9 +1,8 @@
 {% extends 'base.html' %}
-
 {% block title %}Contact{% endblock %}
 
 {% block content %}
-<canvas id="pongMessageBall" width="100%" height="300" style="width: 100%; background: #0b0b0b; display: block; border-radius: 10px; margin-bottom: 2rem;"></canvas>
+<canvas id="pongMessageBall" height="300" style="width: 100%; background: #0b0b0b; display: block; border-radius: 10px; margin-bottom: 2rem;"></canvas>
 
 <section class="contact-section" data-aos="fade-up">
   <h2 class="neon-text animate__animated animate__fadeInDown">
@@ -47,9 +46,9 @@
   </div>
 </section>
 
-<p class="mt-4 text-center">
-  Curious? <a href="{{ url_for('thank_you') }}" class="neon-text">See you here</a>
-</p>
+<div class="text-center mt-4">
+  <a href="{{ url_for('thank_you') }}" class="curious-btn">👀 See You There</a>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>AOS.init();</script>
@@ -61,21 +60,22 @@
     document.getElementById('sendingStatus').style.display = 'block';
     setTimeout(() => event.target.submit(), 2000);
   }
-</script>
 
-<script>
   const canvas = document.getElementById("pongMessageBall");
   const ctx = canvas.getContext("2d");
-  canvas.height = 300;
-  canvas.width = canvas.offsetWidth;
-  let x = 50, y = 50;
-  let dx = 3, dy = 2.5;
-  let radius = 12;
+
+  function resizeCanvas() {
+    canvas.width = canvas.offsetWidth;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  let x = 50, y = 50, dx = 3, dy = 2.5, radius = 12;
   const messages = [
     "Don't hesitate to ask!",
     "I'm just a bounce away.",
     "Got questions? Let's connect.",
-    "Debabrata is listening... 🎧",
+    "Debabrata is listening...",
     "Feel free to ping me!"
   ];
   let currentMsg = 0;
@@ -95,17 +95,13 @@
     ctx.shadowBlur = 0;
     ctx.fillText(messages[currentMsg], 20, 30);
 
-    x += dx;
-    y += dy;
+    x += dx; y += dy;
     if (x + radius > canvas.width || x - radius < 0) {
-      dx *= -1;
-      currentMsg = (currentMsg + 1) % messages.length;
+      dx *= -1; currentMsg = (currentMsg + 1) % messages.length;
     }
     if (y + radius > canvas.height || y - radius < 0) {
-      dy *= -1;
-      currentMsg = (currentMsg + 1) % messages.length;
+      dy *= -1; currentMsg = (currentMsg + 1) % messages.length;
     }
-
     requestAnimationFrame(drawBall);
   }
   drawBall();
@@ -166,20 +162,35 @@
   }
   .icon-links a {
     color: #00f7ff;
-    font-size: 1.6rem;
-    margin-right: 15px;
+    font-size: 1.8rem;
+    margin-right: 18px;
     transition: color 0.3s ease;
   }
   .icon-links a:hover {
     color: #ffeb3b;
   }
+  .curious-btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    color: #ffeb3b;
+    background: #1c1c1c;
+    border: 2px solid #ffeb3b;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 0 10px #ffeb3b;
+    transition: all 0.3s ease;
+  }
+  .curious-btn:hover {
+    background: #ffeb3b;
+    color: #000;
+    box-shadow: 0 0 20px #ffeb3b;
+  }
   @media (max-width: 576px) {
-    .contact-section {
-      padding: 1rem;
-    }
-    input, textarea, select {
-      font-size: 1rem;
-    }
+    .contact-section { padding: 1rem; }
+    input, textarea, select { font-size: 1rem; }
+    .icon-links a { font-size: 1.6rem; }
+    .curious-btn { width: 90%; text-align: center; }
   }
 </style>
 {% endblock %}
