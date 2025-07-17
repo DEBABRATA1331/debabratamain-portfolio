@@ -99,8 +99,8 @@
       }
     ] %}
     {% for project in projects %}
-    <div class="col-md-6" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
-      <div class="project-card p-4 bg-dark rounded text-light shadow-sm">
+    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+      <div class="project-card p-4 bg-dark rounded text-light shadow-sm h-100">
         <h5 class="fw-bold">{{ project.title }}</h5>
         <p>{{ project.desc }}</p>
         {% if project.link %}
@@ -119,8 +119,11 @@
   <a href="https://drive.google.com/drive/folders/1OGBVZXEuD9VAuFX9-1gDph3IFkVgFBNi?usp=sharing" class="btn neon-btn m-2" target="_blank">VLSI Projects</a>
 </div>
 
-<!-- 💡 CSS -->
+<!-- 💡 CSS (Responsive Tweaks) -->
 <style>
+  body {
+    overflow-x: hidden;
+  }
   .background-task {
     position: fixed;
     top: 0; left: 0;
@@ -130,8 +133,9 @@
     color: #00ff88;
     white-space: pre;
     opacity: 0.06;
+    max-width: 100%;
+    overflow: hidden;
   }
-
   .background-waves {
     position: fixed;
     bottom: 0;
@@ -139,12 +143,10 @@
     z-index: -1;
     animation: waveFloat 18s linear infinite alternate;
   }
-
   @keyframes waveFloat {
     0% { transform: translateY(0); }
     100% { transform: translateY(-20px); }
   }
-
   .drop-zone {
     width: 150px;
     height: 80px;
@@ -157,20 +159,18 @@
     background: #121212;
     font-weight: 600;
   }
-
   .draggable-icon {
     font-size: 2rem;
     color: #00f7ff;
     cursor: grab;
   }
-
   .carousel-wrapper {
+    max-width: 90%;
     width: 300px;
-    height: 160px;
+    height: auto;
     overflow: hidden;
     position: relative;
   }
-
   .carousel-item {
     display: none;
     background: #121212;
@@ -179,21 +179,34 @@
     color: #fff;
     box-shadow: 0 0 10px #00f7ff;
   }
-
   .carousel-item.active {
     display: block;
     animation: fadeIn 0.5s ease;
   }
-
   @keyframes fadeIn {
     from { opacity: 0; transform: translateX(-10px); }
     to { opacity: 1; transform: translateX(0); }
   }
+  @media (max-width: 768px) {
+    .drop-zone {
+      width: 120px;
+      height: 60px;
+      font-size: 0.8rem;
+    }
+    .draggable-icon {
+      font-size: 1.5rem;
+    }
+    .neon-text, .fw-bold {
+      font-size: 1rem;
+    }
+    .background-task {
+      font-size: 10px;
+    }
+  }
 </style>
 
-<!-- 🧠 Scripts -->
+<!-- 🧠 Scripts (No change) -->
 <script>
-  // Typewriter Effect
   const lines = [
     "[2025-07-16 20:10] 🚀 Building SmartHealthMonitor_v4.2...",
     "[2025-07-16 20:11] ✅ Compilation success...",
@@ -211,7 +224,6 @@
   }
   loop();
 
-  // Drag & Drop
   function allowDrop(ev) { ev.preventDefault(); }
   function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }
   function drop(ev) {
@@ -227,7 +239,6 @@
     }
   }
 
-  // Project Slider
   let currentIndex = 0;
   function scrollProjects(step) {
     const items = document.querySelectorAll('.carousel-item');
