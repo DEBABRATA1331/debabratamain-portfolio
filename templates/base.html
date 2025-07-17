@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html> 
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -17,112 +17,85 @@
 
 <body>
 
-<!-- 🌟 Glow Mode Toggle (Top Left) -->
-<div class="glow-toggle">
-  <button class="btn neon-btn btn-sm" onclick="toggleDarkMode()">🌟 Glow Mode</button>
+<!-- ✅ Full Bootstrap Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+
+    <!-- 🌟 Glow Mode Toggle -->
+    <div class="d-flex align-items-center me-3">
+      <button class="btn neon-btn btn-sm" onclick="toggleDarkMode()">🌟 Glow Mode</button>
+    </div>
+
+    <!-- 🔽 Hamburger Toggle Button -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+      aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- 🔗 Navigation Links -->
+    <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link neon-text" href="{{ url_for('home') }}"><i class="bi bi-house-door-fill"></i> Home</a></li>
+        <li class="nav-item"><a class="nav-link neon-text" href="{{ url_for('about') }}"><i class="bi bi-person-circle"></i> About</a></li>
+        <li class="nav-item"><a class="nav-link neon-text" href="{{ url_for('projects') }}"><i class="bi bi-lightbulb"></i> Projects</a></li>
+        <li class="nav-item"><a class="nav-link neon-text" href="{{ url_for('achievements') }}"><i class="bi bi-award"></i> Achievements</a></li>
+        <li class="nav-item"><a class="nav-link neon-text" href="{{ url_for('skills') }}"><i class="bi bi-cpu"></i> Skills</a></li>
+        <li class="nav-item"><a class="nav-link neon-text" href="{{ url_for('contact') }}"><i class="bi bi-envelope"></i> Contact</a></li>
+        <li class="nav-item"><a class="nav-link neon-text" href="https://github.com/DEBABRATA1331" target="_blank"><i class="bi bi-github"></i> GitHub</a></li>
+        <li class="nav-item"><a class="nav-link neon-text" href="https://www.linkedin.com/in/debabrata-sahoo-ieee1331/" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- 📦 Page Content -->
+<div class="content-wrapper" style="padding-top: 80px;">
+  {% block content %}{% endblock %}
 </div>
 
-<!-- Hamburger Menu Button -->
-<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
-  aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-  <span class="navbar-toggler-icon"></span>
+<!-- 🔝 Scroll to Top Button -->
+<button onclick="scrollToTop()" id="scrollTopBtn" title="Go to top">
+  <i class="bi bi-arrow-up-short fs-3"></i>
 </button>
 
-<!-- Navbar Links -->
-<div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-  <ul class="navbar-nav">
-    <li class="nav-item">
-      <a class="nav-link neon-text" href="{{ url_for('home') }}">
-        <i class="bi bi-house-door-fill"></i> Home
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link neon-text" href="{{ url_for('about') }}">
-        <i class="bi bi-person-circle"></i> About
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link neon-text" href="{{ url_for('projects') }}">
-        <i class="bi bi-lightbulb"></i> Projects
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link neon-text" href="{{ url_for('achievements') }}">
-        <i class="bi bi-award"></i> Achievements
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link neon-text" href="{{ url_for('skills') }}">
-        <i class="bi bi-cpu"></i> Skills
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link neon-text" href="{{ url_for('contact') }}">
-        <i class="bi bi-envelope"></i> Contact
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link neon-text" href="https://github.com/DEBABRATA1331" target="_blank">
-        <i class="bi bi-github"></i> GitHub
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link neon-text" href="https://www.linkedin.com/in/debabrata-sahoo-ieee1331/" target="_blank">
-        <i class="bi bi-linkedin"></i> LinkedIn
-      </a>
-    </li>
-  </ul>
-</div>
+<!-- JS Libraries -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@master/lib/turn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/typeit.umd.js"></script>
 
+<script>
+  AOS.init();
 
-  <!-- 📦 Page Content -->
-  <div class="content-wrapper" style="padding-top: 80px;">
-    {% block content %}{% endblock %}
-  </div>
+  // Scroll-To-Top Button Logic
+  window.onscroll = function () {
+    const btn = document.getElementById("scrollTopBtn");
+    btn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
+  };
 
-  <!-- 🔝 Scroll to Top Button -->
-  <button onclick="scrollToTop()" id="scrollTopBtn" title="Go to top">
-    <i class="bi bi-arrow-up-short fs-3"></i>
-  </button>
+  function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
-  <!-- JS Libraries -->
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
-  <script src="https://cdn.jsdelivr.net/gh/blasten/turn.js@master/lib/turn.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/typeit@8.7.1/dist/typeit.umd.js"></script>
+  // Glow/Dark Mode Toggle
+  function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+  }
+</script>
 
-  <script>
-    AOS.init();
-
-    // Scroll-To-Top Button Logic
-    window.onscroll = function () {
-      const btn = document.getElementById("scrollTopBtn");
-      btn.style.display = (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) ? "block" : "none";
-    };
-
-    function scrollToTop() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    // Glow/Dark Mode Toggle
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-    }
-  </script>
-
-  <!-- 💬 Crisp Chat Widget -->
-  <script type="text/javascript">
-    window.$crisp = [];
-    window.CRISP_WEBSITE_ID = "818374bd-d533-48d4-807d-c52c0d8cf5a8";
-    (function () {
-      d = document;
-      s = d.createElement("script");
-      s.src = "https://client.crisp.chat/l.js";
-      s.async = 1;
-      d.getElementsByTagName("head")[0].appendChild(s);
-    })();
-  </script>
+<!-- 💬 Crisp Chat Widget -->
+<script type="text/javascript">
+  window.$crisp = [];
+  window.CRISP_WEBSITE_ID = "818374bd-d533-48d4-807d-c52c0d8cf5a8";
+  (function () {
+    d = document;
+    s = d.createElement("script");
+    s.src = "https://client.crisp.chat/l.js";
+    s.async = 1;
+    d.getElementsByTagName("head")[0].appendChild(s);
+  })();
+</script>
 
 </body>
 </html>

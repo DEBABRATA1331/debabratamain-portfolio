@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}About{% endblock %}
-{% block content %}
 
+{% block content %}
 <style>
   body {
     background: #0b0b0b;
@@ -56,7 +56,6 @@
     100% { text-shadow: 0 0 5px #ffeb3b; }
   }
 
-  /* Flipbook + Newspaper Styling */
   .page {
     background: #fff;
     color: #111;
@@ -86,6 +85,16 @@
   .newspaper-clip:hover .clip-content {
     opacity: 1;
     max-height: 200px;
+  }
+
+  @media (max-width: 768px) {
+    #flipbook {
+      width: 100% !important;
+      height: auto !important;
+    }
+    .page {
+      padding: 1rem;
+    }
   }
 </style>
 
@@ -148,8 +157,9 @@
   </div>
 </div>
 
+<!-- CTA -->
 <p class="mt-4 text-center">
-  Curious? <a href="{{ url_for('thank_you') }}" class="neon-text">See you Here</a>
+  Curious? <a href="{{ url_for('thank_you') }}" class="neon-text fw-bold">See You There</a>
 </p>
 
 <!-- AOS + Flipbook + Typewriter -->
@@ -177,5 +187,4 @@
     nextStringDelay: 2000
   }).go();
 </script>
-
 {% endblock %}
