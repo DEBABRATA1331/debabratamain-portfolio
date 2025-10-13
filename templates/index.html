@@ -54,39 +54,48 @@
   <a href="https://www.linkedin.com/in/debabrata-sahoo-ieee1331/" class="btn neon-btn m-2" target="_blank"><i class="bi bi-linkedin"></i> LinkedIn</a>
 </div>
 
-<!-- 🖼️ Photo Gallery Section -->
-<div class="container my-5 text-center" data-aos="fade-up">
-  <h2 class="neon-text mb-4">My Gallery</h2>
-  <div class="gallery-frame">
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        {% set captions = [
-          'At Malasiya Street',
-          'YESIST 2025',
-          'Siemens Healthineers Internship',
-          'Debabrata Sahoo',
-          'BBSR SECTION BEST STUDENT',
-          'IEEE EXCOM MEETING',
-          'IEEE DAY',
-          'SMART India Hackathon',
-          'IEEE CASS CHAIR',
-          'Meeting'
-        ] %}
-        {% for i in range(1, 11) %}
-        <div class="swiper-slide">
-          <div class="frame">
-            <img src="{{ url_for('static', filename='images/gallery' ~ i ~ '.jpeg') }}" alt="Photo {{ i }}">
-            <div class="caption">{{ captions[i-1] }}</div>
-          </div>
+<!-- =========================
+     🌌 GALLERY SECTION
+========================= -->
+<section id="gallery" class="container my-5 text-center" data-aos="fade-up">
+  <h2 class="neon-text mb-4 animate__animated animate__fadeInDown">My Gallery</h2>
+
+  <!-- Swiper Container -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <!-- Slides -->
+      <div class="swiper-slide">
+        <div class="frame" data-caption="IEEE Day 2024">
+          <img src="{{ url_for('static', filename='images/gallery1.jpeg') }}" alt="Gallery 1">
         </div>
-        {% endfor %}
       </div>
-      <div class="swiper-pagination"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-button-next"></div>
+
+      <div class="swiper-slide">
+        <div class="frame" data-caption="Tech Expo Showcase">
+          <img src="{{ url_for('static', filename='images/gallery2.jpeg') }}" alt="Gallery 2">
+        </div>
+      </div>
+
+      <div class="swiper-slide">
+        <div class="frame" data-caption="Project Demo">
+          <img src="{{ url_for('static', filename='images/gallery3.jpeg') }}" alt="Gallery 3">
+        </div>
+      </div>
+
+      <div class="swiper-slide">
+        <div class="frame" data-caption="Event Celebration">
+          <img src="{{ url_for('static', filename='images/gallery4.jpeg') }}" alt="Gallery 4">
+        </div>
+      </div>
     </div>
+
+    <!-- Pagination & Navigation -->
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-next"></div>
+    <div class="swiper-button-prev"></div>
   </div>
-</div>
+</section>
+
 
 <!-- About Button -->
 <div class="text-center my-4" data-aos="fade-up" data-aos-delay="900">
