@@ -63,7 +63,7 @@
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
 
-      {% for i, caption in enumerate([
+      {% set captions = [
         'At Malasiya Street',
         'YESIST 2025',
         'Siemens Healthineers Internship',
@@ -74,10 +74,12 @@
         'SMART India Hackathon',
         'IEEE CASS CHAIR',
         'Meeting'
-      ]) %}
+      ] %}
+
+      {% for caption in captions %}
       <div class="swiper-slide">
-        <div class="frame" data-caption="{{ i+1 }}. {{ caption }}">
-          <img src="{{ url_for('static', filename='images/gallery{{ i+1 }}.jpeg') }}" alt="{{ caption }}">
+        <div class="frame" data-caption="{{ loop.index }}. {{ caption }}">
+          <img src="{{ url_for('static', filename='images/gallery' ~ loop.index ~ '.jpeg') }}" alt="{{ caption }}">
         </div>
       </div>
       {% endfor %}
