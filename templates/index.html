@@ -156,8 +156,8 @@
 
 <!-- Resume & Social -->
 <div class="text-center my-5" data-aos="zoom-in" data-aos-delay="700">
-  <h2 class="neon-text mb-4">📂 Resume & Links</h2>
-  <a href="https://drive.google.com/file/d/1KLeJrgbpvwbYsrcUyyKPCAK_7ZlPfsoP/view?usp=drive_link"
+  <h2 class="neon-text mb-4">Resume & Links</h2>
+  <a href="https://drive.google.com/file/d/14Lm3OxlRoDXwOQiAxLcS4eRapKMqIXO9/view?usp=drive_link"
      class="btn neon-btn m-2" target="_blank">📄 View Resume (PDF)</a>
 
   <a href="https://github.com/DEBABRATA1331" class="btn neon-btn m-2" target="_blank">
@@ -169,6 +169,61 @@
     <i class="bi bi-linkedin"></i> LinkedIn
   </a>
 </div>
+<!-- Photo Gallery Section -->
+<div class="container my-5 text-center" data-aos="fade-up">
+  <h2 class="neon-text mb-4">My Gallery</h2>
+
+  <!-- Swiper Container -->
+  <div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide"><img src="{{ url_for('static', filename='images/gallery1.jpg') }}" alt="Photo 1"></div>
+      <div class="swiper-slide"><img src="{{ url_for('static', filename='images/gallery2.jpg') }}" alt="Photo 2"></div>
+      <div class="swiper-slide"><img src="{{ url_for('static', filename='images/gallery3.jpg') }}" alt="Photo 3"></div>
+      <div class="swiper-slide"><img src="{{ url_for('static', filename='images/gallery4.jpg') }}" alt="Photo 4"></div>
+      <div class="swiper-slide"><img src="{{ url_for('static', filename='images/gallery5.jpg') }}" alt="Photo 5"></div>
+	  <div class="swiper-slide"><img src="{{ url_for('static', filename='images/gallery5.jpg') }}" alt="Photo 6"></div>
+	  <div class="swiper-slide"><img src="{{ url_for('static', filename='images/gallery5.jpg') }}" alt="Photo 7"></div>
+	  <div class="swiper-slide"><img src="{{ url_for('static', filename='images/gallery5.jpg') }}" alt="Photo 8"></div>
+	  <div class="swiper-slide"><img src="{{ url_for('static', filename='images/gallery5.jpg') }}" alt="Photo 9"></div>
+	  <div class="swiper-slide"><img src="{{ url_for('static', filename='images/gallery5.jpg') }}" alt="Photo 10"></div>
+    </div>
+    <!-- Pagination and navigation -->
+    <div class="swiper-pagination"></div>
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+  </div>
+</div>
+
+<!-- Swiper.js CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+
+<!-- Swiper Init -->
+<script>
+  const swiper = new Swiper(".mySwiper", {
+    loop: true,
+    spaceBetween: 20,
+    centeredSlides: true,
+    autoplay: {
+      delay: 2500,
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    effect: "coverflow",
+    coverflowEffect: {
+      rotate: 30,
+      slideShadows: false,
+    },
+  });
+</script>
+
 
 <!-- About -->
 <div class="text-center my-4" data-aos="fade-up" data-aos-delay="900">
