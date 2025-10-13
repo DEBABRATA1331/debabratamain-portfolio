@@ -1,0 +1,264 @@
+{% extends 'base.html' %}
+
+{% block title %}Internship{% endblock %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Debabrata Sahoo - Internship Experience Timeline (Neon)</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Load Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        /* --- NEON THEME DEFINITIONS --- */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        
+        :root {
+            /* Neon Colors */
+            --neon-blue: #00e5ff;   /* Primary/Digital */
+            --neon-red: #ff3366;    /* Accent/Hardware */
+            --neon-green: #66ff33;  /* Secondary/IoT */
+            
+            /* Base Colors (Dark Mode Forced) */
+            --bg-dark: #080a18;     /* Very deep dark blue/black background */
+            --text-color: #e0f7fa;  /* Pale text for contrast */
+            --card-bg: rgba(17, 24, 39, 0.7); /* Slightly transparent dark card */
+            --border-color: rgba(0, 229, 255, 0.3);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-color);
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        /* NEON GLOW UTILITIES */
+        .neon-glow-text {
+            color: var(--neon-blue);
+            text-shadow: 
+                0 0 5px rgba(0, 229, 255, 0.6),
+                0 0 10px rgba(0, 229, 255, 0.4);
+        }
+
+        .title-glow-lg {
+            color: #ffffff; /* White center for brightness */
+            text-shadow: 
+                0 0 8px #ffffff, /* Inner white glow */
+                0 0 15px var(--neon-blue),
+                0 0 30px var(--neon-blue);
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--border-color);
+            /* Subtle box shadow for lift */
+            box-shadow: 0 0 8px rgba(0, 229, 255, 0.1); 
+        }
+        .card:hover {
+            box-shadow: 0 0 20px rgba(0, 229, 255, 0.3);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        /* --- Custom Glow Links/Buttons --- */
+        .neon-link {
+            color: var(--neon-blue);
+            text-shadow: 0 0 4px var(--neon-blue);
+            transition: all 0.3s;
+        }
+        .neon-link:hover {
+            color: #ffffff;
+            text-shadow: 0 0 8px var(--neon-blue), 0 0 15px var(--neon-blue);
+        }
+
+        /* --- INTERNSHIP SPECIFIC BORDER/GLOW ACCENTS --- */
+        .border-digital { border-left-color: var(--neon-blue); }
+        .glow-digital { color: var(--neon-blue); text-shadow: 0 0 5px rgba(0, 229, 255, 0.6); }
+
+        .border-hardware { border-left-color: var(--neon-red); }
+        .glow-hardware { color: var(--neon-red); text-shadow: 0 0 5px rgba(255, 51, 102, 0.6); }
+
+        .border-misc { border-left-color: var(--neon-green); }
+        .glow-misc { color: var(--neon-green); text-shadow: 0 0 5px rgba(102, 255, 51, 0.6); }
+        
+        /* --- Animation Styles (Kept) --- */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+        .fade-in-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            // Force dark class to enable dark theme utilities if needed
+            darkMode: 'class', 
+            theme: {
+                extend: {
+                    colors: {
+                        'nblue': 'var(--neon-blue)',
+                        'nred': 'var(--neon-red)',
+                        'ngreen': 'var(--neon-green)',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="dark bg-gray-900">
+    <!-- Dark Mode Toggle Button (Styled for Neon Look) -->
+    <button id="theme-toggle" class="fixed top-4 right-4 p-3 rounded-full z-50 shadow-lg bg-gray-800 border border-nblue hover:bg-gray-700 transition-colors">
+        <!-- Sun icon (for switching to light, but we're mostly dark here) -->
+        <i data-lucide="sun" class="w-6 h-6 text-nblue neon-glow-text"></i>
+    </button>
+
+    <main class="max-w-4xl mx-auto p-4 sm:p-8">
+        <!-- HEADER / HERO SECTION - Uses Title Glow -->
+        <header class="text-center py-12 mb-12 bg-gray-800 rounded-xl shadow-2xl fade-in-up border border-nblue/50">
+            <div class="flex flex-col items-center">
+                <div class="w-20 h-20 sm:w-24 sm:h-24 bg-nblue text-gray-900 flex items-center justify-center rounded-full text-4xl sm:text-5xl font-extrabold mb-3 animate-pulse border-4 border-white/50">DS</div>
+                <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-1 title-glow-lg">Debabrata Sahoo</h1>
+                <p class="text-lg sm:text-xl font-semibold neon-glow-text">Comprehensive Internship Timeline</p>
+                <p class="text-sm text-gray-400 mt-2">Electronics & Telecommunication Engineering | Digital Automation & VLSI</p>
+            </div>
+            <div class="mt-4 flex flex-wrap justify-center space-x-4 text-sm sm:text-base">
+                <a href="mailto:debabrata.1331.ind@ieee.org" class="flex items-center neon-link transition-colors">
+                    <i data-lucide="mail" class="w-4 h-4 mr-1"></i> debabrata.1331.ind@ieee.org
+                </a>
+                <a href="https://github.com/DEBABRATA1331" target="_blank" class="flex items-center neon-link transition-colors">
+                    <i data-lucide="github" class="w-4 h-4 mr-1"></i> GitHub Profile
+                </a>
+                <!-- NEW CERTIFICATE LINK ADDED HERE -->
+                <a href="https://drive.google.com/file/d/1aNPnx7NBvx0vQqRu9fQxg_vIgX-RcDLz/view?usp=drive_link" target="_blank" class="flex items-center neon-link transition-colors">
+                    <i data-lucide="award" class="w-4 h-4 mr-1"></i> Certificate Link
+                </a>
+            </div>
+        </header>
+
+        <!-- INTERNSHIP EXPERIENCE SECTION - FOCUSED TIMELINE -->
+        <section id="experience" class="fade-in-up">
+            <h2 class="text-3xl font-bold border-b-4 border-nblue pb-2 mb-8 text-center neon-glow-text">Internship Experience (2023 - 2025)</h2>
+            <div class="space-y-8">
+                
+                <!-- 1. Digital & Automation Intern (Siemens Healthineers) -->
+                <div class="card p-6 rounded-xl border-l-8 border-digital hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-shadow fade-in-up">
+                    <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-nblue/10 glow-digital">Digital Automation</span>
+                    <h3 class="text-2xl font-bold mt-2 glow-digital">Digital & Automation Intern</h3>
+                    <p class="text-lg font-medium text-gray-400 mb-3">Siemens Healthineers, Bengaluru | May '25 - Jul '25</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-sm sm:text-base text-gray-300">
+                        <li>Automated key workflows involving SBOM tracking, DICOM data processing, and Mail-Automation for healthcare applications.</li>
+                        <li>Gained hands-on experience in digital automation using cloud tools and healthcare interoperability standards.</li>
+                    </ul>
+                </div>
+                
+                <!-- 2. IoT Trainee (CTTC) -->
+                <div class="card p-6 rounded-xl border-l-8 border-misc hover:shadow-[0_0_20px_rgba(102,255,51,0.4)] transition-shadow fade-in-up">
+                    <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-ngreen/10 glow-misc">Embedded/IoT</span>
+                    <h3 class="text-2xl font-bold mt-2 glow-misc">IoT Trainee (Embedded Systems)</h3>
+                    <p class="text-lg font-medium text-gray-400 mb-3">CTTC, Bhubaneswar | Dec '24 - Jan '25</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-sm sm:text-base text-gray-300">
+                        <li>Developed IoT cloud projects using ESP32 for real-time data monitoring.</li>
+                        <li>Successfully integrated various sensors with cloud platforms.</li>
+                    </ul>
+                </div>
+
+                <!-- 3. Electric Vehicle Charging System (NIT Manipur) -->
+                <div class="card p-6 rounded-xl border-l-8 border-digital hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-shadow fade-in-up">
+                    <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-nblue/10 glow-digital">Research & Digital Twin</span>
+                    <h3 class="text-2xl font-bold mt-2 glow-digital">EV Charging System Research Intern</h3>
+                    <p class="text-lg font-medium text-gray-400 mb-3">NIT Manipur (IEEE Silchar subsection) | Jun '24 - Aug '24</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-sm sm:text-base text-gray-300">
+                        <li>Conducted feasibility studies for Digital Twin Technology in Electric Vehicle Charging Systems.</li>
+                        <li>Focused on enhancing energy efficiency and performance tracking.</li>
+                    </ul>
+                </div>
+                
+                <!-- 4. Intern Trans India Technology (SDLC/Software) -->
+                <div class="card p-6 rounded-xl border-l-8 border-misc hover:shadow-[0_0_20px_rgba(102,255,51,0.4)] transition-shadow fade-in-up">
+                    <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-ngreen/10 glow-misc">Software Development</span>
+                    <h3 class="text-2xl font-bold mt-2 glow-misc">Software Development Intern (SDLC Exposure)</h3>
+                    <p class="text-lg font-medium text-gray-400 mb-3">Trans India Technology | Jun '24 - Jul '24</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-sm sm:text-base text-gray-300">
+                        <li>Gained exposure to the Software Development Life Cycle (SDLC).</li>
+                        <li>Familiarized with enterprise-level solutions in e-commerce and logistics domains.</li>
+                    </ul>
+                </div>
+
+                <!-- 5. VLSI Trainee (CTTC) -->
+                <div class="card p-6 rounded-xl border-l-8 border-hardware hover:shadow-[0_0_20px_rgba(255,51,102,0.4)] transition-shadow fade-in-up">
+                    <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-nred/10 glow-hardware">VLSI Design</span>
+                    <h3 class="text-2xl font-bold mt-2 glow-hardware">VLSI Trainee (Design & Verification)</h3>
+                    <p class="text-lg font-medium text-gray-400 mb-3">CTTC, Bhubaneswar | May '24 - Jun '24</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-sm sm:text-base text-gray-300">
+                        <li>Worked on VLSI Design & Verification methodologies.</li>
+                        <li>Utilized industry tools like DSCH2, Xilinx, & Quartus for practical application.</li>
+                    </ul>
+                </div>
+                
+                <!-- 6. VLSI Trainee (IIT Bangalore/Intel/VSD) - Longest -->
+                <div class="card p-6 rounded-xl border-l-8 border-hardware hover:shadow-[0_0_20px_rgba(255,51,102,0.4)] transition-shadow fade-in-up">
+                    <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-nred/10 glow-hardware">VLSI Optimization (6 Months)</span>
+                    <h3 class="text-2xl font-bold mt-2 glow-hardware">VLSI Trainee (Design Optimization)</h3>
+                    <p class="text-lg font-medium text-gray-400 mb-3">IIT Bangalore (Intel and VSD) | Nov '23 - Mar '24</p>
+                    <ul class="list-disc list-inside space-y-1 ml-4 text-sm sm:text-base text-gray-300">
+                        <li>Completed 6 months of hands-on experience in advanced VLSI design methodologies.</li>
+                        <li>Optimized digital circuits for significant improvement in power, performance, and speed metrics.</li>
+                    </ul>
+                </div>
+
+            </div>
+        </section>
+        
+        <!-- FOOTER -->
+        <footer class="text-center pt-8 border-t border-nblue/30 mt-12 fade-in-up">
+            <p class="text-sm text-gray-500">&copy; 2025 Debabrata Sahoo. Internship Experience Summary.</p>
+        </footer>
+
+    </main>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // 1. Theme Toggle Logic (Kept simple, as the primary theme is dark neon)
+        const themeToggle = document.getElementById('theme-toggle');
+        // This button now primarily serves as an aesthetic element in the dark theme
+        themeToggle.addEventListener('click', () => {
+            console.log('Theme toggle clicked, but forced to dark neon theme for consistent aesthetic.');
+            // You can implement a true light mode here if needed, but the neon theme is currently forced.
+        });
+
+
+        // 2. Scroll Animation Logic (Intersection Observer) - KEPT
+        const faders = document.querySelectorAll('.fade-in-up');
+
+        const appearOptions = {
+            threshold: 0,
+            rootMargin: "0px 0px -100px 0px" 
+        };
+
+        const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) {
+                    return;
+                } else {
+                    entry.target.classList.add('is-visible');
+                    appearOnScroll.unobserve(entry.target);
+                }
+            });
+        }, appearOptions);
+
+        faders.forEach(fader => {
+            appearOnScroll.observe(fader);
+        });
+        
+    </script>
+</body>
+</html>
