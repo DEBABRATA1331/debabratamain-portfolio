@@ -1,24 +1,185 @@
 {% extends 'base.html' %}
-
 {% block title %}Thank You{% endblock %}
-
 {% block content %}
 <div class="container text-center mt-5" data-aos="zoom-in">
-    <h2 class="neon-text fw-bold">Thank You for Reaching Out!</h2>
-    <p class="lead">I'll get back to you as soon as possible. You may explore more below:</p>
+  <h2 class="fw-bold neon-glow" id="glowTitle">🎉 Thank You for Reaching Out!</h2>
+  <p class="lead">I'll get back to you soon. Meanwhile — test your skills and have fun! 🎮</p>
 
-    <!-- Flash message display -->
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <div class="alert alert-success mt-3">
-          {{ messages[0] }}
-        </div>
-      {% endif %}
-    {% endwith %}
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      <div class="alert alert-success mt-3">{{ messages[0] }}</div>
+    {% endif %}
+  {% endwith %}
 
-    <div class="mt-4">
-        <a href="{{ url_for('home') }}" class="btn neon-btn m-2">🏠 Back to Home</a>
-        <a href="{{ url_for('projects') }}" class="btn neon-btn m-2">💡 View Projects</a>
+  <p class="glow-yellow mt-4 fst-italic">“Innovation distinguishes between a leader and a follower.” — Steve Jobs</p>
+
+  <!-- ⚡ Reaction Time Game -->
+  <div class="my-5 text-center">
+    <h4 class="neon-text">Test Your Reaction Time ⚡</h4>
+    <p class="glow-yellow">Click the button as soon as it turns blue!</p>
+    <button id="reactionButton" class="btn neon-btn mt-3 w-100 w-md-auto">Wait for it...</button>
+    <p class="mt-3" id="reactionResult"></p>
+  </div>
+  
+  <!-- 🏓 Pong Game (Mobile Friendly) -->
+  <div class="my-5">
+    <h4 class="neon-text">Pong Challenge 🏓</h4>
+    <div class="ratio ratio-16x9">
+      <canvas id="pong" style="border: 2px solid #00f7ff; border-radius: 10px; width: 100%; height: 100%;"></canvas>
     </div>
+  </div>
+
+  <!-- 🔙 Back to Home -->
+  <div class="mt-5">
+    <a href="{{ url_for('home') }}" class="btn neon-btn w-100 w-md-auto m-2">🏠 Back to Home</a>
+  </div>
 </div>
+
+<!-- 🎉 Confetti -->
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+<script>
+  window.onload = () => {
+    confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+    startGame();
+    pongLoop();
+  };
+</script>
+
+<!-- ⚡ Reaction Time Game -->
+<script>
+  let startTime;
+  const button = document.getElementById("reactionButton");
+  const result = document.getElementById("reactionResult");
+
+  function startGame() {
+    button.textContent = "Wait for it...";
+    button.disabled = true;
+    button.style.background = "transparent";
+    result.textContent = "";
+    let delay = Math.floor(Math.random() * 3000) + 1500; // easy mode: faster start
+    setTimeout(() => {
+      button.textContent = "Click!";
+      button.style.background = "#00f7ff";
+      button.disabled = false;
+      startTime = new Date().getTime();
+    }, delay);
+  }
+
+  button.addEventListener("click", () => {
+    if (startTime) {
+      let reactionTime = new Date().getTime() - startTime;
+      result.innerHTML = `⚡ Your Reaction Time: <strong>${reactionTime} ms</strong>`;
+      button.style.background = "transparent";
+      button.disabled = true;
+    }
+  });
+</script>
+
+<!-- 🎮 Pong Game Script (Mobile Tap + Easy Mode) -->
+<script>
+  const canvas = document.getElementById("pong");
+  const ctx = canvas.getContext("2d");
+
+  const paddleWidth = 10, paddleHeight = 60, ballRadius = 8;
+  let playerY = canvas.height / 2 - paddleHeight / 2;
+  let aiY = playerY;
+  let ballX = canvas.width / 2;
+  let ballY = canvas.height / 2;
+  let ballSpeedX = 3; // ✅ Easy mode: slower ball
+  let ballSpeedY = 2.5; // ✅ Easy mode: slower ball
+
+  let playerScore = 0;
+  let aiScore = 0;
+
+  function drawRect(x, y, w, h, color) {
+    ctx.fillStyle = color;
+    ctx.fillRect(x, y, w, h);
+  }
+
+  function drawCircle(x, y, r, color) {
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI * 2);
+    ctx.fill();
+  }
+
+  function drawText(txt, x, y, color) {
+    ctx.fillStyle = color;
+    ctx.font = "20px monospace";
+    ctx.fillText(txt, x, y);
+  }
+
+  function renderPong() {
+    drawRect(0, 0, canvas.width, canvas.height, "#111"); 
+    drawRect(0, playerY, paddleWidth, paddleHeight, "#00f7ff");
+    drawRect(canvas.width - paddleWidth, aiY, paddleWidth, paddleHeight, "#00f7ff");
+    drawCircle(ballX, ballY, ballRadius, "#ffffff");
+    drawText(`Player: ${playerScore}`, 20, 25, "#00f7ff");
+    drawText(`AI: ${aiScore}`, canvas.width - 100, 25, "#00f7ff");
+  }
+
+  function resetBall() {
+    ballX = canvas.width / 2;
+    ballY = canvas.height / 2;
+    ballSpeedX *= -1;
+    ballSpeedY = 2.5;
+  }
+
+  function moveBall() {
+    ballX += ballSpeedX;
+    ballY += ballSpeedY;
+
+    if (ballY + ballRadius > canvas.height || ballY - ballRadius < 0)
+      ballSpeedY *= -1;
+
+    if (ballX - ballRadius < paddleWidth && ballY > playerY && ballY < playerY + paddleHeight)
+      ballSpeedX *= -1;
+
+    if (ballX + ballRadius > canvas.width - paddleWidth && ballY > aiY && ballY < aiY + paddleHeight)
+      ballSpeedX *= -1;
+
+    if (ballX < 0) { aiScore++; resetBall(); }
+    else if (ballX > canvas.width) { playerScore++; resetBall(); }
+
+    aiY += (ballY - (aiY + paddleHeight / 2)) * 0.05; // ✅ Easier AI: slower follow
+  }
+
+  // ✅ Mouse + Mobile Tap Support
+  function updatePlayerPos(y) {
+    const rect = canvas.getBoundingClientRect();
+    playerY = y - rect.top - paddleHeight / 2;
+  }
+
+  canvas.addEventListener("mousemove", e => updatePlayerPos(e.clientY));
+  canvas.addEventListener("touchmove", e => {
+    e.preventDefault();
+    updatePlayerPos(e.touches[0].clientY);
+  }, { passive: false });
+
+  function pongLoop() {
+    moveBall();
+    renderPong();
+    requestAnimationFrame(pongLoop);
+  }
+</script>
+
+<!-- 💫 Neon + Mobile Styles -->
+<style>
+  .neon-glow {
+    color: #ffeb3b;
+    text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b, 0 0 30px #ffeb3b;
+    animation: pulse 2s infinite ease-in-out;
+  }
+  @keyframes pulse {
+    0% { text-shadow: 0 0 5px #ffeb3b; }
+    50% { text-shadow: 0 0 15px #ffeb3b, 0 0 25px #ffeb3b; }
+    100% { text-shadow: 0 0 5px #ffeb3b; }
+  }
+  .glow-yellow { color: #ffeb3b; text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b; }
+  @media (max-width: 576px) {
+    .neon-glow { font-size: 1.4rem; }
+    #pong { height: 200px !important; }
+    .btn { font-size: 1rem; }
+  }
+</style>
 {% endblock %}

@@ -1,88 +1,190 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>About Me</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-  <style>
-    .glow-title {
-      color: #00f7ff;
-      text-shadow: 0 0 5px #00f7ff, 0 0 10px #00f7ff, 0 0 20px #00f7ff;
-    }
-    .card-3d {
-      transition: transform 0.4s ease, box-shadow 0.4s ease;
-      border-left: 5px solid #198754;
-    }
-    .card-3d:hover {
-      transform: rotateY(5deg) scale(1.03);
-      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
-    }
-    .dropdown-toggle:focus, .btn-outline-primary:hover {
-      transform: scale(1.05);
-      box-shadow: 0 0 10px #007bff;
-    }
-  </style>
-</head>
-<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="70" tabindex="0">
+{% extends 'base.html' %}
+{% block title %}About{% endblock %}
 
-<div class="container my-5 text-center" data-aos="fade-down" data-aos-duration="1200">
-  <h2 class="fw-bold glow-title">About Me</h2>
-  <p class="lead mt-3">
-    I’m a dual-degree student at VSSUT (B.Tech in E&TC) and IIT Madras (BS in Data Science). I'm actively engaged in innovation through IEEE and tech-driven development.
+{% block content %}
+<style>
+  body {
+    background: #0b0b0b;
+    color: #e0f7fa;
+    font-family: 'Segoe UI', sans-serif;
+  }
+
+  .neon-text {
+    color: #00f7ff;
+    text-shadow: 0 0 8px #00f7ff, 0 0 20px #00f7ff;
+  }
+
+  .glow-yellow {
+    color: #ffeb3b;
+    text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b, 0 0 30px #ffeb3b;
+    font-weight: 600;
+  }
+
+  .about-section {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 2rem;
+    background: #121212;
+    border-left: 4px solid #00f7ff;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 247, 255, 0.15);
+  }
+
+  .about-title {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .about-icon {
+    font-size: 2rem;
+    margin-right: 10px;
+    vertical-align: middle;
+  }
+
+  .about-description {
+    font-size: 1.2rem;
+    line-height: 1.7;
+    margin-bottom: 1rem;
+    color: #ffeb3b;
+    text-shadow: 0 0 5px #ffeb3b;
+    animation: glowPulse 3s ease-in-out infinite;
+  }
+
+  @keyframes glowPulse {
+    0% { text-shadow: 0 0 5px #ffeb3b; }
+    50% { text-shadow: 0 0 15px #ffeb3b, 0 0 25px #ffeb3b; }
+    100% { text-shadow: 0 0 5px #ffeb3b; }
+  }
+
+  .page {
+    background: #fff;
+    color: #111;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 4px rgba(0,0,0,0.2);
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    text-align: left;
+    transition: transform 0.3s;
+  }
+
+  .newspaper-clip h3 {
+    font-size: 1.4rem;
+    color: #000;
+    margin-bottom: 0.5rem;
+  }
+
+  .clip-content {
+    font-style: italic;
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+  }
+
+  .newspaper-clip:hover .clip-content {
+    opacity: 1;
+    max-height: 200px;
+  }
+
+  @media (max-width: 768px) {
+    #flipbook {
+      width: 100% !important;
+      height: auto !important;
+    }
+    .page {
+      padding: 1rem;
+    }
+  }
+</style>
+
+<!-- About Section -->
+<section class="about-section" data-aos="fade-up">
+  <h1 class="neon-text about-title">
+    <i class="bi bi-person-fill about-icon"></i> About Me
+  </h1>
+
+  <p class="about-description animate__animated animate__fadeInDown">
+    I’m <strong>Debabrata Sahoo</strong>, a dual-degree student in <strong>Electronics & Telecommunication Engineering at VSSUT, Burla</strong> and pursuing a <strong>BS in Data Science & Applications from IIT Madras</strong>. With a strong drive for innovation...
   </p>
-</div>
+  <p class="about-description animate__animated animate__fadeInLeft">
+    Over the years, I’ve actively led technical teams through IEEE...
+  </p>
+  <p class="about-description animate__animated animate__fadeInRight animate__delay-1s">
+    Beyond technical work, I’m passionate about mentorship, public speaking, and writing...
+  </p>
+  <p class="about-description animate__animated animate__fadeInUp animate__delay-2s">
+    I strive to align emerging technologies with real-world problems...
+  </p>
+</section>
 
-<div class="container my-5">
-  <h3 class="text-center mb-4 glow-title" data-aos="fade-up" data-aos-duration="1200">Leadership Roles</h3>
-  <div class="row g-4 text-center">
+<!-- Flipbook Section -->
+<div class="container my-5 text-center" data-aos="fade-up">
+  <h2 class="neon-text mb-4" id="typed-headline"></h2>
 
-    <!-- Vice Chair -->
-    <div class="col-md-6" data-aos="flip-left" data-aos-delay="200">
-      <div class="card-3d p-4 border rounded shadow-sm bg-white h-100">
-        <h5 class="fw-bold">Vice Chairman</h5>
-        <p>IEEE VSSUT Student Branch</p>
-        <div class="dropdown mt-2">
-          <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-            Certificate
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <a class="dropdown-item" href="https://drive.google.com/file/d/191Xa6j8j-bYIqHOJ5X0SofFPAwTkiada/view" target="_blank">View Certificate</a>
-            </li>
-          </ul>
-        </div>
+  <div id="flipbook" style="width: 800px; height: 500px; margin: auto;">
+    <div class="page newspaper-clip">
+      <h3>🗞️ Vice-Chair</h3>
+      <p>IEEE VSSUT Student Branch</p>
+      <div class="clip-content">
+        Led a 200+ member team, organized YESIST12 qualifier, national hackathons, and industrial visits.
       </div>
     </div>
 
-    <!-- CASS Chair -->
-    <div class="col-md-6" data-aos="flip-right" data-aos-delay="400">
-      <div class="card-3d p-4 border rounded shadow-sm bg-white h-100">
-        <h5 class="fw-bold">Chair</h5>
-        <p>IEEE Circuits and Systems (CASS) Chapter</p>
-        <div class="dropdown mt-2">
-          <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-            Certificate
-          </button>
-          <ul class="dropdown-menu">
-            <li>
-              <a class="dropdown-item" href="https://drive.google.com/file/d/1ow2VDhGOz7g_N9KRhixBhFo7kKpP1zvt/view" target="_blank">View Certificate</a>
-            </li>
-          </ul>
-        </div>
+    <div class="page newspaper-clip">
+      <h3>🗞️ Chair</h3>
+      <p>IEEE CASS Chapter</p>
+      <div class="clip-content">
+        Conducted circuits bootcamps, led CASS ExCom meets and innovation drives.
       </div>
     </div>
 
-    <!-- You can add more roles similarly with increased delays -->
+    <div class="page newspaper-clip">
+      <h3>🗞️ Secretary</h3>
+      <p>IEEE COMSOC Chapter</p>
+      <div class="clip-content">
+        Planned workshops, hosted VLSI & Communication webinars, and IEEE Day celebrations.
+      </div>
+    </div>
+
+    <div class="page newspaper-clip">
+      <h3>🎨 Graphics Lead</h3>
+      <p>IEEE VSSUT</p>
+      <div class="clip-content">
+        Designed all chapter branding, posters, hackathon kits, and event logos.
+      </div>
+    </div>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- CTA -->
+<p class="mt-4 text-center">
+  Curious? <a href="{{ url_for('thank_you') }}" class="neon-text fw-bold">See You There</a>
+</p>
+
+<!-- AOS + Flipbook + Typewriter -->
 <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
 <script>
   AOS.init();
+
+  setTimeout(() => {
+    $('#flipbook').turn({
+      width: 800,
+      height: 500,
+      autoCenter: true
+    });
+  }, 500);
+
+  new TypeIt("#typed-headline", {
+    strings: [
+      "IEEE Times – Leadership Headlines 📰",
+      "Stories from My Student Leadership Journey 🧑‍💼"
+    ],
+    speed: 60,
+    breakLines: false,
+    loop: true,
+    deleteSpeed: 30,
+    nextStringDelay: 2000
+  }).go();
 </script>
-</body>
-</html>
+{% endblock %}

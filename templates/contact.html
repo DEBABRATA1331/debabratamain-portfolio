@@ -1,127 +1,197 @@
 {% extends 'base.html' %}
-{% block title %}Contact Me{% endblock %}
+{% block title %}Contact{% endblock %}
 
 {% block content %}
-<!-- Animated Ring and Header -->
-<div class="container text-center mt-5" data-aos="fade-down" data-aos-delay="100">
-  <div class="pulse-ring"></div>
-  <h2 class="fw-bold neon-text">Contact Me</h2>
-  <p class="lead">Let’s connect! Feel free to reach out for collaboration, internships, or IEEE projects.</p>
-</div>
+<canvas id="pongMessageBall" height="300" style="width: 100%; background: #0b0b0b; display: block; border-radius: 10px; margin-bottom: 2rem;"></canvas>
 
-<!-- Contact Form -->
-<div class="container my-5" id="contactSection">
-  <div class="row justify-content-center">
-    <div class="col-md-8 glow-box" data-aos="fade-up" data-aos-delay="200">
-      <form id="contactForm">
-        <div class="mb-3 text-start">
-          <label class="form-label neon-text" for="name">Your Name</label>
-          <input type="text" id="name" class="form-control form-field" required placeholder="Enter your name" />
-        </div>
-        <div class="mb-3 text-start">
-          <label class="form-label neon-text" for="email">Email Address</label>
-          <input type="email" id="email" class="form-control form-field" required placeholder="name@example.com" />
-        </div>
-        <div class="mb-3 text-start">
-          <label class="form-label neon-text" for="subject">Subject</label>
-          <input type="text" id="subject" class="form-control form-field" required placeholder="Subject" />
-        </div>
-        <div class="mb-3 text-start">
-          <label class="form-label neon-text" for="message">Message</label>
-          <textarea id="message" class="form-control form-field" rows="5" required placeholder="Write your message here..."></textarea>
-        </div>
-        <div class="text-center">
-          <button class="btn neon-btn px-4 py-2" type="submit">Send Message</button>
-        </div>
-      </form>
+<section class="contact-section" data-aos="fade-up">
+  <h2 class="neon-text animate__animated animate__fadeInDown">
+    <i class="bi bi-chat-left-text-fill"></i> Contact Me
+  </h2>
+
+  <p class="typing-indicator">Debabrata is waiting to hear from you...</p>
+
+  <form method="POST" class="mt-4" onsubmit="showSendingAnimation(event)">
+    <input type="email" name="email" placeholder="Your Email" required>
+    <textarea name="message" rows="5" placeholder="Your Message..." required></textarea>
+
+    <label class="neon-text">Rate my CV (1-10):</label>
+    <select name="rating" required>
+      <option value="">Select</option>
+      {% for i in range(1,11) %}
+      <option value="{{ i }}">{{ i }}</option>
+      {% endfor %}
+    </select>
+
+    <button type="submit" class="btn" id="sendBtn">Send Message</button>
+
+    <div id="sendingStatus" style="display:none; margin-top: 10px;">
+      <lottie-player src="https://lottie.host/3c8bb38d-5ad4-4292-9b25-d1cbbe6e2d4d/xGAcZDLxUl.json" background="transparent" speed="1" style="width: 80px; height: 80px; margin: auto;" loop autoplay></lottie-player>
+      <p class="glow-yellow mt-2">Sending your message...</p>
     </div>
+  </form>
+
+  {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="glow-yellow mt-3">{{ message }}</div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  <div class="icon-links mt-4 text-center">
+    <a href="mailto:debabrata.1331.ind@ieee.org" title="Email"><i class="bi bi-envelope"></i></a>
+    <a href="https://wa.me/9560900718" title="WhatsApp"><i class="bi bi-whatsapp"></i></a>
+    <a href="https://www.linkedin.com/in/debabrata-sahoo-ieee1331/" target="_blank" title="LinkedIn"><i class="bi bi-linkedin"></i></a>
+	<a href="https://www.instagram.com/dev_1331_/" target="_blank" title="Instagram"><i class="bi bi-Instagram"></i></a>
   </div>
+</section>
+
+<div class="text-center mt-4">
+  <a href="{{ url_for('thank_you') }}" class="curious-btn">👀 See You There</a>
 </div>
 
-<!-- Thank You -->
-<div class="text-center my-5" id="thankYouMessage" style="display:none;" data-aos="zoom-in">
-  <h4 class="text-success fw-bold">Thank you for reaching out!</h4>
-  <p>I’ll respond as soon as possible.</p>
-</div>
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>AOS.init();</script>
 
-<!-- Social Links -->
-<div class="container text-center my-5" data-aos="fade-up" data-aos-delay="300">
-  <h5 class="neon-text mb-3">You can also reach me on:</h5>
-  <div class="dropdown d-inline-block">
-    <button class="btn neon-btn dropdown-toggle" data-bs-toggle="dropdown">Choose Platform</button>
-    <ul class="dropdown-menu dropdown-menu-dark animate__animated animate__fadeIn">
-      <li><a class="dropdown-item" href="mailto:youremail@example.com">Email</a></li>
-      <li><a class="dropdown-item" href="https://linkedin.com/in/your-profile" target="_blank">LinkedIn</a></li>
-      <li><a class="dropdown-item" href="https://github.com/DEBABRATA1331" target="_blank">GitHub</a></li>
-    </ul>
-  </div>
-</div>
-
-<!-- Rating -->
-<div class="container my-5" data-aos="zoom-in" data-aos-delay="500">
-  <h4 class="neon-text text-center mb-3">⭐ Rate My Portfolio</h4>
-  <div class="row justify-content-center">
-    <div class="col-md-6 text-center glow-box">
-      <label for="ratingRange" class="form-label">How would you rate this site?</label>
-      <input type="range" id="ratingRange" class="form-range" min="1" max="10" step="1" oninput="updateRating(this.value)">
-      <p class="mt-2">Selected Level: <span id="ratingValue" class="fw-bold">5</span>/10</p>
-      <button class="btn btn-outline-success" onclick="submitRating()">Submit Rating</button>
-    </div>
-  </div>
-</div>
-
-<!-- ChatBot -->
-<div class="container mt-5 glow-box" data-aos="fade-up" data-aos-delay="600">
-  <h5 class="fw-bold neon-text">💬 Chat With My Portfolio</h5>
-  <div class="mb-2">
-    <input type="text" id="chatInput" class="form-control form-field" placeholder="Type a question..." />
-  </div>
-  <button class="btn neon-btn" onclick="sendMessage()">Ask</button>
-  <div id="chatResponse" class="mt-3 text-primary fw-semibold"></div>
-</div>
-
-<!-- JS Scripts -->
 <script>
-  document.getElementById('contactForm').addEventListener('submit', async function (e) {
-    e.preventDefault();
-    const data = {
-      name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      subject: document.getElementById('subject').value,
-      message: document.getElementById('message').value
-    };
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data)
-    });
-    if (res.ok) {
-      document.getElementById('contactSection').style.display = 'none';
-      document.getElementById('thankYouMessage').style.display = 'block';
-    } else {
-      alert("Something went wrong.");
+  function showSendingAnimation(event) {
+    event.preventDefault();
+    document.getElementById('sendBtn').style.display = 'none';
+    document.getElementById('sendingStatus').style.display = 'block';
+    setTimeout(() => event.target.submit(), 2000);
+  }
+
+  const canvas = document.getElementById("pongMessageBall");
+  const ctx = canvas.getContext("2d");
+
+  function resizeCanvas() {
+    canvas.width = canvas.offsetWidth;
+  }
+  window.addEventListener('resize', resizeCanvas);
+  resizeCanvas();
+
+  let x = 50, y = 50, dx = 3, dy = 2.5, radius = 12;
+  const messages = [
+    "Don't hesitate to ask!",
+    "I'm just a bounce away.",
+    "Got questions? Let's connect.",
+    "Debabrata is listening...",
+    "Feel free to ping me!"
+  ];
+  let currentMsg = 0;
+
+  function drawBall() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fillStyle = "#00f7ff";
+    ctx.shadowBlur = 10;
+    ctx.shadowColor = "#00f7ff";
+    ctx.fill();
+    ctx.closePath();
+
+    ctx.font = "16px 'Segoe UI', sans-serif";
+    ctx.fillStyle = "#ffeb3b";
+    ctx.shadowBlur = 0;
+    ctx.fillText(messages[currentMsg], 20, 30);
+
+    x += dx; y += dy;
+    if (x + radius > canvas.width || x - radius < 0) {
+      dx *= -1; currentMsg = (currentMsg + 1) % messages.length;
     }
-  });
-
-  function updateRating(value) {
-    document.getElementById('ratingValue').innerText = value;
+    if (y + radius > canvas.height || y - radius < 0) {
+      dy *= -1; currentMsg = (currentMsg + 1) % messages.length;
+    }
+    requestAnimationFrame(drawBall);
   }
-
-  function submitRating() {
-    const rating = document.getElementById('ratingRange').value;
-    alert("Thank you! You rated this portfolio: " + rating + "/10");
-  }
-
-  async function sendMessage() {
-    const input = document.getElementById('chatInput').value;
-    if (!input.trim()) return;
-    const res = await fetch('/api/chat', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ message: input })
-    });
-    const result = await res.json();
-    document.getElementById('chatResponse').innerText = "🤖: " + result.reply;
-  }
+  drawBall();
 </script>
+
+<style>
+  .contact-section {
+    max-width: 750px;
+    margin: auto;
+    padding: 2rem;
+    background: #121212;
+    border-left: 4px solid #00f7ff;
+    border-radius: 12px;
+    box-shadow: 0 0 20px rgba(0, 247, 255, 0.15);
+  }
+  .typing-indicator {
+    font-style: italic;
+    color: #8efcff;
+    margin-top: 0.5rem;
+    animation: blink 1.2s infinite;
+  }
+  @keyframes blink {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+  input, textarea, select {
+    background: #1c1c1c;
+    color: #e0f7fa;
+    border: 1px solid #00f7ff;
+    border-radius: 6px;
+    padding: 0.8rem;
+    width: 100%;
+    margin-bottom: 1rem;
+    box-shadow: 0 0 10px rgba(0,247,255,0.15);
+  }
+  input::placeholder, textarea::placeholder {
+    color: #88d8f7;
+  }
+  input:focus, textarea:focus, select:focus {
+    outline: none;
+    border-color: #00f7ff;
+    box-shadow: 0 0 12px #00f7ff;
+  }
+  .btn {
+    background: transparent;
+    border: 2px solid #00f7ff;
+    color: #00f7ff;
+    font-weight: 600;
+    padding: 0.6rem 1.2rem;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+  .btn:hover {
+    background: #00f7ff;
+    color: #000;
+    box-shadow: 0 0 20px #00f7ff;
+  }
+  .icon-links a {
+    color: #00f7ff;
+    font-size: 1.8rem;
+    margin-right: 18px;
+    transition: color 0.3s ease;
+  }
+  .icon-links a:hover {
+    color: #ffeb3b;
+  }
+  .curious-btn {
+    display: inline-block;
+    padding: 0.7rem 1.5rem;
+    color: #ffeb3b;
+    background: #1c1c1c;
+    border: 2px solid #ffeb3b;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    box-shadow: 0 0 10px #ffeb3b;
+    transition: all 0.3s ease;
+  }
+  .curious-btn:hover {
+    background: #ffeb3b;
+    color: #000;
+    box-shadow: 0 0 20px #ffeb3b;
+  }
+  @media (max-width: 576px) {
+    .contact-section { padding: 1rem; }
+    input, textarea, select { font-size: 1rem; }
+    .icon-links a { font-size: 1.6rem; }
+    .curious-btn { width: 90%; text-align: center; }
+  }
+</style>
 {% endblock %}

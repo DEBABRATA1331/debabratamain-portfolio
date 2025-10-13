@@ -2,21 +2,65 @@
 {% block title %}Projects{% endblock %}
 {% block content %}
 
-<!-- Section Header -->
-<div class="container my-5 text-center" data-aos="fade-down" data-aos-duration="1000">
+<!-- Background Effects -->
+<div id="code-type-stream" class="background-task"></div>
+<svg class="background-waves" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+  <path fill="#00f7ff" fill-opacity="0.015" d="M0,128L60,138.7C120,149,240,171,360,160C480,149,600,107,720,96C840,85,960,107,1080,112C1200,117,1320,107,1380,101.3L1440,96L1440,0L1380,0C1320,0,1200,0,1080,0C960,0,840,0,720,0C600,0,480,0,360,0C240,0,120,0,60,0L0,0Z"></path>
+</svg>
+
+<!-- Header -->
+<div class="container my-5 text-center" data-aos="fade-down">
   <h2 class="fw-bold neon-text">My Key Projects</h2>
   <p class="lead text-muted">From real-time IoT systems to smart healthcare tools and VLSI designs.</p>
-  <div class="mt-2">
-    <i class="bi bi-cpu animated-icon mx-2"></i>
-    <i class="bi bi-diagram-3 animated-icon mx-2"></i>
-    <i class="bi bi-broadcast animated-icon mx-2"></i>
+</div>
+
+<!-- 🎮 Drag & Drop Mini Game -->
+<div class="container text-center my-5">
+  <h4 class="neon-text mb-4">🎮 Build the Project</h4>
+  <p class="glow-yellow mb-3">Drag the correct tech stack to build a project!</p>
+
+  <div class="d-flex justify-content-center flex-wrap gap-3 mb-3">
+    <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)" data-tech="HTML"><p>Drop HTML</p></div>
+    <div class="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)" data-tech="Arduino"><p>Drop Arduino</p></div>
+  </div>
+
+  <div class="d-flex justify-content-center flex-wrap gap-3">
+    <i class="bi bi-code-slash draggable-icon" draggable="true" ondragstart="drag(event)" id="HTML" title="HTML"></i>
+    <i class="bi bi-usb-symbol draggable-icon" draggable="true" ondragstart="drag(event)" id="Arduino" title="Arduino"></i>
+  </div>
+
+  <p id="build-result" class="mt-4 fw-bold"></p>
+</div>
+
+<!-- 🕹️ Project Slider -->
+<div class="container text-center my-5">
+  <h4 class="neon-text mb-3">🕹️ Project Slider</h4>
+  <div class="d-flex justify-content-center align-items-center gap-4 flex-wrap">
+    <button class="btn neon-btn" onclick="scrollProjects(-1)">◀</button>
+    <div id="project-carousel" class="carousel-wrapper">
+      <div class="carousel-item active">
+        <h5 class="fw-bold">Solar-Link</h5>
+        <p>Solar-powered LiFi communication for remote access.</p>
+        <a href="https://drive.google.com/file/d/1PEcIQ5ip4b_PSilPbxmSS2xfiC8yfiNZ/view?usp=sharing" class="btn neon-btn btn-sm" target="_blank">View</a>
+      </div>
+      <div class="carousel-item">
+        <h5 class="fw-bold">Glaucoma Detection</h5>
+        <p>Ultrasound-based IOP detection tool.</p>
+        <a href="https://drive.google.com/file/d/1PEcIQ5ip4b_PSilPbxmSS2xfiC8yfiNZ/view?usp=drive_link" class="btn neon-btn btn-sm" target="_blank">View</a>
+      </div>
+      <div class="carousel-item">
+        <h5 class="fw-bold">Smart IoT Irrigation</h5>
+        <p>ESP-based irrigation system with real-time cloud.</p>
+        <a href="https://drive.google.com/file/d/1u4FWkWaHBhu5U4VqkenKtS4-mHWraDJQ/view?usp=drive_link" class="btn neon-btn btn-sm" target="_blank">View</a>
+      </div>
+    </div>
+    <button class="btn neon-btn" onclick="scrollProjects(1)">▶</button>
   </div>
 </div>
 
-<!-- Project Grid -->
+<!-- 🧩 Full Project Grid -->
 <div class="container my-5">
   <div class="row g-4">
-
     {% set projects = [
       {
         'title': "Solar-Link (IEEE Global Top 100)",
@@ -30,11 +74,13 @@
       },
       {
         'title': "SBOM Comparison & Email Automation",
-        'desc': "Auto-tracks software changes & sends dynamic email summaries using PowerShell + Power Automate."
+        'desc': "Auto-tracks software changes & sends dynamic email summaries using PowerShell + Power Automate.",
+        'link': ""
       },
       {
         'title': "IEEE ExCom Automation Tool",
-        'desc': "Generates MoM, feedback reports & mass emails for IEEE chapters. Built with HTML + Python."
+        'desc': "Generates MoM, feedback reports & mass emails for IEEE chapters. Built with HTML + Python.",
+        'link': ""
       },
       {
         'title': "Smart IoT Irrigation",
@@ -52,14 +98,13 @@
         'link': "https://debabrata-portfolio-2.onrender.com/"
       }
     ] %}
-
     {% for project in projects %}
-    <div class="col-md-6" data-aos="zoom-in" data-aos-delay="{{ loop.index * 100 }}">
-      <div class="project-card">
+    <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+      <div class="project-card p-4 bg-dark rounded text-light shadow-sm h-100">
         <h5 class="fw-bold">{{ project.title }}</h5>
         <p>{{ project.desc }}</p>
         {% if project.link %}
-        <a href="{{ project.link }}" target="_blank" class="btn neon-btn btn-sm">View</a>
+        <a href="{{ project.link }}" class="btn neon-btn btn-sm" target="_blank">View</a>
         {% endif %}
       </div>
     </div>
@@ -67,13 +112,140 @@
   </div>
 </div>
 
-<!-- Project Category Links -->
-<div class="container my-5 text-center" data-aos="fade-up" data-aos-delay="800">
-  <h4 class="neon-text">Explore Project Categories</h4>
-  <div class="category-links">
-    <a href="https://drive.google.com/drive/folders/1_rUWlcyZKedZIsY3UJWOWaE9VGGnTglh?usp=drive_link" target="_blank" class="btn neon-btn">IoT Projects</a>
-    <a href="https://drive.google.com/drive/folders/1OGBVZXEuD9VAuFX9-1gDph3IFkVgFBNi?usp=sharing" target="_blank" class="btn neon-btn">VLSI Projects</a>
-  </div>
+<!-- 🔗 Category Links -->
+<div class="text-center my-5">
+  <h5 class="neon-text">Explore Project Categories</h5>
+  <a href="https://drive.google.com/drive/folders/1_rUWlcyZKedZIsY3UJWOWaE9VGGnTglh?usp=drive_link" class="btn neon-btn m-2" target="_blank">IoT Projects</a>
+  <a href="https://drive.google.com/drive/folders/1OGBVZXEuD9VAuFX9-1gDph3IFkVgFBNi?usp=sharing" class="btn neon-btn m-2" target="_blank">VLSI Projects</a>
 </div>
+
+<!-- 💡 CSS (Responsive Tweaks) -->
+<style>
+  body {
+    overflow-x: hidden;
+  }
+  .background-task {
+    position: fixed;
+    top: 0; left: 0;
+    z-index: -1;
+    font-family: monospace;
+    font-size: 12px;
+    color: #00ff88;
+    white-space: pre;
+    opacity: 0.06;
+    max-width: 100%;
+    overflow: hidden;
+  }
+  .background-waves {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    z-index: -1;
+    animation: waveFloat 18s linear infinite alternate;
+  }
+  @keyframes waveFloat {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-20px); }
+  }
+  .drop-zone {
+    width: 150px;
+    height: 80px;
+    border: 2px dashed #00f7ff;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #00f7ff;
+    background: #121212;
+    font-weight: 600;
+  }
+  .draggable-icon {
+    font-size: 2rem;
+    color: #00f7ff;
+    cursor: grab;
+  }
+  .carousel-wrapper {
+    max-width: 90%;
+    width: 300px;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+  }
+  .carousel-item {
+    display: none;
+    background: #121212;
+    padding: 1rem;
+    border-radius: 10px;
+    color: #fff;
+    box-shadow: 0 0 10px #00f7ff;
+  }
+  .carousel-item.active {
+    display: block;
+    animation: fadeIn 0.5s ease;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateX(-10px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+  @media (max-width: 768px) {
+    .drop-zone {
+      width: 120px;
+      height: 60px;
+      font-size: 0.8rem;
+    }
+    .draggable-icon {
+      font-size: 1.5rem;
+    }
+    .neon-text, .fw-bold {
+      font-size: 1rem;
+    }
+    .background-task {
+      font-size: 10px;
+    }
+  }
+</style>
+
+<!-- 🧠 Scripts (No change) -->
+<script>
+  const lines = [
+    "[2025-07-16 20:10] 🚀 Building SmartHealthMonitor_v4.2...",
+    "[2025-07-16 20:11] ✅ Compilation success...",
+    "[2025-07-16 20:12] 📦 Deploying to Render...",
+    "[2025-07-16 20:13] 🔁 Checking I2C registers...",
+    "[2025-07-16 20:14] 📡 Connected to MQTT broker...",
+    "[2025-07-16 20:15] ⏳ Monitoring patient vitals..."
+  ];
+  let i = 0;
+  const stream = document.getElementById("code-type-stream");
+  function loop() {
+    stream.innerText = lines.slice(0, i + 1).join("\n");
+    i = (i + 1) % lines.length;
+    setTimeout(loop, 2000);
+  }
+  loop();
+
+  function allowDrop(ev) { ev.preventDefault(); }
+  function drag(ev) { ev.dataTransfer.setData("text", ev.target.id); }
+  function drop(ev) {
+    ev.preventDefault();
+    const data = ev.dataTransfer.getData("text");
+    const zone = ev.target.closest('.drop-zone');
+    if (zone.dataset.tech === data) {
+      zone.innerHTML = `✅ ${data} added!`;
+      document.getElementById('build-result').textContent = "🎉 Project Built Successfully!";
+    } else {
+      zone.innerHTML = `❌ Wrong Tech!`;
+      document.getElementById('build-result').textContent = "🚫 Mismatch! Try again.";
+    }
+  }
+
+  let currentIndex = 0;
+  function scrollProjects(step) {
+    const items = document.querySelectorAll('.carousel-item');
+    items[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + step + items.length) % items.length;
+    items[currentIndex].classList.add('active');
+  }
+</script>
 
 {% endblock %}
