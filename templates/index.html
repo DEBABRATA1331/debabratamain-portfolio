@@ -57,42 +57,80 @@
 <!-- =========================
      🌌 GALLERY SECTION
 ========================= -->
-<section id="gallery" class="container my-5 text-center" data-aos="fade-up">
-  <h2 class="neon-text mb-4 animate__animated animate__fadeInDown">My Gallery</h2>
+<section id="gallery" class="text-center my-5" data-aos="fade-up">
+  <h2 class="neon-text mb-4">Gallery</h2>
 
-  <!-- Swiper Container -->
   <div class="swiper mySwiper">
     <div class="swiper-wrapper">
-      <!-- Slides -->
+
       <div class="swiper-slide">
-        <div class="frame" data-caption="IEEE Day 2024">
-          <img src="{{ url_for('static', filename='images/gallery1.jpeg') }}" alt="Gallery 1">
+        <div class="frame" data-caption="1. At Malasiya Street">
+          <img src="{{ url_for('static', filename='images/gallery1.jpeg') }}" alt="At Malasiya Street">
         </div>
       </div>
 
       <div class="swiper-slide">
-        <div class="frame" data-caption="Tech Expo Showcase">
-          <img src="{{ url_for('static', filename='images/gallery2.jpeg') }}" alt="Gallery 2">
+        <div class="frame" data-caption="2. YESIST 2025">
+          <img src="{{ url_for('static', filename='images/gallery2.jpeg') }}" alt="YESIST 2025">
         </div>
       </div>
 
       <div class="swiper-slide">
-        <div class="frame" data-caption="Project Demo">
-          <img src="{{ url_for('static', filename='images/gallery3.jpeg') }}" alt="Gallery 3">
+        <div class="frame" data-caption="3. Siemens Healthineers Internship">
+          <img src="{{ url_for('static', filename='images/gallery3.jpeg') }}" alt="Siemens Healthineers Internship">
         </div>
       </div>
 
       <div class="swiper-slide">
-        <div class="frame" data-caption="Event Celebration">
-          <img src="{{ url_for('static', filename='images/gallery4.jpeg') }}" alt="Gallery 4">
+        <div class="frame" data-caption="4. Debabrata Sahoo">
+          <img src="{{ url_for('static', filename='images/gallery4.jpeg') }}" alt="Debabrata Sahoo">
         </div>
       </div>
+
+      <div class="swiper-slide">
+        <div class="frame" data-caption="5. BBSR SECTION BEST STUDENT">
+          <img src="{{ url_for('static', filename='images/gallery5.jpeg') }}" alt="BBSR SECTION BEST STUDENT">
+        </div>
+      </div>
+
+      <div class="swiper-slide">
+        <div class="frame" data-caption="6. IEEE EXCOM MEETING">
+          <img src="{{ url_for('static', filename='images/gallery6.jpeg') }}" alt="IEEE EXCOM MEETING">
+        </div>
+      </div>
+
+      <div class="swiper-slide">
+        <div class="frame" data-caption="7. IEEE DAY">
+          <img src="{{ url_for('static', filename='images/gallery7.jpeg') }}" alt="IEEE DAY">
+        </div>
+      </div>
+
+      <div class="swiper-slide">
+        <div class="frame" data-caption="8. SMART India Hackathon">
+          <img src="{{ url_for('static', filename='images/gallery8.jpeg') }}" alt="SMART India Hackathon">
+        </div>
+      </div>
+
+      <div class="swiper-slide">
+        <div class="frame" data-caption="9. IEEE CASS CHAIR">
+          <img src="{{ url_for('static', filename='images/gallery9.jpeg') }}" alt="IEEE CASS CHAIR">
+        </div>
+      </div>
+
+      <div class="swiper-slide">
+        <div class="frame" data-caption="10. Meeting">
+          <img src="{{ url_for('static', filename='images/gallery10.jpeg') }}" alt="Meeting">
+        </div>
+      </div>
+
     </div>
 
-    <!-- Pagination & Navigation -->
-    <div class="swiper-pagination"></div>
+    <!-- Navigation buttons -->
     <div class="swiper-button-next"></div>
     <div class="swiper-button-prev"></div>
+
+    <!-- Pagination -->
+    <div class="swiper-pagination"></div>
   </div>
 </section>
 
@@ -125,6 +163,30 @@
     navigation: { nextEl: ".swiper-button-next", prevEl: ".swiper-button-prev" },
   });
 </script>
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+  var swiper = new Swiper(".mySwiper", {
+    direction: "horizontal",   // Ensures horizontal sliding
+    loop: true,                // Infinite loop
+    autoplay: {
+      delay: 3000,             // Auto-slide every 3 seconds
+      disableOnInteraction: false,
+    },
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    navigation: {
+      nextEl: ".swiper-button-next",
+      prevEl: ".swiper-button-prev",
+    },
+    effect: "slide",           // Smooth horizontal effect
+    speed: 800,                // Animation speed
+  });
+</script>
+
 
 <style>
 .gallery-frame {

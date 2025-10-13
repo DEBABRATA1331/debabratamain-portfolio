@@ -223,7 +223,10 @@ html {
     color: #ffffff !important;
     text-shadow: 0 0 8px #00f7ff;
 }
-/* Gallery Styles */
+
+/* =============================
+   🌟 PHOTO GALLERY CAROUSEL
+   ============================= */
 .swiper {
   width: 90%;
   max-width: 900px;
@@ -231,41 +234,7 @@ html {
   border-radius: 20px;
   box-shadow: 0 0 25px #00f7ff66;
   overflow: hidden;
-}
-
-.swiper-slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 20px;
-}
-
-.swiper-button-prev,
-.swiper-button-next {
-  color: #00f7ff;
-}
-
-.swiper-pagination-bullet {
-  background: #00f7ff;
-}
-
-
-/* =============================
-   🌟 GLOW TOGGLE
-   ============================= */
-.glow-toggle {
-    position: fixed;
-    top: 10px;
-    left: 10px;
-    z-index: 1100;
-}
-/* =============================
-   🌟 PHOTO GALLERY CAROUSEL
-   ============================= */
-.swiper {
-  width: 100%;
-  padding-top: 30px;
-  padding-bottom: 40px;
+  margin: 40px auto;
 }
 
 .swiper-slide {
@@ -277,16 +246,13 @@ html {
 /* Neon Frame */
 .frame {
   position: relative;
-  width: 350px;
-  height: 250px;
+  width: 100%;
+  height: 100%;
   border: 2px solid #00f7ff88;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 0 20px #00f7ff44;
   background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
 }
 
@@ -316,7 +282,7 @@ html {
   padding: 10px;
   background: rgba(0, 247, 255, 0.1);
   color: #00f7ff;
-  font-size: 0.9rem;
+  font-size: 0.95rem;
   text-align: center;
   opacity: 0;
   transform: translateY(100%);
@@ -346,12 +312,23 @@ html {
 
 /* Responsive */
 @media (max-width: 768px) {
+  .swiper {
+    height: 250px;
+  }
   .frame {
-    width: 90%;
-    height: 200px;
+    border-radius: 10px;
   }
 }
 
+/* =============================
+   🌟 GLOW TOGGLE
+   ============================= */
+.glow-toggle {
+    position: fixed;
+    top: 10px;
+    left: 10px;
+    z-index: 1100;
+}
 
 /* =============================
    🌟 MOBILE (Hamburger + Smooth Slide)
@@ -363,7 +340,7 @@ html {
         transition: max-height 0.4s ease-in-out;
     }
     .navbar-collapse.show {
-        max-height: 500px; /* Enough to slide down */
+        max-height: 500px;
     }
 
     .navbar-brand {
