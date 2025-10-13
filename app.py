@@ -10,9 +10,14 @@ app.secret_key = 'your-secret-key'  # for flash messages
 # Get SendGrid API key from environment
 SENDGRID_API_KEY = os.getenv('SENDGRID_API_KEY')
 if not SENDGRID_API_KEY:
-    raise ValueError("SENDGRID_API_KEY environment variable not set.")
+    # NOTE: You must set the SENDGRID_API_KEY environment variable for contact form to work
+    print("Warning: SENDGRID_API_KEY environment variable not set. Contact form will not function.")
+    # You might consider raising an exception or handling this gracefully in production
+    # raise ValueError("SENDGRID_API_KEY environment variable not set.")
+    pass # Allowing the app to run without SendGrid key for deployment testing
 
-sg = SendGridAPIClient(SENDGRID_API_KEY)
+if SENDGRID_API_KEY:
+    sg = SendGridAPIClient(SENDGRID_API_KEY)
 
 # Route Definitions
 @app.route('/')
@@ -21,11 +26,8 @@ def home():
 
 @app.route('/about')
 def about():
+    # Assuming this is the correct definition for the /about page
     return render_template('about.html')
-    
-@app.route('/internship')
-def about():
-    return render_template('internship.html')    
 
 @app.route('/projects')
 def projects():
@@ -39,6 +41,10 @@ def achievements():
 def skills():
     return render_template('skills.html')
 
+@app.route('/internship')
+def internship():
+    return render_template('internship_portfolio.html')
+
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():
     if request.method == 'POST':
@@ -49,6 +55,10 @@ def contact():
         if not all([user_email, user_message, rating]):
             flash("All fields are required.")
             return redirect(url_for('contact'))
+
+        if not SENDGRID_API_KEY:
+            flash("Contact form is disabled due to missing API key.", "error")
+            return redirect(url_for('thank_you'))
 
         try:
             # Send message to portfolio owner
