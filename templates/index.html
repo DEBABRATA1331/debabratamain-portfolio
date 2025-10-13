@@ -105,6 +105,7 @@
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script>
   AOS.init();
+
   const swiper = new Swiper(".mySwiper", {
     direction: "horizontal",
     loop: true,
@@ -132,69 +133,13 @@
       nextEl: ".swiper-button-next",
       prevEl: ".swiper-button-prev",
     },
+    breakpoints: {
+      0: { slidesPerView: 1.2 },
+      576: { slidesPerView: 1.5 },
+      768: { slidesPerView: 2.2 },
+      992: { slidesPerView: 3 },
+      1200: { slidesPerView: 3.5 }
+    }
   });
 </script>
-
-<style>
-/* Frame & Caption */
-.frame {
-  position: relative;
-  width: 350px;
-  height: 250px;
-  border: 2px solid #00f7ff88;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 0 20px #00f7ff44;
-  background: #000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.4s ease, box-shadow 0.4s ease;
-}
-
-.frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.4s ease, filter 0.4s ease;
-}
-
-.frame:hover img {
-  transform: scale(1.08);
-  filter: brightness(110%);
-}
-
-.frame:hover {
-  box-shadow: 0 0 30px #00f7ffaa, 0 0 50px #00f7ff66;
-  transform: scale(1.03);
-}
-
-.frame::after {
-  content: attr(data-caption);
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  padding: 10px;
-  background: rgba(0, 247, 255, 0.08);
-  color: #00f7ff;
-  font-size: 1rem;
-  text-align: center;
-  opacity: 0;
-  transform: translateY(100%);
-  transition: all 0.4s ease;
-}
-
-.frame:hover::after {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .frame {
-    width: 90%;
-    height: 200px;
-  }
-}
-</style>
 {% endblock %}

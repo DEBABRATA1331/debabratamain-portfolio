@@ -230,10 +230,10 @@ html {
 .swiper {
   width: 90%;
   max-width: 900px;
-  height: 400px;
+  height: auto;
   border-radius: 20px;
   box-shadow: 0 0 25px #00f7ff66;
-  overflow: hidden;
+  overflow: visible; /* allow images to scale naturally */
   margin: 40px auto;
 }
 
@@ -241,25 +241,27 @@ html {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: auto !important; /* auto-size slides */
 }
 
-/* Neon Frame */
 .frame {
   position: relative;
-  width: 100%;
-  height: 100%;
   border: 2px solid #00f7ff88;
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 0 20px #00f7ff44;
   background: #000;
   transition: transform 0.4s ease, box-shadow 0.4s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .frame img {
-  width: 100%;
+  width: auto;
   height: 100%;
-  object-fit: cover;
+  max-width: 100%;
+  object-fit: contain; /* maintain aspect ratio */
   transition: transform 0.4s ease, filter 0.4s ease;
 }
 
@@ -273,7 +275,6 @@ html {
   transform: scale(1.03);
 }
 
-/* Caption overlay */
 .frame::after {
   content: attr(data-caption);
   position: absolute;
@@ -294,11 +295,11 @@ html {
   transform: translateY(0);
 }
 
-/* Swiper Controls */
 .swiper-button-next,
 .swiper-button-prev {
   color: #00f7ff;
   text-shadow: 0 0 10px #00f7ff88;
+  top: 40%; /* vertical alignment */
 }
 
 .swiper-pagination-bullet {
@@ -308,16 +309,6 @@ html {
 
 .swiper-pagination-bullet-active {
   opacity: 1;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .swiper {
-    height: 250px;
-  }
-  .frame {
-    border-radius: 10px;
-  }
 }
 
 /* =============================
@@ -365,5 +356,20 @@ html {
         width: 42px;
         height: 42px;
         font-size: 1.2rem;
+    }
+
+    .swiper {
+        height: 250px;
+    }
+
+    .frame {
+        width: 90%;
+        height: 100%;
+        border-radius: 10px;
+    }
+
+    .frame img {
+        height: 100%;
+        width: auto;
     }
 }
