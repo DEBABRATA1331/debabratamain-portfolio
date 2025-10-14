@@ -2,50 +2,96 @@
 
 {% block title %}Internship{% endblock %}
 
+{% block styles %}
+<style>
+:root {
+    --neon-blue: #00e5ff;
+    --neon-red: #ff3366;
+    --neon-green: #66ff33;
+    --card-bg: rgba(17, 24, 39, 0.7);
+    --border-color: rgba(0, 229, 255, 0.3);
+}
+
+/* Body dark background */
+body { background-color: #080a18; color: #e0f7fa; }
+
+/* Card styles */
+.card {
+    background-color: var(--card-bg);
+    border-left-width: 0.5rem;
+    border-color: var(--border-color);
+    box-shadow: 0 0 8px rgba(0, 229, 255, 0.1);
+    transition: box-shadow 0.3s;
+}
+.card:hover { box-shadow: 0 0 20px rgba(0, 229, 255, 0.4); }
+
+/* Neon glow classes */
+.border-digital { border-left-color: var(--neon-blue); }
+.glow-digital { color: var(--neon-blue); text-shadow: 0 0 5px rgba(0,229,255,0.6); }
+
+.border-hardware { border-left-color: var(--neon-red); }
+.glow-hardware { color: var(--neon-red); text-shadow: 0 0 5px rgba(255,51,102,0.6); }
+
+.border-misc { border-left-color: var(--neon-green); }
+.glow-misc { color: var(--neon-green); text-shadow: 0 0 5px rgba(102,255,51,0.6); }
+
+.fade-in-up {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+.fade-in-up.is-visible { opacity: 1; transform: translateY(0); }
+
+.neon-link { color: var(--neon-blue); text-shadow: 0 0 4px var(--neon-blue); transition: all 0.3s; }
+.neon-link:hover { color: #fff; text-shadow: 0 0 8px var(--neon-blue), 0 0 15px var(--neon-blue); }
+
+.title-glow-lg {
+    color: #ffffff;
+    text-shadow: 0 0 8px #fff, 0 0 15px var(--neon-blue), 0 0 30px var(--neon-blue);
+}
+</style>
+{% endblock %}
+
 {% block content %}
-
-<!-- MAIN CONTENT -->
-<main class="max-w-4xl mx-auto p-4 sm:p-8">
-
-    <!-- HEADER / HERO SECTION -->
-    <header class="text-center py-12 mb-12 bg-gray-800 rounded-xl shadow-2xl fade-in-up border border-nblue/50">
+<main class="max-w-5xl mx-auto p-4 sm:p-8">
+    <!-- HEADER -->
+    <header class="text-center py-12 mb-12 bg-gray-900 rounded-xl shadow-2xl fade-in-up border border-nblue/50">
         <div class="flex flex-col items-center">
             <div class="w-20 h-20 sm:w-24 sm:h-24 bg-nblue text-gray-900 flex items-center justify-center rounded-full text-4xl sm:text-5xl font-extrabold mb-3 animate-pulse border-4 border-white/50">DS</div>
             <h1 class="text-3xl sm:text-5xl font-extrabold tracking-tight mb-1 title-glow-lg">Debabrata Sahoo</h1>
-            <p class="text-lg sm:text-xl font-semibold neon-glow-text">Comprehensive Internship Timeline</p>
+            <p class="text-lg sm:text-xl font-semibold glow-digital">Comprehensive Internship Timeline</p>
             <p class="text-sm text-gray-400 mt-2">Electronics & Telecommunication Engineering | Digital Automation & VLSI</p>
         </div>
         <div class="mt-4 flex flex-wrap justify-center space-x-4 text-sm sm:text-base">
-            <a href="mailto:debabrata.1331.ind@ieee.org" class="flex items-center neon-link transition-colors">
+            <a href="mailto:debabrata.1331.ind@ieee.org" class="flex items-center neon-link">
                 <i data-lucide="mail" class="w-4 h-4 mr-1"></i> debabrata.1331.ind@ieee.org
             </a>
-            <a href="https://github.com/DEBABRATA1331" target="_blank" class="flex items-center neon-link transition-colors">
+            <a href="https://github.com/DEBABRATA1331" target="_blank" class="flex items-center neon-link">
                 <i data-lucide="github" class="w-4 h-4 mr-1"></i> GitHub Profile
             </a>
-            <a href="https://drive.google.com/file/d/1aNPnx7NBvx0vQqRu9fQxg_vIgX-RcDLz/view?usp=drive_link" target="_blank" class="flex items-center neon-link transition-colors">
+            <a href="https://drive.google.com/file/d/1aNPnx7NBvx0vQqRu9fQxg_vIgX-RcDLz/view?usp=drive_link" target="_blank" class="flex items-center neon-link">
                 <i data-lucide="award" class="w-4 h-4 mr-1"></i> Certificate Link
             </a>
         </div>
     </header>
 
-    <!-- INTERNSHIP EXPERIENCE SECTION -->
+    <!-- INTERNSHIP TIMELINE -->
     <section id="experience" class="fade-in-up">
-        <h2 class="text-3xl font-bold border-b-4 border-nblue pb-2 mb-8 text-center neon-glow-text">Internship Experience (2023 - 2025)</h2>
+        <h2 class="text-3xl font-bold border-b-4 border-nblue pb-2 mb-8 text-center glow-digital">Internship Experience (2023 - 2025)</h2>
         <div class="space-y-8">
-
-            <!-- Digital & Automation Intern -->
-            <div class="card p-6 rounded-xl border-l-8 border-digital hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-shadow fade-in-up">
+            <!-- DIGITAL AUTOMATION -->
+            <div class="card p-6 rounded-xl border-digital fade-in-up">
                 <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-nblue/10 glow-digital">Digital Automation</span>
                 <h3 class="text-2xl font-bold mt-2 glow-digital">Digital & Automation Intern</h3>
                 <p class="text-lg font-medium text-gray-400 mb-3">Siemens Healthineers, Bengaluru | May '25 - Jul '25</p>
                 <ul class="list-disc list-inside space-y-1 ml-4 text-sm sm:text-base text-gray-300">
                     <li>Automated key workflows involving SBOM tracking, DICOM data processing, and Mail-Automation for healthcare applications.</li>
-                    <li>Hands-on experience in digital automation using cloud tools and healthcare interoperability standards.</li>
+                    <li>Hands-on experience in cloud tools and healthcare interoperability standards.</li>
                 </ul>
             </div>
 
-            <!-- IoT Trainee -->
-            <div class="card p-6 rounded-xl border-l-8 border-misc hover:shadow-[0_0_20px_rgba(102,255,51,0.4)] transition-shadow fade-in-up">
+            <!-- IoT -->
+            <div class="card p-6 rounded-xl border-misc fade-in-up">
                 <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-ngreen/10 glow-misc">Embedded/IoT</span>
                 <h3 class="text-2xl font-bold mt-2 glow-misc">IoT Trainee (Embedded Systems)</h3>
                 <p class="text-lg font-medium text-gray-400 mb-3">CTTC, Bhubaneswar | Dec '24 - Jan '25</p>
@@ -55,47 +101,46 @@
                 </ul>
             </div>
 
-            <!-- EV Charging System Research -->
-            <div class="card p-6 rounded-xl border-l-8 border-digital hover:shadow-[0_0_20px_rgba(0,229,255,0.4)] transition-shadow fade-in-up">
+            <!-- EV Research -->
+            <div class="card p-6 rounded-xl border-digital fade-in-up">
                 <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-nblue/10 glow-digital">Research & Digital Twin</span>
                 <h3 class="text-2xl font-bold mt-2 glow-digital">EV Charging System Research Intern</h3>
-                <p class="text-lg font-medium text-gray-400 mb-3">NIT Manipur (IEEE Silchar subsection) | Jun '24 - Aug '24</p>
+                <p class="text-lg font-medium text-gray-400 mb-3">NIT Manipur | Jun '24 - Aug '24</p>
                 <ul class="list-disc list-inside space-y-1 ml-4 text-sm sm:text-base text-gray-300">
-                    <li>Feasibility studies for Digital Twin Technology in Electric Vehicle Charging Systems.</li>
+                    <li>Feasibility studies for Digital Twin Technology in EV Charging Systems.</li>
                     <li>Enhanced energy efficiency and performance tracking.</li>
                 </ul>
             </div>
 
-            <!-- Software Development Intern -->
-            <div class="card p-6 rounded-xl border-l-8 border-misc hover:shadow-[0_0_20px_rgba(102,255,51,0.4)] transition-shadow fade-in-up">
+            <!-- Software Dev -->
+            <div class="card p-6 rounded-xl border-misc fade-in-up">
                 <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-ngreen/10 glow-misc">Software Development</span>
-                <h3 class="text-2xl font-bold mt-2 glow-misc">Software Development Intern (SDLC Exposure)</h3>
+                <h3 class="text-2xl font-bold mt-2 glow-misc">Software Development Intern (SDLC)</h3>
                 <p class="text-lg font-medium text-gray-400 mb-3">Trans India Technology | Jun '24 - Jul '24</p>
                 <ul class="list-disc list-inside space-y-1 ml-4 text-sm sm:text-base text-gray-300">
-                    <li>Exposure to the Software Development Life Cycle (SDLC).</li>
-                    <li>Hands-on experience with enterprise solutions in e-commerce and logistics domains.</li>
+                    <li>Exposure to SDLC methodology and enterprise-level solutions.</li>
                 </ul>
             </div>
 
-            <!-- VLSI Trainee -->
-            <div class="card p-6 rounded-xl border-l-8 border-hardware hover:shadow-[0_0_20px_rgba(255,51,102,0.4)] transition-shadow fade-in-up">
+            <!-- VLSI -->
+            <div class="card p-6 rounded-xl border-hardware fade-in-up">
                 <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-nred/10 glow-hardware">VLSI Design</span>
                 <h3 class="text-2xl font-bold mt-2 glow-hardware">VLSI Trainee (Design & Verification)</h3>
                 <p class="text-lg font-medium text-gray-400 mb-3">CTTC, Bhubaneswar | May '24 - Jun '24</p>
                 <ul class="list-disc list-inside space-y-1 ml-4 text-sm sm:text-base text-gray-300">
                     <li>Worked on VLSI Design & Verification methodologies.</li>
-                    <li>Used industry tools like DSCH2, Xilinx & Quartus.</li>
+                    <li>Used tools like DSCH2, Xilinx & Quartus.</li>
                 </ul>
             </div>
 
-            <!-- VLSI Optimization Trainee -->
-            <div class="card p-6 rounded-xl border-l-8 border-hardware hover:shadow-[0_0_20px_rgba(255,51,102,0.4)] transition-shadow fade-in-up">
-                <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-nred/10 glow-hardware">VLSI Optimization (6 Months)</span>
+            <!-- VLSI Optimization -->
+            <div class="card p-6 rounded-xl border-hardware fade-in-up">
+                <span class="text-xs font-semibold px-2 py-0.5 rounded-full bg-nred/10 glow-hardware">VLSI Optimization</span>
                 <h3 class="text-2xl font-bold mt-2 glow-hardware">VLSI Trainee (Design Optimization)</h3>
-                <p class="text-lg font-medium text-gray-400 mb-3">IIT Bangalore (Intel & VSD) | Nov '23 - Mar '24</p>
+                <p class="text-lg font-medium text-gray-400 mb-3">IIT Bangalore | Nov '23 - Mar '24</p>
                 <ul class="list-disc list-inside space-y-1 ml-4 text-sm sm:text-base text-gray-300">
                     <li>6 months of hands-on experience in advanced VLSI design methodologies.</li>
-                    <li>Optimized digital circuits for power, performance, and speed improvements.</li>
+                    <li>Optimized digital circuits for power, performance, and speed.</li>
                 </ul>
             </div>
 
@@ -106,35 +151,22 @@
     <footer class="text-center pt-8 border-t border-nblue/30 mt-12 fade-in-up">
         <p class="text-sm text-gray-500">&copy; 2025 Debabrata Sahoo. Internship Experience Summary.</p>
     </footer>
-
 </main>
 
-{% endblock %}
-
-{% block scripts %}
-<script src="https://unpkg.com/lucide@latest"></script>
 <script>
-    lucide.createIcons();
-
-    // Scroll animation
+    // Neon Scroll Animation
     const faders = document.querySelectorAll('.fade-in-up');
     const appearOptions = { threshold: 0, rootMargin: "0px 0px -100px 0px" };
-    const appearOnScroll = new IntersectionObserver((entries, observer) => {
+    const appearOnScroll = new IntersectionObserver(function(entries, appearOnScroll) {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-            }
+            if (!entry.isIntersecting) return;
+            entry.target.classList.add('is-visible');
+            appearOnScroll.unobserve(entry.target);
         });
     }, appearOptions);
-    faders.forEach(fader => appearOnScroll.observe(fader));
+    faders.forEach(fader => { appearOnScroll.observe(fader); });
 
-    // Theme toggle (optional)
-    const themeToggle = document.getElementById('theme-toggle');
-    if(themeToggle){
-        themeToggle.addEventListener('click', () => {
-            console.log('Theme toggle clicked. Currently dark neon forced.');
-        });
-    }
+    // Lucide Icons
+    lucide.createIcons();
 </script>
 {% endblock %}
