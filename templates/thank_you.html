@@ -3,389 +3,302 @@
 {% block content %}
 
 <div class="container text-center mt-5" data-aos="zoom-in">
-<h2 class="fw-bold neon-glow" id="glowTitle">🎉 Thank You for Reaching Out!</h2>
-<p class="lead">I'll get back to you soon. Meanwhile — test your skills and have fun! 🎮</p>
+  <h2 class="fw-bold neon-glow" id="glowTitle">🎉 Thank You for Reaching Out!</h2>
+  <p class="lead">I'll get back to you soon. Meanwhile — test your skills and have fun! 🎮</p>
 
-{% with messages = get_flashed_messages() %}
-{% if messages %}
-<div class="alert alert-success mt-3">{{ messages[0] }}</div>
-{% endif %}
-{% endwith %}
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+  <div class="alert alert-success mt-3">{{ messages[0] }}</div>
+  {% endif %}
+  {% endwith %}
 
-<p class="glow-yellow mt-4 fst-italic">“Innovation distinguishes between a leader and a follower.” — Steve Jobs</p>
+  <p class="glow-yellow mt-4 fst-italic">“Innovation distinguishes between a leader and a follower.” — Steve Jobs</p>
 
-<!-- ⚡ Reaction Time Game -->
+  <!-- ⚡ Reaction Time Game -->
+  <div class="my-5 text-center">
+    <h4 class="neon-text">Test Your Reaction Time ⚡</h4>
+    <p class="glow-yellow">Click the button as soon as it turns blue!</p>
+    <button id="reactionButton" class="btn neon-btn mt-3 w-100 w-md-auto">Wait for it...</button>
+    <p class="mt-3" id="reactionResult"></p>
+  </div>
 
-<div class="my-5 text-center">
-<h4 class="neon-text">Test Your Reaction Time ⚡</h4>
-<p class="glow-yellow">Click the button as soon as it turns blue!</p>
-<button id="reactionButton" class="btn neon-btn mt-3 w-100 w-md-auto">Wait for it...</button>
-<p class="mt-3" id="reactionResult"></p>
-</div>
+  <!-- 🏓 Pong Game -->
+  <div class="my-5">
+    <h4 class="neon-text">Pong Challenge 🏓</h4>
+    <p class="text-sm text-gray-400">Use your mouse or touch/swipe to move your paddle! Time Limit: 2:00</p>
 
-<!-- 🏓 Pong Game (Mobile Friendly) -->
+    <!-- Start Button -->
+    <div class="text-center my-3">
+      <button id="startPong" class="btn neon-btn">Start Pong Game</button>
+    </div>
 
-<div class="my-5">
-<h4 class="neon-text">Pong Challenge 🏓</h4>
-<p class="text-sm text-gray-400">Use your mouse or touch/swipe to move your paddle! Time Limit: 2:00</p>
-<div class="ratio ratio-16x9">
-<canvas id="pong" style="border: 2px solid #00f7ff; border-radius: 10px; width: 100%; height: 100%;"></canvas>
-</div>
-<p id="pongMessage" class="mt-3 neon-text text-lg font-bold hidden">Game Over!</p>
-</div>
+    <div class="ratio ratio-16x9">
+      <canvas id="pong" style="border: 2px solid #00f7ff; border-radius: 10px; width: 100%; height: 100%;"></canvas>
+    </div>
 
-<!-- 🔙 Back to Home -->
+    <p id="pongMessage" class="mt-3 neon-text text-lg font-bold hidden"></p>
+  </div>
 
-<div class="mt-5">
-<a href="{{ url_for('home') }}" class="btn neon-btn w-100 w-md-auto m-2">🏠 Back to Home</a>
-</div>
+  <!-- 🔙 Back to Home -->
+  <div class="mt-5">
+    <a href="{{ url_for('home') }}" class="btn neon-btn w-100 w-md-auto m-2">🏠 Back to Home</a>
+  </div>
 </div>
 
 <!-- 🎉 Confetti -->
-
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
 <script>
-// Global variable to ensure canvas is set up correctly
-let canvas, ctx;
-
 window.onload = () => {
-confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
-setupPongCanvas(); // Set up canvas dimensions first
-startGame();       // Start the reaction game
-// Pong game loop starts after canvas setup, and timer starts there
+  confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
+  setupPongCanvas(); // setup pong layout
+  startReactionGame(); // start reaction game
 };
-
-function setupPongCanvas() {
-canvas = document.getElementById("pong");
-ctx = canvas.getContext("2d");
-
-// Make canvas responsive
-const container = canvas.parentElement;
-canvas.width = container.clientWidth;
-// Maintain aspect ratio (e.g., 4:3)
-canvas.height = canvas.width * 0.75; 
-
-// Reset game state after resizing/setup
-resetGameParameters();
-
-// Start the game loop and timer once the canvas is ready
-if (!gameInterval) {
-    pongLoop();
-    startTimer();
-}
-
-}
-
-// Listen for window resize to keep canvas responsive
-window.addEventListener('resize', setupPongCanvas);
-
 </script>
 
-<!-- ⚡ Reaction Time Game -->
-
+<!-- ⚡ Reaction Time Game Script -->
 <script>
 let startTime;
 const button = document.getElementById("reactionButton");
 const result = document.getElementById("reactionResult");
 
-function startGame() {
-button.textContent = "Wait for it...";
-button.disabled = true;
-button.style.background = "transparent";
-button.classList.remove('neon-btn-blue'); // Clean up any previous state
-result.textContent = "";
-let delay = Math.floor(Math.random() * 3000) + 1500;
+function startReactionGame() {
+  button.textContent = "Wait for it...";
+  button.disabled = true;
+  button.style.background = "transparent";
+  button.classList.remove('neon-btn-blue');
+  result.textContent = "";
+  let delay = Math.floor(Math.random() * 3000) + 1500;
 
-setTimeout(() =&gt; {
-    button.textContent = &quot;Click!&quot;;
-    button.classList.add(&#39;bg-nblue&#39;, &#39;hover:bg-nblue/70&#39;, &#39;text-gray-900&#39;, &#39;font-bold&#39;);
+  setTimeout(() => {
+    button.textContent = "Click!";
+    button.classList.add('bg-nblue', 'hover:bg-nblue/70', 'text-gray-900', 'font-bold');
     button.disabled = false;
     startTime = new Date().getTime();
-}, delay);
-
+  }, delay);
 }
 
 button.addEventListener("click", () => {
-if (startTime) {
-let reactionTime = new Date().getTime() - startTime;
-result.innerHTML = ⚡ Your Reaction Time: &lt;strong&gt;${reactionTime} ms&lt;/strong&gt;;
-button.classList.remove('bg-nblue', 'hover:bg-nblue/70', 'text-gray-900', 'font-bold');
-button.disabled = true;
-startTime = null; // Prevent multiple clicks
-
-    // Restart game after a short delay
-    setTimeout(startGame, 2000);
-} else {
-     result.innerHTML = `❌ Too Early! Wait for the &#39;Click!&#39; signal.`;
-     setTimeout(startGame, 1000);
-}
-
+  if (startTime) {
+    let reactionTime = new Date().getTime() - startTime;
+    result.innerHTML = `⚡ Your Reaction Time: <strong>${reactionTime} ms</strong>`;
+    button.classList.remove('bg-nblue', 'hover:bg-nblue/70', 'text-gray-900', 'font-bold');
+    button.disabled = true;
+    startTime = null;
+    setTimeout(startReactionGame, 2000);
+  } else {
+    result.innerHTML = `❌ Too Early! Wait for the 'Click!' signal.`;
+    setTimeout(startReactionGame, 1000);
+  }
 });
-
 </script>
 
-<!-- 🎮 Pong Game Script (Mobile Tap + Easy Mode) -->
-
+<!-- 🎮 Pong Game Script -->
 <script>
-// Variables initialized here, but parameters reset in setupPongCanvas
 let paddleWidth, paddleHeight, ballRadius;
 let playerY, aiY, ballX, ballY;
 let ballSpeedX, ballSpeedY;
 let playerScore = 0;
 let aiScore = 0;
 
-// Timer variables
-const gameDuration = 120; // 2 minutes in seconds
+const gameDuration = 120; // 2 min
 let timeLeft = gameDuration;
 let gameInterval = null;
-let gameIsRunning = true;
+let animationFrameId = null;
+let gameIsRunning = false;
+
+let canvas = null;
+let ctx = null;
+
+function setupPongCanvas() {
+  canvas = document.getElementById("pong");
+  ctx = canvas.getContext("2d");
+  const container = canvas.parentElement;
+  canvas.width = container.clientWidth;
+  canvas.height = canvas.width * 0.75;
+  resetGameParameters();
+  renderPong();
+}
+
+window.addEventListener("resize", setupPongCanvas);
 
 function resetGameParameters() {
-paddleWidth = canvas.width * 0.015;  // 1.5% of width
-paddleHeight = canvas.height * 0.15; // 15% of height
-ballRadius = canvas.width * 0.01;    // 1% of width
-
-playerY = canvas.height / 2 - paddleHeight / 2;
-aiY = playerY;
-ballX = canvas.width / 2;
-ballY = canvas.height / 2;
-
-// Set initial speed based on canvas size for consistency
-ballSpeedX = canvas.width / 150; 
-ballSpeedY = canvas.height / 150; 
-
-// Ensure minimum speed
-if (ballSpeedX &lt; 2) ballSpeedX = 2;
-if (ballSpeedY &lt; 2) ballSpeedY = 2;
-
-// Do not reset scores or time here on resize, only physical parameters
-
+  paddleWidth = canvas.width * 0.015;
+  paddleHeight = canvas.height * 0.15;
+  ballRadius = canvas.width * 0.01;
+  playerY = canvas.height / 2 - paddleHeight / 2;
+  aiY = playerY;
+  ballX = canvas.width / 2;
+  ballY = canvas.height / 2;
+  ballSpeedX = canvas.width / 150;
+  ballSpeedY = canvas.height / 150;
+  if (ballSpeedX < 2) ballSpeedX = 2;
+  if (ballSpeedY < 2) ballSpeedY = 2;
 }
 
 function drawRect(x, y, w, h, color) {
-ctx.fillStyle = color;
-ctx.fillRect(x, y, w, h);
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, w, h);
 }
 
 function drawCircle(x, y, r, color) {
-ctx.fillStyle = color;
-ctx.beginPath();
-ctx.arc(x, y, r, 0, Math.PI * 2);
-ctx.fill();
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.arc(x, y, r, 0, Math.PI * 2);
+  ctx.fill();
 }
 
 function drawText(txt, x, y, color) {
-ctx.fillStyle = color;
-// Font size based on canvas width (e.g., 3% of width)
-ctx.font = ${canvas.width * 0.03}px &#39;Inter&#39;, monospace;
-ctx.fillText(txt, x, y);
+  ctx.fillStyle = color;
+  ctx.font = `${canvas.width * 0.03}px 'Inter', monospace`;
+  ctx.fillText(txt, x, y);
 }
 
 function formatTime(seconds) {
-const minutes = Math.floor(seconds / 60);
-const remainingSeconds = seconds % 60;
-return ${minutes}:${remainingSeconds.toString().padStart(2, &#39;0&#39;)};
+  const minutes = Math.floor(seconds / 60);
+  const remainingSeconds = seconds % 60;
+  return `${minutes}:${remainingSeconds.toString().padStart(2, '0')}`;
 }
 
 function drawTimer() {
-ctx.fillStyle = "#ffeb3b"; // Neon Yellow for timer
-ctx.font = ${canvas.width * 0.04}px &#39;Inter&#39;, monospace;
-ctx.textAlign = "center";
-ctx.fillText(formatTime(timeLeft), canvas.width / 2, canvas.height * 0.1);
-ctx.textAlign = "start"; // Reset alignment
+  ctx.fillStyle = "#ffeb3b";
+  ctx.font = `${canvas.width * 0.04}px 'Inter', monospace`;
+  ctx.textAlign = "center";
+  ctx.fillText(formatTime(timeLeft), canvas.width / 2, canvas.height * 0.1);
+  ctx.textAlign = "start";
 }
 
 function renderPong() {
-// Black background
-drawRect(0, 0, canvas.width, canvas.height, "#111");
-
-// Center Line (Dashed)
-for(let i = 0; i &lt; canvas.height; i += 40) {
-    drawRect(canvas.width / 2 - 1, i, 2, 20, &quot;#333&quot;);
-}
-
-// Player Paddle (Left, Neon Blue)
-drawRect(0, playerY, paddleWidth, paddleHeight, &quot;#00f7ff&quot;);
-
-// AI Paddle (Right, Neon Blue)
-drawRect(canvas.width - paddleWidth, aiY, paddleWidth, paddleHeight, &quot;#00f7ff&quot;);
-
-// Ball (White)
-if (gameIsRunning) {
-    drawCircle(ballX, ballY, ballRadius, &quot;#ffffff&quot;);
-}
-
-// Scores
-drawText(playerScore, canvas.width / 4, 25, &quot;#00f7ff&quot;);
-drawText(aiScore, canvas.width * 3 / 4 - 30, 25, &quot;#00f7ff&quot;);
-
-// Timer
-drawTimer();
-
+  drawRect(0, 0, canvas.width, canvas.height, "#111");
+  for (let i = 0; i < canvas.height; i += 40)
+    drawRect(canvas.width / 2 - 1, i, 2, 20, "#333");
+  drawRect(0, playerY, paddleWidth, paddleHeight, "#00f7ff");
+  drawRect(canvas.width - paddleWidth, aiY, paddleWidth, paddleHeight, "#00f7ff");
+  if (gameIsRunning) drawCircle(ballX, ballY, ballRadius, "#fff");
+  drawText(playerScore, canvas.width / 4, 25, "#00f7ff");
+  drawText(aiScore, canvas.width * 3 / 4 - 30, 25, "#00f7ff");
+  drawTimer();
 }
 
 function resetBall(servingPlayer) {
-ballX = canvas.width / 2;
-ballY = canvas.height / 2;
-
-// Reverse X direction based on who scored (or randomly)
-ballSpeedX = (servingPlayer === &#39;ai&#39;) ? -Math.abs(ballSpeedX) : Math.abs(ballSpeedX);
-
-// Introduce random vertical angle
-ballSpeedY = (Math.random() * 2 - 1) * 3; 
-
+  ballX = canvas.width / 2;
+  ballY = canvas.height / 2;
+  ballSpeedX = (servingPlayer === 'ai') ? -Math.abs(ballSpeedX) : Math.abs(ballSpeedX);
+  ballSpeedY = (Math.random() * 2 - 1) * 3;
 }
 
 function moveBall() {
-if (!gameIsRunning) return;
+  if (!gameIsRunning) return;
+  ballX += ballSpeedX;
+  ballY += ballSpeedY;
+  if (ballY + ballRadius > canvas.height || ballY - ballRadius < 0) ballSpeedY *= -1;
 
-ballX += ballSpeedX;
-ballY += ballSpeedY;
-
-// Wall collision (Top/Bottom)
-if (ballY + ballRadius &gt; canvas.height || ballY - ballRadius &lt; 0) {
-    ballSpeedY *= -1;
-}
-
-// Paddle collision (Player Left)
-if (ballX - ballRadius &lt; paddleWidth &amp;&amp; ballY &gt; playerY &amp;&amp; ballY &lt; playerY + paddleHeight) {
+  if (ballX - ballRadius < paddleWidth && ballY > playerY && ballY < playerY + paddleHeight) {
     ballSpeedX *= -1;
-    // Introduce angle based on where ball hits paddle
-    let deltaY = ballY - (playerY + paddleHeight / 2);
-    ballSpeedY = deltaY * 0.1; 
-}
+    ballSpeedY = (ballY - (playerY + paddleHeight / 2)) * 0.1;
+  }
 
-// Paddle collision (AI Right)
-if (ballX + ballRadius &gt; canvas.width - paddleWidth &amp;&amp; ballY &gt; aiY &amp;&amp; ballY &lt; aiY + paddleHeight) {
+  if (ballX + ballRadius > canvas.width - paddleWidth && ballY > aiY && ballY < aiY + paddleHeight) {
     ballSpeedX *= -1;
-    let deltaY = ballY - (aiY + paddleHeight / 2);
-    ballSpeedY = deltaY * 0.1;
+    ballSpeedY = (ballY - (aiY + paddleHeight / 2)) * 0.1;
+  }
+
+  if (ballX < 0) { aiScore++; resetBall('ai'); }
+  else if (ballX > canvas.width) { playerScore++; resetBall('player'); }
+
+  aiY += (ballY - (aiY + paddleHeight / 2)) * 0.05;
+  aiY = Math.max(0, Math.min(canvas.height - paddleHeight, aiY));
 }
 
-// Scoring (Left side)
-if (ballX &lt; 0) { 
-    aiScore++; 
-    resetBall(&#39;ai&#39;); 
-}
-// Scoring (Right side)
-else if (ballX &gt; canvas.width) { 
-    playerScore++; 
-    resetBall(&#39;player&#39;); 
+function updatePlayerPos(y) {
+  if (!gameIsRunning) return;
+  const rect = canvas.getBoundingClientRect();
+  playerY = Math.max(0, Math.min(canvas.height - paddleHeight, y - rect.top - paddleHeight / 2));
 }
 
-// AI Movement (Easy mode: slightly slower follow)
-aiY += (ballY - (aiY + paddleHeight / 2)) * 0.05; 
-aiY = Math.max(0, Math.min(canvas.height - paddleHeight, aiY));
+document.addEventListener("mousemove", e => updatePlayerPos(e.clientY));
+document.addEventListener("touchmove", e => {
+  e.preventDefault();
+  updatePlayerPos(e.touches[0].clientY);
+}, { passive: false });
 
+function startTimer() {
+  timeLeft = gameDuration;
+  gameInterval = setInterval(() => {
+    if (timeLeft > 0) timeLeft--;
+    else endGame();
+  }, 1000);
+}
+
+function startPongGame() {
+  if (gameIsRunning) return;
+  playerScore = 0;
+  aiScore = 0;
+  timeLeft = gameDuration;
+  document.getElementById('pongMessage').classList.add('hidden');
+  document.getElementById('startPong').disabled = true;
+  gameIsRunning = true;
+  resetBall('player');
+  startTimer();
+  pongLoop();
 }
 
 function endGame() {
-gameIsRunning = false;
-clearInterval(gameInterval);
-document.getElementById('pongMessage').classList.remove('hidden');
-
-let message = `Game Over! Final Score: Player ${playerScore} - AI ${aiScore}. `;
-if (playerScore &gt; aiScore) {
-    message += &quot;You won! A true innovator!&quot;;
-} else if (aiScore &gt; playerScore) {
-    message += &quot;AI wins this round. But you&#39;re ready for the next challenge!&quot;;
-} else {
-    message += &quot;It&#39;s a tie! Well played!&quot;;
-}
-document.getElementById(&#39;pongMessage&#39;).textContent = message;
-
+  gameIsRunning = false;
+  clearInterval(gameInterval);
+  cancelAnimationFrame(animationFrameId);
+  const msg = document.getElementById('pongMessage');
+  msg.classList.remove('hidden');
+  let text = `Game Over! Final Score — You: ${playerScore}, AI: ${aiScore}. `;
+  if (playerScore > aiScore) text += "🎉 You Win!";
+  else if (aiScore > playerScore) text += "🤖 AI Wins!";
+  else text += "It's a Tie!";
+  msg.textContent = text;
+  document.getElementById('startPong').disabled = false;
 }
 
-function startTimer() {
-if (gameInterval) clearInterval(gameInterval);
-
-gameInterval = setInterval(() =&gt; {
-    if (timeLeft &gt; 0) {
-        timeLeft--;
-    } else {
-        endGame();
-    }
-}, 1000);
-
-}
-
-// Update Player position based on mouse/touch Y coordinate
-function updatePlayerPos(y) {
-// Only allow movement if the game is running
-if (!gameIsRunning) return;
-
-const rect = canvas.getBoundingClientRect();
-let newPlayerY = y - rect.top - paddleHeight / 2;
-
-// Clamp player paddle within canvas bounds
-playerY = Math.max(0, Math.min(canvas.height - paddleHeight, newPlayerY));
-
-}
-
-canvas.addEventListener("mousemove", e => updatePlayerPos(e.clientY));
-
-// Touch support for mobile devices
-canvas.addEventListener("touchmove", e => {
-e.preventDefault(); // Prevent scrolling while touching the canvas
-updatePlayerPos(e.touches[0].clientY);
-}, { passive: false }); // Use passive: false for e.preventDefault() to work
-
-let animationFrameId;
 function pongLoop() {
-if (!canvas) {
-animationFrameId = requestAnimationFrame(pongLoop);
-return;
-}
-moveBall();
-renderPong();
-if (gameIsRunning) {
-animationFrameId = requestAnimationFrame(pongLoop);
-} else {
-cancelAnimationFrame(animationFrameId);
-}
+  moveBall();
+  renderPong();
+  if (gameIsRunning) animationFrameId = requestAnimationFrame(pongLoop);
 }
 
+document.getElementById("startPong").addEventListener("click", startPongGame);
 </script>
 
-<!-- 💫 Neon + Mobile Styles (Included for the thank_you template) -->
-
+<!-- 💫 Neon Styles -->
 <style>
 .neon-glow {
-color: #ffeb3b;
-text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b, 0 0 30px #ffeb3b;
-animation: pulse 2s infinite ease-in-out;
+  color: #ffeb3b;
+  text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b, 0 0 30px #ffeb3b;
+  animation: pulse 2s infinite ease-in-out;
 }
 @keyframes pulse {
-0% { text-shadow: 0 0 5px #ffeb3b; }
-50% { text-shadow: 0 0 15px #ffeb3b, 0 0 25px #ffeb3b; }
-100% { text-shadow: 0 0 5px #ffeb3b; }
+  0% { text-shadow: 0 0 5px #ffeb3b; }
+  50% { text-shadow: 0 0 15px #ffeb3b, 0 0 25px #ffeb3b; }
+  100% { text-shadow: 0 0 5px #ffeb3b; }
 }
 .glow-yellow { color: #ffeb3b; text-shadow: 0 0 5px #ffeb3b, 0 0 15px #ffeb3b; }
 .neon-text { color: #00f7ff; text-shadow: 0 0 5px #00f7ff; }
 
-/* Basic Neon Button Style */
 .btn.neon-btn {
-background: transparent;
-color: #00f7ff;
-border: 2px solid #00f7ff;
-box-shadow: 0 0 10px #00f7ff;
-transition: all 0.3s;
+  background: transparent;
+  color: #00f7ff;
+  border: 2px solid #00f7ff;
+  box-shadow: 0 0 10px #00f7ff;
+  transition: all 0.3s;
 }
 .btn.neon-btn:hover {
-background: #00f7ff;
-color: #111;
-box-shadow: 0 0 20px #00f7ff;
+  background: #00f7ff;
+  color: #111;
+  box-shadow: 0 0 20px #00f7ff;
 }
 
 @media (max-width: 576px) {
-.neon-glow { font-size: 1.4rem; }
-/* The canvas height is dynamically set in JS based on width,
-but this ensures the container is handled */
-.ratio-16x9 { height: 200px !important; }
-.btn { font-size: 1rem; }
+  .neon-glow { font-size: 1.4rem; }
+  .ratio-16x9 { height: 200px !important; }
+  .btn { font-size: 1rem; }
 }
-
 </style>
 
 {% endblock %}
