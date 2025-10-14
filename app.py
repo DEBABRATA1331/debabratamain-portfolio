@@ -43,7 +43,7 @@ def skills():
 
 @app.route('/internship')
 def internship():
-    return render_template('internship_portfolio.html')
+    return render_template('internship.html')
 
 @app.route('/contact', methods=['GET', 'POST'])
 def contact():

@@ -14,12 +14,14 @@
 
   <p class="glow-yellow mt-4 fst-italic">“Innovation distinguishes between a leader and a follower.” — Steve Jobs</p>
 
-  <!-- ⚡ Reaction Time Game -->
+  <!-- ⚡ Reflex Challenge: Moving Target -->
   <div class="my-5 text-center">
-    <h4 class="neon-text">Test Your Reaction Time ⚡</h4>
-    <p class="glow-yellow">Click the button as soon as it turns blue!</p>
-    <button id="reactionButton" class="btn neon-btn mt-3 w-100 w-md-auto">Wait for it...</button>
-    <p class="mt-3" id="reactionResult"></p>
+    <h4 class="neon-text">Reflex Challenge ⚡</h4>
+    <p class="glow-yellow">Click the moving blue circle as fast as you can!</p>
+    <div id="reflexContainer" class="relative mx-auto mt-4" style="width:300px; height:300px; background:#111; border:2px solid #00f7ff; border-radius:15px;">
+      <div id="target" class="absolute rounded-full bg-nblue" style="width:50px; height:50px; top:125px; left:125px; cursor:pointer;"></div>
+    </div>
+    <p class="mt-3" id="reflexResult"></p>
   </div>
 
   <!-- 🏓 Pong Game -->
@@ -52,45 +54,41 @@
 window.onload = () => {
   confetti({ particleCount: 150, spread: 80, origin: { y: 0.6 } });
   setupPongCanvas(); // setup pong layout
-  startReactionGame(); // start reaction game
 };
 </script>
 
-<!-- ⚡ Reaction Time Game Script -->
+<!-- ⚡ Reflex Challenge Script -->
 <script>
-let startTime;
-const button = document.getElementById("reactionButton");
-const result = document.getElementById("reactionResult");
+const target = document.getElementById("target");
+const container = document.getElementById("reflexContainer");
+const result = document.getElementById("reflexResult");
 
-function startReactionGame() {
-  button.textContent = "Wait for it...";
-  button.disabled = true;
-  button.style.background = "transparent";
-  button.classList.remove('neon-btn-blue');
-  result.textContent = "";
-  let delay = Math.floor(Math.random() * 3000) + 1500;
+let startTime, timerId;
 
-  setTimeout(() => {
-    button.textContent = "Click!";
-    button.classList.add('bg-nblue', 'hover:bg-nblue/70', 'text-gray-900', 'font-bold');
-    button.disabled = false;
-    startTime = new Date().getTime();
-  }, delay);
+function moveTarget() {
+  const maxX = container.clientWidth - target.clientWidth;
+  const maxY = container.clientHeight - target.clientHeight;
+  const x = Math.random() * maxX;
+  const y = Math.random() * maxY;
+  target.style.left = `${x}px`;
+  target.style.top = `${y}px`;
+  startTime = new Date().getTime();
 }
 
-button.addEventListener("click", () => {
-  if (startTime) {
-    let reactionTime = new Date().getTime() - startTime;
-    result.innerHTML = `⚡ Your Reaction Time: <strong>${reactionTime} ms</strong>`;
-    button.classList.remove('bg-nblue', 'hover:bg-nblue/70', 'text-gray-900', 'font-bold');
-    button.disabled = true;
-    startTime = null;
-    setTimeout(startReactionGame, 2000);
-  } else {
-    result.innerHTML = `❌ Too Early! Wait for the 'Click!' signal.`;
-    setTimeout(startReactionGame, 1000);
-  }
+function startReflexGame() {
+  result.textContent = "";
+  moveTarget();
+  timerId = setInterval(moveTarget, 2000); // moves every 2 seconds
+}
+
+target.addEventListener("click", () => {
+  if (!startTime) return;
+  const reactionTime = new Date().getTime() - startTime;
+  result.innerHTML = `⚡ Reaction Time: <strong>${reactionTime} ms</strong>`;
+  moveTarget(); // immediately move target after click
 });
+
+startReflexGame();
 </script>
 
 <!-- 🎮 Pong Game Script -->
@@ -293,6 +291,8 @@ document.getElementById("startPong").addEventListener("click", startPongGame);
   color: #111;
   box-shadow: 0 0 20px #00f7ff;
 }
+
+.bg-nblue { background-color: #00f7ff; }
 
 @media (max-width: 576px) {
   .neon-glow { font-size: 1.4rem; }
